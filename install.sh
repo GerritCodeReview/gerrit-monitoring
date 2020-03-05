@@ -124,6 +124,13 @@ kubectl create configmap grafana-dashboards \
 
 test -n "$DRYRUN" && exit 0
 
+# download promtail
+curl -L "https://github.com/grafana/loki/releases/download/v$(cat ./promtail/VERSION)/promtail-linux-amd64.zip" \
+  -o $OUTPUT/promtail/promtail-linux-amd64.zip
+unzip $OUTPUT/promtail/promtail-linux-amd64.zip -d $OUTPUT/promtail/
+chmod a+x $OUTPUT/promtail/promtail-linux-amd64
+rm $OUTPUT/promtail/promtail-linux-amd64.zip
+
 # Install loose components
 kubectl apply -f $OUTPUT/namespace.yaml
 kubectl apply -f $OUTPUT/configuration
