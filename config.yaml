@@ -2,13 +2,13 @@ gerritServers:
   - host: gerrit.example.com
     username: admin
     password: secret
+    promtail:
+      storagePath: /var/promtail
+      logPath: /var/gerrit/logs
 namespace: namespace
 tls:
   skipVerify: true
   caCert:
-promtail:
-  storagePath: /var/promtail
-  logPath: /var/gerrit/logs
 prometheus:
   server:
     host: prometheus.example.com

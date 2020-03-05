@@ -71,6 +71,28 @@ def _create_dashboard_configmaps(output_dir, namespace):
             yaml.dump(dashboard_cm, f)
 
 
+def _create_promtail_configs(output_dir):
+    if not os.path.exists(os.path.join(output_dir, "promtail")):
+        os.mkdir(os.path.join(output_dir, "promtail"))
+
+    with open(os.path.join(output_dir, "promtail.yaml")) as f:
+        for config in yaml.load_all(f, Loader=yaml.SafeLoader):
+            with open(
+                os.path.join(
+                    output_dir,
+                    "promtail",
+                    "promtail-%s"
+                    % config["scrape_configs"][0]["static_configs"][0]["labels"][
+                        "host"
+                    ],
+                ),
+                "w",
+            ) as f:
+                yaml.dump(config, f)
+
+    os.remove(os.path.join(output_dir, "promtail.yaml"))
+
+
 def _run_ytt(config, output_dir):
     config_string = "#@data/values\n---\n"
     config_string += yaml.dump(config)
@@ -167,6 +189,8 @@ def install(config_manager, output_dir, dryrun, update_repo):
 
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
+
+    _create_promtail_configs(output_dir)
 
     if not dryrun:
         if update_repo:
