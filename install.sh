@@ -86,7 +86,7 @@ function runYtt() {
     -f $1
 }
 
-mkdir -p $OUTPUT
+mkdir -p $OUTPUT/promtail
 cp $CONFIG $TMP_CONFIG
 
 # Fill in templates
@@ -94,14 +94,19 @@ if test -z "$(grep -o '^sops:$' $TMP_CONFIG)"; then
   addHtpasswdEntryUnencrypted loki
   addHtpasswdEntryUnencrypted prometheus.server
   echo -e "#@data/values\n---\n$(cat $TMP_CONFIG)" | runYtt -
+  if [[ "$(yq r $CONFIG tls.skipVerify)" == "false" ]]; then
+    echo "$(yq --tojson r $CONFIG tls.caCert | jq -r .)" > $OUTPUT/promtail/promtail.ca.crt
+  fi
 else
   addHtpasswdEntryEncrypted "['loki']" $TMP_CONFIG
   addHtpasswdEntryEncrypted "['prometheus']['server']" $TMP_CONFIG
   echo -e "#@data/values\n---\n$(sops -d $TMP_CONFIG)" | runYtt -
+  if [[ "$(sops -d --extract "['tls']['skipVerify']" $CONFIG)" == "false" ]]; then
+    echo "$(sops -d --extract "['tls']['caCert']" $CONFIG)" > $OUTPUT/promtail/promtail.ca.crt
+  fi
 fi
 
 # split promtail files into file per host
-mkdir -p $OUTPUT/promtail
 csplit $OUTPUT/promtail.yaml \
   --prefix="$OUTPUT/promtail/promtail-" \
   --suffix-format='%02d.yaml' \
