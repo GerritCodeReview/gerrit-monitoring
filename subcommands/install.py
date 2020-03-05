@@ -13,7 +13,11 @@
 # limitations under the License.
 
 import os.path
+import stat
 import subprocess
+import zipfile
+
+import requests
 import yaml
 
 
@@ -94,6 +98,33 @@ def _create_promtail_configs(output_dir):
                 yaml.dump(config, f)
 
     os.remove(os.path.join(output_dir, "promtail.yaml"))
+
+
+def _download_promtail(output_dir):
+    with open(os.path.abspath("./promtail/VERSION"), "r") as f:
+        promtail_version = f.readlines()[0].strip()
+
+    output_dir = os.path.join(output_dir, "promtail")
+    output_zip = os.path.join(output_dir, "promtail.zip")
+
+    response = requests.get(
+        "https://github.com/grafana/loki/releases/download/v%s/promtail-linux-amd64.zip"
+        % promtail_version,
+        stream=True,
+    )
+    with open(output_zip, "wb") as f:
+        for chunk in response.iter_content(chunk_size=512):
+            f.write(chunk)
+
+    with zipfile.ZipFile(output_zip) as f:
+        f.extractall(output_dir)
+
+    promtail_exe = os.path.join(output_dir, "promtail-linux-amd64")
+    os.chmod(
+        promtail_exe,
+        os.stat(promtail_exe).st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH,
+    )
+    os.remove(output_zip)
 
 
 def _run_ytt(config, output_dir):
@@ -196,6 +227,7 @@ def install(config_manager, output_dir, dryrun, update_repo):
     _create_promtail_configs(output_dir)
 
     if not dryrun:
+        _download_promtail(output_dir)
         if update_repo:
             _update_helm_repos()
         _deploy_loose_resources(output_dir)
