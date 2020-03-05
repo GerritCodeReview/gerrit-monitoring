@@ -75,26 +75,29 @@ def _create_dashboard_configmaps(output_dir, namespace):
             yaml.dump(dashboard_cm, f)
 
 
-def _create_promtail_configs(output_dir):
+def _create_promtail_configs(config, output_dir):
     if not os.path.exists(os.path.join(output_dir, "promtail")):
         os.mkdir(os.path.join(output_dir, "promtail"))
 
     with open(os.path.join(output_dir, "promtail.yaml")) as f:
-        for config in yaml.load_all(f, Loader=yaml.SafeLoader):
+        for promtail_config in yaml.load_all(f, Loader=yaml.SafeLoader):
             with open(
                 os.path.join(
                     output_dir,
                     "promtail",
                     "promtail-%s"
-                    % config["scrape_configs"][0]["static_configs"][0]["labels"][
-                        "host"
-                    ],
+                    % promtail_config["scrape_configs"][0]["static_configs"][0][
+                        "labels"
+                    ]["host"],
                 ),
                 "w",
             ) as f:
-                yaml.dump(config, f)
+                yaml.dump(promtail_config, f)
 
     os.remove(os.path.join(output_dir, "promtail.yaml"))
+
+    with open(os.path.join(output_dir, "promtail", "promtail.ca.crt"), "w") as f:
+        f.write(config["tls"]["caCert"])
 
 
 def _download_promtail(output_dir):
@@ -216,12 +219,13 @@ def install(config_manager, output_dir, dryrun, update_repo):
         dryrun {boolean} -- Whether the installation will be run in dryrun mode
         update_repo {boolean} -- Whether to update the helm repositories locally
     """
-    _run_ytt(config_manager.get_config(), output_dir)
+    config = config_manager.get_config()
+    _run_ytt(config, output_dir)
 
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
 
-    _create_promtail_configs(output_dir)
+    _create_promtail_configs(config, output_dir)
 
     if not dryrun:
         _download_promtail(output_dir)
