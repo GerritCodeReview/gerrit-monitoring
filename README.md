@@ -58,41 +58,41 @@ setup, some configuration is highly dependent on the specific installation.
 These options have to be configured in the `./config.yaml` before installing and
 are listed here:
 
-| option                                  | description                                                                        |
-|-----------------------------------------|------------------------------------------------------------------------------------|
-| `gerritServers.[0].host`                | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
-| `gerritServers.[0].username`            | Username of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.[0].password`            | Password of Gerrit user with 'View Metrics' capabilities                           |
-| `namespace`                             | The namespace the charts are installed to                                          |
-| `tls.skipVerify`                        | Whether to skip TLS certificate verification                                       |
-| `tls.caCert`                            | CA certificate used for TLS certificate verification                               |
-| `promtail.storagePath`                  | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
-| `promtail.logPath`                      | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
-| `prometheus.server.host`                | Prometheus server ingress hostname                                                 |
-| `prometheus.server.username`            | Username for Prometheus                                                            |
-| `prometheus.server.password`            | Password for Prometheus                                                            |
-| `prometheus.server.tls.cert`            | TLS certificate                                                                    |
-| `prometheus.server.tls.key`             | TLS key                                                                            |
-| `prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                       |
-| `prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                       |
-| `loki.host`                             | Loki ingress hostname                                                              |
-| `loki.username`                         | Username for Loki                                                                  |
-| `loki.password`                         | Password for Loki                                                                  |
-| `loki.tls.cert`                         | TLS certificate                                                                    |
-| `loki.tls.key`                          | TLS key                                                                            |
-| `grafana.host`                          | Grafana ingress hostname                                                           |
-| `grafana.tls.cert`                      | TLS certificate                                                                    |
-| `grafana.tls.key`                       | TLS key                                                                            |
-| `grafana.admin.username`                | Username for the admin user                                                        |
-| `grafana.admin.password`                | Password for the admin user                                                        |
-| `grafana.ldap.enabled`                  | Whether to enable LDAP                                                             |
-| `grafana.ldap.host`                     | Hostname of LDAP server                                                            |
-| `grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                          |
-| `grafana.ldap.password`                 | Password of LDAP server                                                            |
-| `grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                              |
-| `grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)      |
-| `grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)        |
-| `grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                |
+| option                                   | description                                                                        |
+|------------------------------------------|------------------------------------------------------------------------------------|
+| `gerritServers.[0].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
+| `gerritServers.[0].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.[0].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.[0].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
+| `gerritServers.[0].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
+| `namespace`                              | The namespace the charts are installed to                                          |
+| `tls.skipVerify`                         | Whether to skip TLS certificate verification                                       |
+| `tls.caCert`                             | CA certificate used for TLS certificate verification                               |
+| `prometheus.server.host`                 | Prometheus server ingress hostname                                                 |
+| `prometheus.server.username`             | Username for Prometheus                                                            |
+| `prometheus.server.password`             | Password for Prometheus                                                            |
+| `prometheus.server.tls.cert`             | TLS certificate                                                                    |
+| `prometheus.server.tls.key`              | TLS key                                                                            |
+| `prometheus.alertmanager.slack.apiUrl`   | API URL of the Slack Webhook                                                       |
+| `prometheus.alertmanager.slack.channel`  | Channel to which the alerts should be posted                                       |
+| `loki.host`                              | Loki ingress hostname                                                              |
+| `loki.username`                          | Username for Loki                                                                  |
+| `loki.password`                          | Password for Loki                                                                  |
+| `loki.tls.cert`                          | TLS certificate                                                                    |
+| `loki.tls.key`                           | TLS key                                                                            |
+| `grafana.host`                           | Grafana ingress hostname                                                           |
+| `grafana.tls.cert`                       | TLS certificate                                                                    |
+| `grafana.tls.key`                        | TLS key                                                                            |
+| `grafana.admin.username`                 | Username for the admin user                                                        |
+| `grafana.admin.password`                 | Password for the admin user                                                        |
+| `grafana.ldap.enabled`                   | Whether to enable LDAP                                                             |
+| `grafana.ldap.host`                      | Hostname of LDAP server                                                            |
+| `grafana.ldap.port`                      | Port of LDAP server (Has to be `quoted`!)                                          |
+| `grafana.ldap.password`                  | Password of LDAP server                                                            |
+| `grafana.ldap.bind_dn`                   | Bind DN (username) of the LDAP server                                              |
+| `grafana.ldap.accountBases`              | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)      |
+| `grafana.ldap.groupBases`                | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)        |
+| `grafana.dashboards.editable`            | Whether dashboards can be edited manually in the UI                                |
 
 ### Encryption
 
@@ -138,13 +138,8 @@ result in the following command:
 
 ```sh
 $PATH_TO_PROMTAIL/promtail \
-  -config.file=./dist/promtail.yaml \
-  -client.external-labels=host=$(hostname)
+  -config.file=./dist/promtail.yaml
 ```
-
-The `-client.external-labels=host=$(hostname)` option will add a label to each job
-that contains the hostname. This is useful, if multiple host are scraped for logs
-and only one Grafana is used to view the logs.
 
 If TLS-verification is activated, the CA-certificate used for verification
 (usually the one configured for `tls.caCert`) has to be present in the

@@ -100,6 +100,21 @@ else
   echo -e "#@data/values\n---\n$(sops -d $TMP_CONFIG)" | runYtt -
 fi
 
+# split promtail files into file per host
+mkdir -p $OUTPUT/promtail
+csplit $OUTPUT/promtail.yaml \
+  --prefix="$OUTPUT/promtail/promtail-" \
+  --suffix-format='%02d.yaml' \
+  --elide-empty-files \
+  --suppress-matched \
+  --silent \
+  /---/ {*}
+rm $OUTPUT/promtail.yaml
+
+for file in $OUTPUT/promtail/*.yaml; do
+  mv $file "$OUTPUT/promtail/promtail-$(yq r $file scrape_configs.[0].static_configs.[0].labels.host).yaml"
+done
+
 # Create configmap with dashboards
 kubectl create configmap grafana-dashboards \
   --from-file=./dashboards \
