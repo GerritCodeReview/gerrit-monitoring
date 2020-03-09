@@ -308,6 +308,8 @@ datasources:
       url: #@ "http://loki-{}.{}.svc.cluster.local:3100".format(data.values.namespace, data.values.namespace)
       access: proxy
       isDefault: false
+      jsonData:
+        maxLines: 10000
     - name: LokiPromQL
       type: prometheus
       url: #@ "http://loki-{}.{}.svc.cluster.local:3100/loki".format(data.values.namespace, data.values.namespace)
