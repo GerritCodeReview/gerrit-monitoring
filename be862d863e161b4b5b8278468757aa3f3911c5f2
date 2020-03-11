@@ -157,6 +157,24 @@
       "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972cc22a_ad226e4c",
+        "filename": "dashboards/gerrit_queues.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-03-11T16:28:47Z",
+      "side": 1,
+      "message": "Yes. There is a python based-tool and a tool called Grafonnet. They are basically Dashboards-as-code. I was thinking about using them. The advantage would be less duplication and less unnecessary information. The disadvantage would be, that you can\u0027t easily change dashboards in the UI and just export the json to the repo.",
+      "parentUuid": "3a48f6da_8ce9c576",
+      "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
