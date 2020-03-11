@@ -140,6 +140,23 @@
       "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a48f6da_8ce9c576",
+        "filename": "dashboards/gerrit_queues.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006192
+      },
+      "writtenOn": "2020-03-11T15:18:06Z",
+      "side": 1,
+      "message": "Is there a better way to generate those configs? Is there any DSL available?",
+      "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
