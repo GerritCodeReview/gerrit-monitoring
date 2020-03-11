@@ -1,0 +1,48 @@
+gerritServers:
+  - host: gerrit.example.com
+    username: admin
+    password: secret
+namespace: namespace
+tls:
+  skipVerify: true
+  caCert:
+promtail:
+  storagePath: /var/promtail
+  logPath: /var/gerrit/logs
+prometheus:
+  server:
+    host: prometheus.example.com
+    username:
+    password:
+    tls:
+      cert:
+      key:
+  alertmanager:
+    slack:
+      apiUrl: https://hooks.slack.com/services/xxx/xxx
+      channel: '#alerts'
+loki:
+  host: loki.example.com
+  username:
+  password:
+  tls:
+    cert:
+    key:
+grafana:
+  host: grafana.example.com
+  tls:
+    cert:
+    key:
+  admin:
+    username: admin
+    password: secret
+  ldap:
+    enabled: false
+    host:
+    port: ""
+    password:
+    bind_dn:
+    accountBases: "[]"
+    groupBases: "[]"
+  dashboards:
+    editable: false

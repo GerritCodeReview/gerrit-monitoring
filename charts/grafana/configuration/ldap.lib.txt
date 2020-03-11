@@ -1,0 +1,27 @@
+(@ load("@ytt:data", "data") @)
+(@ def format_ldap_toml(): -@)
+[[servers]]
+
+host = "(@= data.values.grafana.ldap.host @)"
+port = (@= data.values.grafana.ldap.port @)
+use_ssl = true
+start_tls = false
+ssl_skip_verify = (@= "{}".format(data.values.tls.skipVerify).lower() @)
+root_ca_cert = "/etc/secrets/server.ca.crt"
+bind_dn = "(@= data.values.grafana.ldap.bind_dn @)"
+bind_password = "(@= data.values.grafana.ldap.password @)"
+search_filter = "(cn=%s)"
+search_base_dns = (@= data.values.grafana.ldap.accountBases @)
+group_search_filter = "(cn=%s)"
+group_search_base_dns = (@= data.values.grafana.ldap.groupBases @)
+
+[[servers.group_mappings]]
+group_dn = "*"
+org_role = "Editor"
+
+[servers.attributes]
+name = "givenName"
+surname = "sn"
+username = "cn"
+
+(@- end @)

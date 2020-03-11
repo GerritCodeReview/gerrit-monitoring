@@ -1,0 +1,15 @@
+#@ load("@ytt:data", "data")
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: grafana-pvc
+  namespace: #@ data.values.namespace
+  labels:
+    app: grafana
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: default

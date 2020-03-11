@@ -1,0 +1,15 @@
+#@ load("@ytt:data", "data")
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: prometheus-server-pvc
+  namespace: #@ data.values.namespace
+  labels:
+    app: prometheus
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
+  storageClassName: default
