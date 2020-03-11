@@ -1,0 +1,124 @@
+#@ load("@ytt:data", "data")
+
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: #@ "{}/positions.yaml".format(data.values.promtail.storagePath)
+
+clients:
+  - url: #@ "https://{}/loki/api/v1/push".format(data.values.loki.host)
+    tls_config:
+      insecure_skip_verify: #@ data.values.tls.skipVerify
+      #@ if not data.values.tls.skipVerify:
+      ca_file: #@ "{}/promtail.ca.crt".format(data.values.promtail.storagePath)
+      #@ end
+    basic_auth:
+      username: #@ data.values.loki.username
+      password: #@ data.values.loki.password
+scrape_configs:
+- job_name: gerrit_error
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: gerrit_error
+      __path__: #@ "{}/error_log.json".format(data.values.promtail.logPath)
+  entry_parser: raw
+  pipeline_stages:
+  - json:
+      expressions:
+        level:
+        timestamp: '"@timestamp"'
+        exception: '"exception"'
+        thread: thread_name
+        logger: logger_name
+        class:
+        message:
+  - json:
+      source: exception
+      expressions:
+        exception_message:
+        exception_class:
+  - template:
+      source: timestamp
+      template: '{{ Replace .Value "," "." 1 }}'
+  - template:
+      source: timestamp
+      template: '{{ Replace .Value "Z" " +0000" 1 }}'
+  - template:
+      source: timestamp
+      template: '{{ Replace .Value "T" " " 1 }}'
+  - timestamp:
+      source: timestamp
+      format: "2006-01-02 15:04:05.999 -0700"
+  - regex:
+      source: message
+      expression: "Gerrit Code Review (?P<gerrit_version>.*) ready"
+  - labels:
+      level:
+      exception_message:
+      exception_class:
+      thread:
+      logger:
+      class:
+      gerrit_version:
+- job_name: gerrit_httpd
+  static_configs:
+  - targets:
+    - localhost
+    labels:
+      job: gerrit_httpd
+      __path__: #@ "{}/httpd_log.json".format(data.values.promtail.logPath)
+  entry_parser: raw
+  pipeline_stages:
+  - json:
+      expressions:
+        timestamp:
+        thread:
+        user:
+        method:
+        status:
+        protocol:
+  - template:
+      source: timestamp
+      template: '{{ Replace .Value "," "." 1 }}'
+  - timestamp:
+      source: timestamp
+      format: '02/Jan/2006:15:04:05.999 -0700'
+  - labels:
+      thread:
+      user:
+      method:
+      status:
+      protocol:
+- job_name: gerrit_sshd
+  static_configs:
+  - targets:
+    - localhost
+    labels:
+      job: gerrit_sshd
+      __path__: #@ "{}/sshd_log.json".format(data.values.promtail.logPath)
+  entry_parser: raw
+  pipeline_stages:
+  - json:
+      expressions:
+        timestamp:
+        session:
+        thread:
+        user:
+        account_id:
+        status:
+  - template:
+      source: timestamp
+      template: '{{ Replace .Value "," "." 1 }}'
+  - timestamp:
+      source: timestamp
+      format: 2006-01-02 15:04:05.999 -0700
+  - labels:
+      session:
+      thread:
+      user:
+      account_id:
+      status:
