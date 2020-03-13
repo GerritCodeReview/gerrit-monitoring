@@ -59,19 +59,19 @@ sops \
 
 `$EMAIL` refers to the email used during the creation of the GPG key.
 
-Alternatively, the `./encrypt.sh`-script can be used to encrypt the file:
+Alternatively, the `gerrit-monitoring.py encrypt`-script can be used to encrypt
+the file:
 
 ```sh
-./encrypt.sh \
-  [--email $EMAIL] \
-  [--fingerprint $FINGERPRINT] \
-  $FILE_TO_ENCODE
+pipenv run python ./gerrit-monitoring.py \
+  --config config.yaml \
+  encrypt \
+  --pgp "abcde1234"
 ```
 
-The gpg-key used to encrypt the file can be selected by directly giving the key's
-fingerprint using the `--fingerprint` option or giving the email used to identify
-the key using the `--email` option. The `--fingerprint` option will have preference.
-At least one of these options has to be set.
+The gpg-key used to encrypt the file can be selected by giving the fingerprint,
+key ID or part of the unique ID to the `--pgp`-argument. This identifier has to
+be unique among the keys in the GPG keystore.
 
 ## Decrypt file
 
