@@ -23,17 +23,16 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 13,
+        "h": 11,
         "w": 12,
         "x": 0,
         "y": 0
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 14,
       "legend": {
         "alignAsTable": true,
         "avg": true,
@@ -60,8 +59,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "proc_jvm_thread_num_live{instance=\"$instance\"}",
-          "legendFormat": "Java live threads",
+          "expr": "proc_cpu_system_load{instance=\"$instance\"}",
+          "legendFormat": "system load",
           "refId": "A"
         }
       ],
@@ -69,7 +68,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Threads",
+      "title": "System load",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -86,7 +85,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "Live Threads",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -115,7 +114,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 13,
+        "h": 11,
         "w": 12,
         "x": 12,
         "y": 0
@@ -224,7 +223,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 4,
@@ -301,7 +300,7 @@
         },
         {
           "format": "short",
-          "label": null,
+          "label": "",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -326,7 +325,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 6,
@@ -423,13 +422,196 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fill": 2,
+      "description": "",
+      "fill": 1,
       "fillGradient": 0,
       "gridPos": {
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 23
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "proc_jvm_thread_num_live{instance=\"$instance\"}",
+          "legendFormat": "Java live threads",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Threads",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Live Threads",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 6,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "hiddenSeries": false,
+      "id": 10,
+      "interval": "",
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "jgit_block_cache_open_files{instance=\"$instance\"}",
+          "legendFormat": "jgit block cache",
+          "refId": "B"
+        },
+        {
+          "expr": "proc_num_open_fds{instance=\"$instance\"}-jgit_block_cache_open_files{instance=\"$instance\"}",
+          "legendFormat": "other",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Java open file descriptors",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Open File Descriptors",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 2,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 31
       },
       "hiddenSeries": false,
       "id": 12,
@@ -524,100 +706,6 @@
       "yaxis": {
         "align": false,
         "alignLevel": 1
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fill": 6,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 12,
-        "y": 23
-      },
-      "hiddenSeries": false,
-      "id": 10,
-      "interval": "",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "show": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": true,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jgit_block_cache_open_files{instance=\"$instance\"}",
-          "legendFormat": "jgit block cache",
-          "refId": "B"
-        },
-        {
-          "expr": "proc_num_open_fds{instance=\"$instance\"}-jgit_block_cache_open_files{instance=\"$instance\"}",
-          "legendFormat": "other",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Java open file descriptors",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "Open File Descriptors",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
       }
     }
   ],
