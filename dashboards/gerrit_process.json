@@ -250,7 +250,13 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
+      "seriesOverrides": [
+        {
+          "alias": "available CPUs",
+          "color": "#1F60C4",
+          "fill": 0
+        }
+      ],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
@@ -259,6 +265,11 @@
           "expr": "rate(proc_cpu_usage{instance=\"$instance\"}[5m])",
           "legendFormat": "used CPUs",
           "refId": "A"
+        },
+        {
+          "expr": "proc_cpu_num_cores{instance=\"$instance\"}",
+          "legendFormat": "available CPUs",
+          "refId": "B"
         }
       ],
       "thresholds": [],
