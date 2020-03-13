@@ -1,0 +1,178 @@
+# Copyright (C) 2020 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import os.path
+import subprocess
+import yaml
+
+
+TEMPLATES = [
+    "charts/namespace.yaml",
+    "charts/prometheus",
+    "charts/loki",
+    "charts/grafana",
+    "promtail",
+]
+
+HELM_REPOS = {
+    "stable": "https://kubernetes-charts.storage.googleapis.com",
+    "loki": "https://grafana.github.io/loki/charts",
+}
+
+LOOSE_RESOURCES = [
+    "namespace.yaml",
+    "configuration",
+    "dashboards",
+    "storage",
+]
+
+HELM_CHARTS = {
+    "prometheus": "stable/prometheus",
+    "loki": "loki/loki",
+    "grafana": "stable/grafana",
+}
+
+
+def _create_dashboard_configmaps(output_dir, namespace):
+    dashboards_dir = os.path.abspath("./dashboards")
+
+    output_dir = os.path.join(output_dir, "dashboards")
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
+    for dashboard in os.listdir(dashboards_dir):
+        dashboard_path = os.path.join(dashboards_dir, dashboard)
+        dashboard_name = os.path.splitext(dashboard)[0]
+        output_file = "%s/%s.dashboard.yaml" % (output_dir, dashboard_name,)
+        command = (
+            "kubectl create configmap %s -o yaml "
+            "--from-file=%s --dry-run=client --namespace=%s > %s"
+        ) % (dashboard_name, dashboard_path, namespace, output_file)
+
+        try:
+            subprocess.check_output(command, shell=True)
+        except subprocess.CalledProcessError as err:
+            print(err.output)
+
+        with open(output_file, "r") as f:
+            dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
+            dashboard_cm["metadata"]["labels"] = dict()
+            dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
+
+        with open(output_file, "w") as f:
+            yaml.dump(dashboard_cm, f)
+
+
+def _run_ytt(config, output_dir):
+    config_string = "#@data/values\n---\n"
+    config_string += yaml.dump(config)
+
+    command = [
+        "ytt",
+    ]
+
+    for template in TEMPLATES:
+        command += ["-f", template]
+
+    command += [
+        "--output-directory",
+        output_dir,
+        "--ignore-unknown-comments",
+        "-f",
+        "-",
+    ]
+
+    try:
+        # pylint: disable=E1123
+        print(subprocess.check_output(command, input=config_string, text=True))
+    except subprocess.CalledProcessError as err:
+        print(err.output)
+
+
+def _update_helm_repos():
+    for repo, url in HELM_REPOS.items():
+        command = ["helm", "repo", "add", repo, url]
+        try:
+            subprocess.check_output(" ".join(command), shell=True)
+        except subprocess.CalledProcessError as err:
+            print(err.output)
+    try:
+        print(subprocess.check_output(["helm", "repo", "update"]).decode("utf-8"))
+    except subprocess.CalledProcessError as err:
+        print(err.output)
+
+
+def _deploy_loose_resources(output_dir):
+    for resource in LOOSE_RESOURCES:
+        command = [
+            "kubectl",
+            "apply",
+            "-f",
+            "%s/%s" % (output_dir, resource),
+        ]
+        print(subprocess.check_output(command).decode("utf-8"))
+
+
+def _get_installed_charts_in_namespace(namespace):
+    command = ["helm", "ls", "-n", namespace, "--short"]
+    return subprocess.check_output(command).decode("utf-8").split("\n")
+
+
+def _install_or_update_charts(output_dir, namespace):
+    installed_charts = _get_installed_charts_in_namespace(namespace)
+    charts_path = os.path.abspath("./charts")
+    for chart, repo in HELM_CHARTS.items():
+        chart_name = chart + "-" + namespace
+        with open("%s/%s/VERSION" % (charts_path, chart), "r") as f:
+            chart_version = f.readlines()[0].strip()
+        command = ["helm"]
+        command.append("upgrade" if chart_name in installed_charts else "install")
+        command += [
+            chart_name,
+            repo,
+            "--version",
+            chart_version,
+            "--values",
+            "%s/%s.yaml" % (output_dir, chart),
+            "--namespace",
+            namespace,
+        ]
+        try:
+            print(subprocess.check_output(command).decode("utf-8"))
+        except subprocess.CalledProcessError as err:
+            print(err.output)
+
+
+def install(config_manager, output_dir, dryrun, update_repo):
+    """Creates the final configuration for the helm charts and Kubernetes resources
+    and installs them to Kubernetes, if not run in --dryrun mode.
+
+    Arguments:
+        config_manager {AbstractConfigManager} -- ConfigManager that contains the
+          configuration of the monitoring setup to be uninstalled.
+        output_dir {string} -- Path to the directory where the generated files
+          should be safed in
+        dryrun {boolean} -- Whether the installation will be run in dryrun mode
+        update_repo {boolean} -- Whether to update the helm repositories locally
+    """
+    _run_ytt(config_manager.get_config(), output_dir)
+
+    namespace = config_manager.get_config()["namespace"]
+    _create_dashboard_configmaps(output_dir, namespace)
+
+    if not dryrun:
+        if update_repo:
+            _update_helm_repos()
+        _deploy_loose_resources(output_dir)
+        _install_or_update_charts(output_dir, namespace)
