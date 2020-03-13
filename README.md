@@ -41,9 +41,11 @@ ytt is a templating tool for yaml-files. It is required for some last moment
 configuration. Installation instructions can be found
 [here](https://k14s.io/#install-from-github-release).
 
-- yq \
-yq is a commandline processor for yaml-files. Installation instructions can be
-found [here](https://mikefarah.gitbook.io/yq/).
+- Pipenv \
+Pipenv sets up a virtual python environment and installs required python packages
+based on a lock-file, ensuring a deterministic Python environment. Instruction on
+how Pipenv can be installed, can be found
+[here](https://github.com/pypa/pipenv#installation)
 
 ### Infrastructure
 
@@ -122,32 +124,35 @@ The configuration file contains secrets. Thus, to be able to share the configura
 e.g. with the CI-system, it is meant to be encrypted. The encryption is explained
 [here](./documentation/config-management.md).
 
-The `./install.sh`-script will decrypt the file before templating, if it was
-encrypted with `sops`.
+The `gerrit-monitoring.py install`-command will decrypt the file before templating,
+if it was encrypted with `sops`.
 
 ## Installation
 
-Before beginning with the installation, ensure that the local helm repository is
-up-to-date:
+Before using the script, set up a python environment using `pipenv install`.
 
-```sh
-helm repo add loki https://grafana.github.io/loki/charts
-helm repo update
-```
+The installation will use the environment of the current shell. Thus, make sure
+that the path for `ytt`, `kubectl`and `helm` are set. Also the `KUBECONFIG`-variable
+has to be set to point to the kubeconfig of the target Kubernetes cluster.
 
 This project provides a script to quickly install the monitoring setup. To use
 it, run:
 
 ```sh
-./install.sh \
+pipenv run python ./gerrit-monitoring.py \
+  --config config.yaml \
+  install \
   [--output ./dist] \
   [--dryrun] \
-  config.yaml
+  [--update-repo]
 ```
 
-The command will use the given configuration to create the final
-files in the directory given by `--output` (default `./dist`) and install/update
-the Kubernetes resources and charts, if the `--dryrun` flag is not set.
+The command will use the given configuration (`--config`/`-c`) to create the
+final files in the directory given by `--output`/`-o` (default `./dist`) and
+install/update the Kubernetes resources and charts, if the `--dryrun`/`-d` flag
+is not set. If the `--update-repo`-flag is used, the helm repository will be updated
+before installing the helm charts. This is for example required, if a chart version
+was updated.
 
 ## Configure Promtail
 
@@ -202,10 +207,11 @@ Remove the namespace:
 kubectl delete -f ./dist/namespace.yaml
 ```
 
-The `./uninstall.sh`-script will automatically remove the charts installed in
-by the `./install.sh`-script from the configured namespace and delete the
-namespace as well:
+The `./gerrit-monitoring.py uninstall`-script will automatically remove the
+charts installed in the configured namespace and delete the namespace as well:
 
 ```sh
-./uninstall.sh config.yaml
+pipenv run python ./gerrit-monitoring.py \
+  --config config.yaml \
+  uninstall
 ```
