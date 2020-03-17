@@ -65,6 +65,7 @@ config:
       #     httpclienttimeout: "20s"
       #     consistentreads: true
   limits_config:
+    cardinality_limit: 2000000
     enforce_metric_name: false
     max_streams_per_user: 1000000
     reject_old_samples: true
