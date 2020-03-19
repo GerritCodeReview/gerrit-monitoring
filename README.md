@@ -20,6 +20,8 @@ easier.
 
 ## Dependencies
 
+### Software
+
 - Gerrit \
 Gerrit requires the following plugin to be installed:
   - [metrics-reporter-prometheus](https://gerrit.googlesource.com/plugins/metrics-reporter-prometheus/)
@@ -42,6 +44,20 @@ configuration. Installation instructions can be found
 - yq \
 yq is a commandline processor for yaml-files. Installation instructions can be
 found [here](https://mikefarah.gitbook.io/yq/).
+
+### Infrastructure
+
+- Kubernetes Cluster \
+A cluster with at least 3 free CPUs and 4 GB of free memory are required. In
+addition persistent storage of about 30 GB will be used.
+
+- Ingress Controller \
+The charts currently expect a Nginx ingress controller to be installed in the
+cluster.
+
+- Object store \
+Loki will store the data chunks in an object store. This store has to be callable
+via the S3 API.
 
 ## Add dashboards
 
