@@ -48,7 +48,7 @@ Run the following command to encode the file:
 sops \
   --encrypt \
   --in-place \
-  --encrypted-regex '(password|htpasswd|cert|key|apiUrl|caCert)$' \
+  --encrypted-regex '(password|htpasswd|cert|key|apiUrl|caCert|secret|accessToken)$' \
   --pgp \
     `gpg --fingerprint "$EMAIL" | \
      grep pub -A 1 | \
