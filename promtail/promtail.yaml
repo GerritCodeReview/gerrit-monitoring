@@ -39,7 +39,6 @@ scrape_configs:
   - json:
       source: exception
       expressions:
-        exception_message:
         exception_class:
   - template:
       source: timestamp
@@ -58,7 +57,6 @@ scrape_configs:
       expression: "Gerrit Code Review (?P<gerrit_version>.*) ready"
   - labels:
       level:
-      exception_message:
       exception_class:
       thread:
       logger:
