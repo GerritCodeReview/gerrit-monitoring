@@ -78,6 +78,12 @@ are listed here:
 | `loki.host`                             | Loki ingress hostname                                                              |
 | `loki.username`                         | Username for Loki                                                                  |
 | `loki.password`                         | Password for Loki                                                                  |
+| `loki.s3.protocol`                      | Protocol used for communicating with S3                                            |
+| `loki.s3.host`                          | Hostname of the S3 object store                                                    |
+| `loki.s3.accessToken`                   | The EC2 accessToken used for authentication with S3                                |
+| `loki.s3.secret`                        | The secret associated with the accessToken                                         |
+| `loki.s3.bucket`                        | The name of the S3 bucket                                                          |
+| `loki.s3.region`                        | The region in which the S3 bucket is hosted                                        |
 | `loki.tls.cert`                         | TLS certificate                                                                    |
 | `loki.tls.key`                          | TLS key                                                                            |
 | `grafana.host`                          | Grafana ingress hostname                                                           |

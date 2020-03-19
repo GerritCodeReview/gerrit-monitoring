@@ -73,7 +73,7 @@ config:
     configs:
     - from: 2018-04-15
       store: boltdb
-      object_store: filesystem
+      object_store: s3
       schema: v9
       index:
         prefix: index_
@@ -86,8 +86,9 @@ config:
   storage_config:
     boltdb:
       directory: /data/loki/index
-    filesystem:
-      directory: /data/loki/chunks
+    aws:
+      s3: #@ "{}://{}:{}@{}/{}".format(data.values.loki.s3.protocol, data.values.loki.s3.accessToken, data.values.loki.s3.secret, data.values.loki.s3.host, data.values.loki.s3.bucket)
+      s3forcepathstyle: true
   chunk_store_config:
     max_look_back_period: 0
   table_manager:
@@ -240,4 +241,6 @@ extraPorts: []
 #   targetPort: http
 
 # Extra env variables to pass to the loki container
-env: []
+env:
+- name: AWS_REGION
+  value: #@ data.values.loki.s3.region
