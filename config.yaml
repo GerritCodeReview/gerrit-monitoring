@@ -25,6 +25,13 @@ loki:
   host: loki.example.com
   username:
   password:
+  s3:
+    protocol: https
+    host: s3.eu-de-1.example.com
+    accessToken: abcd
+    secret: "1234"
+    bucket: bucket
+    region: eu-de-1
   tls:
     cert:
     key:
