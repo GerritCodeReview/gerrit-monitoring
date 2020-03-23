@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a274258_f49c8145",
+        "filename": "promtail/promtail.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-03-23T11:14:00Z",
+      "side": 0,
+      "message": "how many status codes do we have across the different protocols ? Maybe we could keep that label ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "ab26ebb83385aede74b14ff4ef1872b741b06fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "928a0aff_f1bd2161",
+        "filename": "promtail/promtail.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-03-23T11:14:00Z",
+      "side": 0,
+      "message": "we only use 2 protocols (ssh and https) so could we keep this label ?",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "ab26ebb83385aede74b14ff4ef1872b741b06fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
