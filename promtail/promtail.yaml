@@ -29,18 +29,8 @@ scrape_configs:
   pipeline_stages:
   - json:
       expressions:
-        level:
         timestamp: '"@timestamp"'
-        exception: '"exception"'
-        thread: thread_name
-        logger: logger_name
-        class:
         message:
-  - json:
-      source: exception
-      expressions:
-        exception_message:
-        exception_class:
   - template:
       source: timestamp
       template: '{{ Replace .Value "," "." 1 }}'
@@ -57,12 +47,6 @@ scrape_configs:
       source: message
       expression: "Gerrit Code Review (?P<gerrit_version>.*) ready"
   - labels:
-      level:
-      exception_message:
-      exception_class:
-      thread:
-      logger:
-      class:
       gerrit_version:
 - job_name: gerrit_httpd
   static_configs:
@@ -76,23 +60,12 @@ scrape_configs:
   - json:
       expressions:
         timestamp:
-        thread:
-        user:
-        method:
-        status:
-        protocol:
   - template:
       source: timestamp
       template: '{{ Replace .Value "," "." 1 }}'
   - timestamp:
       source: timestamp
       format: '02/Jan/2006:15:04:05.999 -0700'
-  - labels:
-      thread:
-      user:
-      method:
-      status:
-      protocol:
 - job_name: gerrit_sshd
   static_configs:
   - targets:
@@ -105,20 +78,9 @@ scrape_configs:
   - json:
       expressions:
         timestamp:
-        session:
-        thread:
-        user:
-        account_id:
-        status:
   - template:
       source: timestamp
       template: '{{ Replace .Value "," "." 1 }}'
   - timestamp:
       source: timestamp
       format: 2006-01-02 15:04:05.999 -0700
-  - labels:
-      session:
-      thread:
-      user:
-      account_id:
-      status:
