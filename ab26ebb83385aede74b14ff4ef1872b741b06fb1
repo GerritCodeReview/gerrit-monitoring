@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "71b4a1d4_98e85ca9",
+        "filename": "promtail/promtail.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-03-23T12:52:41Z",
+      "side": 0,
+      "message": "I\u0027ve been radical with throwing out basically everything. `status` could be indeed something we could consider to leave as a label. We can still query without a label:\n\n  {job\u003d\"gerrit_httpd\"} |~ \"status.{3}200\"\n\nWith a label it would look like this\n\n  {job\u003d\"gerrit_httpd\", status\u003d\"200\"}\n\nSo a little bit nicer.\nWith activating this, we will get more chunks, since the status will change relative often between the entries. Nevertheless, the cardinality for status should be fine overall.\n\nI can test this in our setup. Then I would suggest to keep the following labels:\n\nerror_log:\n  - level\n\nhttpd_log:\n  - method\n  - status\n\nsshd_log:\n  - status\n\nWe should however only do this, if we will use these labels regularly, since only then the additional resource overhead to do that (RAM, storage) make sense. Do you think this is the case for these fields?",
+      "parentUuid": "5a274258_f49c8145",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 14
+      },
+      "revId": "ab26ebb83385aede74b14ff4ef1872b741b06fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "928a0aff_f1bd2161",
         "filename": "promtail/promtail.yaml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-03-23T11:14:00Z",
       "side": 0,
       "message": "we only use 2 protocols (ssh and https) so could we keep this label ?",
+      "range": {
+        "startLine": 83,
+        "startChar": 8,
+        "endLine": 83,
+        "endChar": 16
+      },
+      "revId": "ab26ebb83385aede74b14ff4ef1872b741b06fb1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee314cb1_b455316c",
+        "filename": "promtail/promtail.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-03-23T12:52:41Z",
+      "side": 0,
+      "message": "No. These are just the httpd_logs. It is just HTTP/1.1 or HTTP/1.0. I don\u0027t think it is worth it to create a label for those, since we probably won\u0027t use that information anyways.",
+      "parentUuid": "928a0aff_f1bd2161",
       "range": {
         "startLine": 83,
         "startChar": 8,
