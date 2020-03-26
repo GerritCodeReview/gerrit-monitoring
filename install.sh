@@ -74,6 +74,23 @@ function addHtpasswdEntryEncrypted() {
   sops --set "$COMPONENT['htpasswd'] \"$HTPASSWD\"" $TMP_CONFIG
 }
 
+function addDashboards() {
+  for dashboard in dashboards/*; do
+    local DASHBOARD_NAME="${dashboard%.json}"
+    local DASHBOARD_NAME="${DASHBOARD_NAME#"dashboards/"}"
+
+    kubectl create configmap $DASHBOARD_NAME \
+      --from-file=$dashboard \
+      --dry-run=true \
+      --namespace=$NAMESPACE \
+      -o yaml > $OUTPUT/dashboards/$DASHBOARD_NAME.dashboard.yaml
+
+    yq w -i $OUTPUT/dashboards/$DASHBOARD_NAME.dashboard.yaml \
+      metadata.labels.grafana_dashboard $DASHBOARD_NAME
+  done
+}
+
+
 function runYtt() {
   ytt \
     -f charts/namespace.yaml \
@@ -100,18 +117,16 @@ else
   echo -e "#@data/values\n---\n$(sops -d $TMP_CONFIG)" | runYtt -
 fi
 
-# Create configmap with dashboards
-kubectl create configmap grafana-dashboards \
-  --from-file=./dashboards \
-  --dry-run=true \
-  --namespace=$NAMESPACE \
-  -o yaml > $OUTPUT/configuration/dashboards.cm.yaml
+# Create configmaps with dashboards
+mkdir -p $OUTPUT/dashboards
+addDashboards
 
 test -n "$DRYRUN" && exit 0
 
 # Install loose components
 kubectl apply -f $OUTPUT/namespace.yaml
 kubectl apply -f $OUTPUT/configuration
+kubectl apply -f $OUTPUT/dashboardsq
 kubectl apply -f $OUTPUT/storage
 
 # Add Loki helm repository
