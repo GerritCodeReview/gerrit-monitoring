@@ -16,6 +16,24 @@
       "revId": "9cbe127b90f3036d15354c943070bd1c18fab564",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa1e8e37_b6c15936",
+        "filename": "promtail/VERSION",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-04-08T12:54:21Z",
+      "side": 1,
+      "message": "This requires  some additional configuration for compatibility and also updating Loki. I will do that soon. This is the version we currently deploy, so for now I would prefer to bring this change in.",
+      "parentUuid": "e09b2da6_9476d74d",
+      "revId": "9cbe127b90f3036d15354c943070bd1c18fab564",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
