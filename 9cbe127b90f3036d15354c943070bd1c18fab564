@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e09b2da6_9476d74d",
+        "filename": "promtail/VERSION",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-08T12:32:32Z",
+      "side": 1,
+      "message": "update to 1.4.1 ?",
+      "revId": "9cbe127b90f3036d15354c943070bd1c18fab564",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
