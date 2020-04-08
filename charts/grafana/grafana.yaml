@@ -339,20 +339,7 @@ notifiers: {}
 ##
 ## `path` must be /var/lib/grafana/dashboards/<provider_name>
 ##
-dashboardProviders:
-  dashboardproviders.yaml:
-    apiVersion: 1
-    providers:
-    - name: 'gerrit'
-      orgId: 1
-      folder: ''
-      type: file
-      disableDeletion: true
-      editable: #@ data.values.grafana.dashboards.editable
-      updateIntervalSeconds: 60
-      allowUiUpdates: #@ data.values.grafana.dashboards.editable
-      options:
-        path: /var/lib/grafana/dashboards/gerrit
+dashboardProviders: {}
 
 ## Configure grafana dashboard to import
 ## NOTE: To use dashboards you must also enable/configure dashboardProviders
@@ -385,8 +372,7 @@ dashboards: {}
 ##   example-dashboard.json: |
 ##     RAW_JSON
 ##
-dashboardsConfigMaps:
-  gerrit: "grafana-dashboards"
+dashboardsConfigMaps: {}
 
 ## Grafana's primary configuration
 ## NOTE: values in map will be converted to ini format
@@ -461,14 +447,14 @@ sidecar:
   # skipTlsVerify Set to true to skip tls verification for kube api calls
   # skipTlsVerify: true
   dashboards:
-    enabled: false
+    enabled: true
     ## Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
     watchMethod: WATCH
     SCProvider: true
     # label that the configmaps with dashboards are marked with
     label: grafana_dashboard
     # folder in the pod that should hold the collected dashboards (unless `defaultFolderName` is set)
-    folder: /tmp/dashboards
+    folder: /var/dashboards
     # The default folder name, it will create a subfolder under the `folder` and put dashboards in there instead
     defaultFolderName: null
     # If specified, the sidecar will search for dashboard config-maps inside this namespace.
@@ -486,9 +472,9 @@ sidecar:
       # type of the provider
       type: file
       # disableDelete to activate a import-only behaviour
-      disableDelete: false
+      disableDelete: true
       # allow updating provisioned dashboards from the UI
-      allowUiUpdates: false
+      allowUiUpdates: #@ data.values.grafana.dashboards.editable
   datasources:
     enabled: false
     ## Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.

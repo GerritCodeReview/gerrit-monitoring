@@ -1149,10 +1149,20 @@ serverFiles:
       static_configs:
         - targets:
           - localhost:9090
+      relabel_configs:
+        - source_labels: ["__address__"]
+          regex: ".*"
+          target_label: instance
+          replacement: #@ "prometheus-{}".format(data.values.namespace)
     - job_name: loki
       static_configs:
         - targets:
           - #@ "loki-{}.{}.svc.cluster.local:3100".format(data.values.namespace, data.values.namespace)
+      relabel_configs:
+        - source_labels: ["__address__"]
+          regex: ".*"
+          target_label: instance
+          replacement: #@ "loki-{}".format(data.values.namespace)
 
       # A scrape configuration for running Prometheus on a Kubernetes cluster.
       # This uses separate scrape configs for cluster components (i.e. API server, node)
