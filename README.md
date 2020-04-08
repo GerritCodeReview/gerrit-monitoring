@@ -20,6 +20,8 @@ easier.
 
 ## Dependencies
 
+### Software
+
 - Gerrit \
 Gerrit requires the following plugin to be installed:
   - [metrics-reporter-prometheus](https://gerrit.googlesource.com/plugins/metrics-reporter-prometheus/)
@@ -42,6 +44,20 @@ configuration. Installation instructions can be found
 - yq \
 yq is a commandline processor for yaml-files. Installation instructions can be
 found [here](https://mikefarah.gitbook.io/yq/).
+
+### Infrastructure
+
+- Kubernetes Cluster \
+A cluster with at least 3 free CPUs and 4 GB of free memory are required. In
+addition persistent storage of about 30 GB will be used.
+
+- Ingress Controller \
+The charts currently expect a Nginx ingress controller to be installed in the
+cluster.
+
+- Object store \
+Loki will store the data chunks in an object store. This store has to be callable
+via the S3 API.
 
 ## Add dashboards
 
@@ -78,6 +94,12 @@ are listed here:
 | `loki.host`                             | Loki ingress hostname                                                              |
 | `loki.username`                         | Username for Loki                                                                  |
 | `loki.password`                         | Password for Loki                                                                  |
+| `loki.s3.protocol`                      | Protocol used for communicating with S3                                            |
+| `loki.s3.host`                          | Hostname of the S3 object store                                                    |
+| `loki.s3.accessToken`                   | The EC2 accessToken used for authentication with S3                                |
+| `loki.s3.secret`                        | The secret associated with the accessToken                                         |
+| `loki.s3.bucket`                        | The name of the S3 bucket                                                          |
+| `loki.s3.region`                        | The region in which the S3 bucket is hosted                                        |
 | `loki.tls.cert`                         | TLS certificate                                                                    |
 | `loki.tls.key`                          | TLS key                                                                            |
 | `grafana.host`                          | Grafana ingress hostname                                                           |

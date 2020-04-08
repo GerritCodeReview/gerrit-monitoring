@@ -53,6 +53,6 @@ fi
 sops \
   --encrypt \
   --in-place \
-  --encrypted-regex '(password|htpasswd|cert|key|apiUrl|caCert)$' \
+  --encrypted-regex '(password|htpasswd|cert|key|apiUrl|caCert|secret|accessToken)$' \
   --pgp $FINGERPRINT \
   $CONFIG
