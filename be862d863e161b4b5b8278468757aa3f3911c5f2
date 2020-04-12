@@ -175,6 +175,24 @@
       "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ec3d83_e9b97422",
+        "filename": "dashboards/gerrit_queues.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1099362
+      },
+      "writtenOn": "2020-04-12T21:06:17Z",
+      "side": 1,
+      "message": "yes I can have everything sent I’m using my phone as of nkw",
+      "parentUuid": "972cc22a_ad226e4c",
+      "revId": "be862d863e161b4b5b8278468757aa3f3911c5f2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
