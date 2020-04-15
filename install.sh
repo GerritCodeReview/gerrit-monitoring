@@ -126,7 +126,7 @@ test -n "$DRYRUN" && exit 0
 # Install loose components
 kubectl apply -f $OUTPUT/namespace.yaml
 kubectl apply -f $OUTPUT/configuration
-kubectl apply -f $OUTPUT/dashboardsq
+kubectl apply -f $OUTPUT/dashboards
 kubectl apply -f $OUTPUT/storage
 
 # Add Loki helm repository
