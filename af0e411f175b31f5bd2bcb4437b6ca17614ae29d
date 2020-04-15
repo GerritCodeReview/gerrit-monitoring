@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9107e372_a971a335",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T13:21:34Z",
+      "side": 1,
+      "message": "add accesstoken and secret for access to the objectstore",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cafbcde5_61aac821",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T13:21:34Z",
+      "side": 1,
+      "message": "use f-strings: f\"({\u0027|\u0027.join(ENCRYPTED_KEYS)})\" for parameter substitution ?\n\nhttps://www.python.org/dev/peps/pep-0498",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2262e253_aeaa2b06",
+        "filename": "subcommands/install.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T13:21:34Z",
+      "side": 1,
+      "message": "delete the old install.sh this python script is replacing ?",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7b9c55_9c6e0fe0",
+        "filename": "subcommands/uninstall.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T13:21:34Z",
+      "side": 1,
+      "message": "make this package global to avoid duplication ?",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
