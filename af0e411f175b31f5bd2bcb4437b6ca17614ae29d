@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e113a89_eb97f62c",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-04-15T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9107e372_a971a335",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cafbcde5_61aac821",
         "filename": "subcommands/encrypt.py",
         "patchSetId": 8
@@ -33,6 +51,24 @@
       "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbdcc7a5_1353c8b4",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-04-15T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cafbcde5_61aac821",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e3ddd290_71a218a9",
+        "filename": "subcommands/install.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-04-15T14:30:33Z",
+      "side": 1,
+      "message": "The install.sh script had been removed already, but the encrypt.sh script was still there. I removed it now.",
+      "parentUuid": "2262e253_aeaa2b06",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf7b9c55_9c6e0fe0",
         "filename": "subcommands/uninstall.py",
         "patchSetId": 8
@@ -67,6 +121,24 @@
       "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bd695a8_4d444011",
+        "filename": "subcommands/uninstall.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-04-15T14:30:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf7b9c55_9c6e0fe0",
+      "revId": "af0e411f175b31f5bd2bcb4437b6ca17614ae29d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
