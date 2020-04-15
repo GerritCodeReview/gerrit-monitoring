@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e8f5628_ff1f98b4",
+        "filename": "README.md",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T18:22:31Z",
+      "side": 1,
+      "message": "missing blank before \"are\"",
+      "range": {
+        "startLine": 135,
+        "startChar": 44,
+        "endLine": 135,
+        "endChar": 47
+      },
+      "revId": "73b9b231bcb92c2a8355234d835964179f620254",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6cee098_85d8c08c",
+        "filename": "cfgmgr/abstract.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T18:22:31Z",
+      "side": 1,
+      "message": "I would use active voice in docstrings:\n\nParse the configuration and return it as a dict.",
+      "range": {
+        "startLine": 34,
+        "startChar": 11,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "73b9b231bcb92c2a8355234d835964179f620254",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d54e5a86_2393fa44",
+        "filename": "cfgmgr/default.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T18:22:31Z",
+      "side": 1,
+      "message": "closing quotes of one line docstrings should be on the same line, see https://www.python.org/dev/peps/pep-0257/#one-line-docstrings\n\nmissing period at the end of the docstring",
+      "revId": "73b9b231bcb92c2a8355234d835964179f620254",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ce57678_3e1d2ed6",
+        "filename": "subcommands/_globals.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-15T18:22:31Z",
+      "side": 1,
+      "message": "sort this list ?",
+      "revId": "73b9b231bcb92c2a8355234d835964179f620254",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
