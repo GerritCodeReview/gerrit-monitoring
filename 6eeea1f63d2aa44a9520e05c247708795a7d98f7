@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5235a519_e7e850b4",
+        "filename": "cfgmgr/__init__.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-04-16T12:16:30Z",
+      "side": 1,
+      "message": "nit: use active voice ?",
+      "revId": "6eeea1f63d2aa44a9520e05c247708795a7d98f7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
