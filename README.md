@@ -76,47 +76,75 @@ setup, some configuration is highly dependent on the specific installation.
 These options have to be configured in the `./config.yaml` before installing and
 are listed here:
 
-| option                                   | description                                                                        |
-|------------------------------------------|------------------------------------------------------------------------------------|
-| `gerritServers.[0].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
-| `gerritServers.[0].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.[0].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.[0].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
-| `gerritServers.[0].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
-| `namespace`                              | The namespace the charts are installed to                                          |
-| `tls.skipVerify`                         | Whether to skip TLS certificate verification                                       |
-| `tls.caCert`                             | CA certificate used for TLS certificate verification                               |
-| `prometheus.server.host`                 | Prometheus server ingress hostname                                                 |
-| `prometheus.server.username`             | Username for Prometheus                                                            |
-| `prometheus.server.password`             | Password for Prometheus                                                            |
-| `prometheus.server.tls.cert`             | TLS certificate                                                                    |
-| `prometheus.server.tls.key`              | TLS key                                                                            |
-| `prometheus.alertmanager.slack.apiUrl`   | API URL of the Slack Webhook                                                       |
-| `prometheus.alertmanager.slack.channel`  | Channel to which the alerts should be posted                                       |
-| `loki.host`                              | Loki ingress hostname                                                              |
-| `loki.username`                          | Username for Loki                                                                  |
-| `loki.password`                          | Password for Loki                                                                  |
-| `loki.s3.protocol`                       | Protocol used for communicating with S3                                            |
-| `loki.s3.host`                           | Hostname of the S3 object store                                                    |
-| `loki.s3.accessToken`                    | The EC2 accessToken used for authentication with S3                                |
-| `loki.s3.secret`                         | The secret associated with the accessToken                                         |
-| `loki.s3.bucket`                         | The name of the S3 bucket                                                          |
-| `loki.s3.region`                         | The region in which the S3 bucket is hosted                                        |
-| `loki.tls.cert`                          | TLS certificate                                                                    |
-| `loki.tls.key`                           | TLS key                                                                            |
-| `grafana.host`                           | Grafana ingress hostname                                                           |
-| `grafana.tls.cert`                       | TLS certificate                                                                    |
-| `grafana.tls.key`                        | TLS key                                                                            |
-| `grafana.admin.username`                 | Username for the admin user                                                        |
-| `grafana.admin.password`                 | Password for the admin user                                                        |
-| `grafana.ldap.enabled`                   | Whether to enable LDAP                                                             |
-| `grafana.ldap.host`                      | Hostname of LDAP server                                                            |
-| `grafana.ldap.port`                      | Port of LDAP server (Has to be `quoted`!)                                          |
-| `grafana.ldap.password`                  | Password of LDAP server                                                            |
-| `grafana.ldap.bind_dn`                   | Bind DN (username) of the LDAP server                                              |
-| `grafana.ldap.accountBases`              | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)      |
-| `grafana.ldap.groupBases`                | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)        |
-| `grafana.dashboards.editable`            | Whether dashboards can be edited manually in the UI                                |
+| option                                  | description                                                                            |
+|-----------------------------------------|----------------------------------------------------------------------------------------|
+| `gerritServers`                         | List of Gerrit servers to scrape. For details refer to section [below](#gerritServers) |
+| `namespace`                             | The namespace the charts are installed to                                              |
+| `tls.skipVerify`                        | Whether to skip TLS certificate verification                                           |
+| `tls.caCert`                            | CA certificate used for TLS certificate verification                                   |
+| `prometheus.server.host`                | Prometheus server ingress hostname                                                     |
+| `prometheus.server.username`            | Username for Prometheus                                                                |
+| `prometheus.server.password`            | Password for Prometheus                                                                |
+| `prometheus.server.tls.cert`            | TLS certificate                                                                        |
+| `prometheus.server.tls.key`             | TLS key                                                                                |
+| `prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                           |
+| `prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                           |
+| `loki.host`                             | Loki ingress hostname                                                                  |
+| `loki.username`                         | Username for Loki                                                                      |
+| `loki.password`                         | Password for Loki                                                                      |
+| `loki.s3.protocol`                      | Protocol used for communicating with S3                                                |
+| `loki.s3.host`                          | Hostname of the S3 object store                                                        |
+| `loki.s3.accessToken`                   | The EC2 accessToken used for authentication with S3                                    |
+| `loki.s3.secret`                        | The secret associated with the accessToken                                             |
+| `loki.s3.bucket`                        | The name of the S3 bucket                                                              |
+| `loki.s3.region`                        | The region in which the S3 bucket is hosted                                            |
+| `loki.tls.cert`                         | TLS certificate                                                                        |
+| `loki.tls.key`                          | TLS key                                                                                |
+| `grafana.host`                          | Grafana ingress hostname                                                               |
+| `grafana.tls.cert`                      | TLS certificate                                                                        |
+| `grafana.tls.key`                       | TLS key                                                                                |
+| `grafana.admin.username`                | Username for the admin user                                                            |
+| `grafana.admin.password`                | Password for the admin user                                                            |
+| `grafana.ldap.enabled`                  | Whether to enable LDAP                                                                 |
+| `grafana.ldap.host`                     | Hostname of LDAP server                                                                |
+| `grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                              |
+| `grafana.ldap.password`                 | Password of LDAP server                                                                |
+| `grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                                  |
+| `grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)          |
+| `grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)            |
+| `grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                    |
+
+### `gerritServers`
+
+Two types of Gerrit servers are currently supported, which require different
+configuration parameters:
+
+* Kubernetes \
+  Gerrit installations running in the same Kubernetes cluster as the monitoring
+  setup. Multiple replicas are supported and automatically discovered.
+
+| option                                       | description                                              |
+|----------------------------------------------|----------------------------------------------------------|
+| `gerritServers.kubernetes.[*].namespace`     | Namespace into which Gerrit was deployed                 |
+| `gerritServers.kubernetes.[*].label.name`    | Label name used to select deployments                    |
+| `gerritServers.kubernetes.[*].label.value`   | Label value to select deployments                        |
+| `gerritServers.kubernetes.[*].containerName` | Name of container in the pod that runs Gerrit            |
+| `gerritServers.kubernetes.[*].port`          | Container port to be used when scraping                  |
+| `gerritServers.kubernetes.[*].username`      | Username of Gerrit user with 'View Metrics' capabilities |
+| `gerritServers.kubernetes.[*].password`      | Password of Gerrit user with 'View Metrics' capabilities |
+
+* Other \
+  Gerrit installations with just one replica that can run anywhere, where they
+  are reachable via HTTP.
+
+| option                                         | description                                                                        |
+|------------------------------------------------|------------------------------------------------------------------------------------|
+| `gerritServers.other.[*].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
+| `gerritServers.other.[*].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.other.[*].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
+| `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
+
 
 ### Encryption
 
