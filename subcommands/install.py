@@ -96,8 +96,14 @@ def _create_promtail_configs(config, output_dir):
 
     os.remove(os.path.join(output_dir, "promtail.yaml"))
 
-    with open(os.path.join(output_dir, "promtail", "promtail.ca.crt"), "w") as f:
-        f.write(config["tls"]["caCert"])
+    if not config["tls"]["skipVerify"]:
+        try:
+            with open(
+                os.path.join(output_dir, "promtail", "promtail.ca.crt"), "w"
+            ) as f:
+                f.write(config["tls"]["caCert"])
+        except TypeError:
+            print("CA certificate for TLS verification has to be given.")
 
 
 def _download_promtail(output_dir):
