@@ -1,20 +1,20 @@
 #@ load("@ytt:data", "data")
 
-#@ for i in range(len(data.values.gerritServers)):
+#@ for i in range(len(data.values.gerritServers.other)):
 ---
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
 
 positions:
-  filename: #@ "{}/positions.yaml".format(data.values.gerritServers[i].promtail.storagePath)
+  filename: #@ "{}/positions.yaml".format(data.values.gerritServers.other[i].promtail.storagePath)
 
 clients:
   - url: #@ "https://{}/loki/api/v1/push".format(data.values.loki.host)
     tls_config:
       insecure_skip_verify: #@ data.values.tls.skipVerify
       #@ if not data.values.tls.skipVerify:
-      ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers[i].promtail.storagePath)
+      ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers.other[i].promtail.storagePath)
       #@ end
     basic_auth:
       username: #@ data.values.loki.username
@@ -26,8 +26,8 @@ scrape_configs:
       - localhost
     labels:
       job: gerrit_error
-      __path__: #@ "{}/error_log.json".format(data.values.gerritServers[i].promtail.logPath)
-      host: #@ data.values.gerritServers[i].host
+      __path__: #@ "{}/error_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
   - json:
@@ -57,8 +57,8 @@ scrape_configs:
     - localhost
     labels:
       job: gerrit_httpd
-      __path__: #@ "{}/httpd_log.json".format(data.values.gerritServers[i].promtail.logPath)
-      host: #@ data.values.gerritServers[i].host
+      __path__: #@ "{}/httpd_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
   - json:
@@ -76,8 +76,8 @@ scrape_configs:
     - localhost
     labels:
       job: gerrit_sshd
-      __path__: #@ "{}/sshd_log.json".format(data.values.gerritServers[i].promtail.logPath)
-      host: #@ data.values.gerritServers[i].host
+      __path__: #@ "{}/sshd_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
   - json:
