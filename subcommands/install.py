@@ -231,10 +231,12 @@ def install(config_manager, output_dir, dryrun, update_repo):
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
 
-    _create_promtail_configs(config, output_dir)
+    if os.path.exists(os.path.join(output_dir, "promtail.yaml")):
+        _create_promtail_configs(config, output_dir)
+        if not dryrun:
+            _download_promtail(output_dir)
 
     if not dryrun:
-        _download_promtail(output_dir)
         if update_repo:
             _update_helm_repos()
         _deploy_loose_resources(output_dir)

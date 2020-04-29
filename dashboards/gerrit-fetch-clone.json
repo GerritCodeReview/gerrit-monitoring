@@ -60,7 +60,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(git_upload_pack_request_count_CLONE_total{instance=\"$instance\"}[2m])/2",
+          "expr": "increase(git_upload_pack_request_count_CLONE_total{instance=\"$instance\",replica=\"$replica\"}[2m])/2",
           "legendFormat": "clone",
           "refId": "A"
         }
@@ -149,7 +149,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "increase(git_upload_pack_request_count_FETCH_total{instance=\"$instance\"}[2m])/2",
+          "expr": "increase(git_upload_pack_request_count_FETCH_total{instance=\"$instance\",replica=\"$replica\"}[2m])/2",
           "legendFormat": "fetch",
           "refId": "A"
         }
@@ -253,7 +253,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "git_upload_pack_pack_bytes_CLONE{instance=\"$instance\"}",
+          "expr": "git_upload_pack_pack_bytes_CLONE{instance=\"$instance\",replica=\"$replica\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "quantile: {{quantile}}",
@@ -360,7 +360,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "git_upload_pack_pack_bytes_FETCH{instance=\"$instance\"}",
+          "expr": "git_upload_pack_pack_bytes_FETCH{instance=\"$instance\",replica=\"$replica\"}",
           "legendFormat": "quantile: {{quantile}}",
           "refId": "A"
         }
@@ -429,6 +429,31 @@
         "name": "instance",
         "options": [],
         "query": "label_values(git_upload_pack_phase_writing_total, instance)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(git_upload_pack_phase_writing_total, replica)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Replica",
+        "multi": false,
+        "name": "replica",
+        "options": [],
+        "query": "label_values(git_upload_pack_phase_writing_total, replica)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
