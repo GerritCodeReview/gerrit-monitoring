@@ -1,4 +1,14 @@
 gerritServers:
+  kubernetes:
+  - namespace: default
+    label:
+      name: app
+      value: gerrit-slave
+    containerName: gerrit-slave
+    port: 8080
+    username: admin
+    password: secret
+  other:
   - host: gerrit.example.com
     username: admin
     password: secret
