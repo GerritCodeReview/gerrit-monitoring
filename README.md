@@ -10,9 +10,10 @@ The setup is provided as a helm chart. It can be installed using Helm
 The charts used in this setup are the chart provided in the open source and can be
 found on GitHub:
 
-- [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
 - [Grafana](https://github.com/helm/charts/tree/master/stable/grafana)
 - [Loki](https://github.com/grafana/loki/tree/master/production/helm/loki)
+- [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
+- [Promtail](https://github.com/grafana/loki/tree/master/production/helm/promtail)
 
 This project just provides `values.yaml`-files that are already configured to
 work with the `metrics-reporter-prometheus`-plugin of Gerrit to make the setup
