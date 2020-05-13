@@ -101,7 +101,8 @@ downloadDashboards:
 # podAnnotations: {}
 
 ## Pod Labels
-# podLabels: {}
+podLabels:
+  app: grafana
 
 podPortName: grafana
 
