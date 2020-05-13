@@ -26,6 +26,7 @@ from ._globals import HELM_CHARTS
 TEMPLATES = [
     "charts/namespace.yaml",
     "charts/prometheus",
+    "charts/promtail",
     "charts/loki",
     "charts/grafana",
     "promtail",
@@ -79,7 +80,7 @@ def _create_promtail_configs(config, output_dir):
     if not os.path.exists(os.path.join(output_dir, "promtail")):
         os.mkdir(os.path.join(output_dir, "promtail"))
 
-    with open(os.path.join(output_dir, "promtail.yaml")) as f:
+    with open(os.path.join(output_dir, "promtailLocalConfig.yaml")) as f:
         for promtail_config in yaml.load_all(f, Loader=yaml.SafeLoader):
             with open(
                 os.path.join(
@@ -94,7 +95,7 @@ def _create_promtail_configs(config, output_dir):
             ) as f:
                 yaml.dump(promtail_config, f)
 
-    os.remove(os.path.join(output_dir, "promtail.yaml"))
+    os.remove(os.path.join(output_dir, "promtailLocalConfig.yaml"))
 
     if not config["tls"]["skipVerify"]:
         try:
@@ -231,7 +232,7 @@ def install(config_manager, output_dir, dryrun, update_repo):
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
 
-    if os.path.exists(os.path.join(output_dir, "promtail.yaml")):
+    if os.path.exists(os.path.join(output_dir, "promtailLocalConfig.yaml")):
         _create_promtail_configs(config, output_dir)
         if not dryrun:
             _download_promtail(output_dir)
