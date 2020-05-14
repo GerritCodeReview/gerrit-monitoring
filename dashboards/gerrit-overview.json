@@ -18,13 +18,153 @@
   "links": [],
   "panels": [
     {
+      "columns": [],
+      "datasource": "Prometheus",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 48,
+      "pageSize": null,
+      "showHeader": true,
+      "sort": {
+        "col": 1,
+        "desc": true
+      },
+      "styles": [
+        {
+          "$$hashKey": "object:289",
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "$$hashKey": "object:557",
+          "alias": "Gerrit version",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "version",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:955",
+          "alias": "Java version",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "javaversion",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:976",
+          "alias": "Gerrit revision",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkUrl": "https://gerrit.googlesource.com/gerrit/+/${__cell:raw}",
+          "mappingType": 1,
+          "pattern": "revision",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:1249",
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "$$hashKey": "object:1278",
+          "alias": "Gerrit instance",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "link": true,
+          "linkTargetBlank": true,
+          "linkTooltip": "Link to the gerrit instance",
+          "linkUrl": "https://${__cell:raw}",
+          "mappingType": 1,
+          "pattern": "instance",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "max(gerrit_build_info{instance=\"$instance\",replica=\"$replica\"}) by (instance, version, revision, javaversion)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Gerrit Version",
+      "transform": "table",
+      "type": "table"
+    },
+    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 4
       },
       "id": 46,
       "panels": [],
@@ -38,7 +178,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 1
+        "y": 5
       },
       "id": 19,
       "links": [],
@@ -89,7 +229,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.6.2",
+      "pluginVersion": "6.7.1",
       "targets": [
         {
           "expr": "(rate(proc_cpu_usage{instance=\"$instance\"}[5m])/proc_cpu_num_cores{instance=\"$instance\"})*100",
@@ -108,7 +248,7 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 1
+        "y": 5
       },
       "id": 20,
       "links": [],
@@ -159,7 +299,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.6.2",
+      "pluginVersion": "6.7.1",
       "targets": [
         {
           "expr": "(proc_jvm_memory_heap_used{instance=\"$instance\"}/proc_jvm_memory_heap_committed{instance=\"$instance\"})*100",
@@ -178,7 +318,7 @@
         "h": 6,
         "w": 8,
         "x": 16,
-        "y": 1
+        "y": 5
       },
       "id": 40,
       "links": [],
@@ -209,7 +349,7 @@
         "orientation": "vertical",
         "showUnfilled": true
       },
-      "pluginVersion": "6.6.2",
+      "pluginVersion": "6.7.1",
       "targets": [
         {
           "expr": "proc_jvm_thread_num_daemon_live{instance=\"$instance\"}",
@@ -239,7 +379,7 @@
         "h": 6,
         "w": 8,
         "x": 0,
-        "y": 7
+        "y": 11
       },
       "id": 11,
       "links": [],
@@ -277,7 +417,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.6.2",
+      "pluginVersion": "6.7.1",
       "targets": [
         {
           "expr": "http_server_rest_api_server_latency_total{quantile=\"0.99\", instance=\"$instance\"}",
@@ -299,7 +439,7 @@
         "h": 6,
         "w": 8,
         "x": 8,
-        "y": 7
+        "y": 11
       },
       "id": 13,
       "links": [],
@@ -350,7 +490,7 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.6.2",
+      "pluginVersion": "6.7.1",
       "targets": [
         {
           "expr": "(increase(http_server_error_count_total_total{instance=\"$instance\"}[5m]) - increase(http_server_error_count_404_total{instance=\"$instance\"}[5m]) - increase(http_server_error_count_401_total{instance=\"$instance\"}[5m])) / (increase(http_server_success_count_total_total{instance=\"$instance\"}[5m]) + increase(http_server_error_count_total_total{instance=\"$instance\"}[5m]) - increase(http_server_error_count_404_total{instance=\"$instance\"}[5m]) - increase(http_server_error_count_401_total{instance=\"$instance\"}[5m]))*100",
@@ -363,102 +503,12 @@
       "type": "gauge"
     },
     {
-      "aliasColors": {},
-      "bars": true,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "LokiPromQL",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 13
-      },
-      "hiddenSeries": false,
-      "id": 48,
-      "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "rightSide": false,
-        "show": true,
-        "sideWidth": 500,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "dataLinks": []
-      },
-      "percentage": false,
-      "pointradius": 10,
-      "points": true,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "count_over_time({job=\"gerrit_error\",host=\"$instance\"} |~ \"Gerrit Code Review .* ready\" [2m])",
-          "legendFormat": "{{gerrit_version}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Gerrit Version Deployment",
-      "tooltip": {
-        "shared": false,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 17
       },
       "id": 44,
       "title": "",
@@ -477,7 +527,7 @@
         "h": 9,
         "w": 18,
         "x": 0,
-        "y": 21
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 39,
@@ -578,7 +628,7 @@
         "h": 9,
         "w": 6,
         "x": 18,
-        "y": 21
+        "y": 18
       },
       "id": 42,
       "interval": null,
@@ -597,7 +647,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "postfix": "",
       "postfixFontSize": "50%",
       "prefix": "",
@@ -654,7 +703,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 27
       },
       "hiddenSeries": false,
       "id": 2,
@@ -900,7 +949,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 37
       },
       "hiddenSeries": false,
       "id": 9,
@@ -1059,7 +1108,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 37
       },
       "hiddenSeries": false,
       "id": 41,
@@ -1202,5 +1251,5 @@
   "timezone": "",
   "title": "Gerrit Overview",
   "uid": "uXZMn9PWz",
-  "version": 14
+  "version": 15
 }
