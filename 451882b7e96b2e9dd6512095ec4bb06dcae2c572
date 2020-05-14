@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33aa9dd4_363627e9",
+        "filename": "dashboards/gerrit-caches.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-05-14T16:26:14Z",
+      "side": 1,
+      "message": "we don\u0027t need \n\n replica\u003d\\\"$replica\\\" \n\nhere ?",
+      "range": {
+        "startLine": 666,
+        "startChar": 97,
+        "endLine": 666,
+        "endChar": 104
+      },
+      "revId": "451882b7e96b2e9dd6512095ec4bb06dcae2c572",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
