@@ -130,6 +130,62 @@ scrapeConfigs:
       - __meta_kubernetes_pod_uid
       - __meta_kubernetes_pod_container_name
       target_label: __path__
+  #@ for gerrit in data.values.gerritServers.kubernetes:
+  - job_name: #@ "kubernetes-pods-gerrit-{}".format(gerrit.namespace)
+    pipeline_stages:
+    - docker: {}
+    kubernetes_sd_configs:
+    - role: pod
+    relabel_configs:
+    - action: labeldrop
+      regex: '__meta_kubernetes_pod_label_pod_template_.*'
+    - source_labels:
+      - __meta_kubernetes_pod_label_name
+      target_label: __service__
+    - source_labels:
+      - __meta_kubernetes_pod_node_name
+      target_label: __host__
+    - action: labelmap
+      regex: __meta_kubernetes_pod_label_(.+)
+    - action: replace
+      replacement: $1
+      separator: /
+      source_labels:
+      - __meta_kubernetes_namespace
+      - __meta_kubernetes_pod_label_app
+      - __service__
+      target_label: job
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_namespace
+      target_label: namespace
+    - action: keep
+      regex: #@ gerrit.namespace
+      source_labels:
+      - namespace
+    - source_labels:
+      - #@ "__meta_kubernetes_pod_label_{}".format(gerrit.label.name)
+      regex: #@ gerrit.label.value
+      action: keep
+    - action: replace
+      source_labels:
+      - release
+      target_label: chart_release
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_pod_name
+      target_label: instance
+    - action: replace
+      source_labels:
+      - __meta_kubernetes_pod_container_name
+      target_label: container_name
+    - replacement: /var/log/pods/*$1/*.log
+      separator: /
+      source_labels:
+      - __meta_kubernetes_pod_uid
+      - __meta_kubernetes_pod_container_name
+      target_label: __path__
+  #@ end
 
 # Custom scrape_configs together with the default ones in the configmap
 extraScrapeConfigs: []
