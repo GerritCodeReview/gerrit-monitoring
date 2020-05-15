@@ -22,6 +22,30 @@
       "revId": "451882b7e96b2e9dd6512095ec4bb06dcae2c572",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "901c80ae_2d1a8767",
+        "filename": "dashboards/gerrit-caches.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-05-15T07:21:27Z",
+      "side": 1,
+      "message": "This is the part, where Grafana gets the values for the replica variable, so it does not make sense to add the label filter here.",
+      "parentUuid": "33aa9dd4_363627e9",
+      "range": {
+        "startLine": 666,
+        "startChar": 97,
+        "endLine": 666,
+        "endChar": 104
+      },
+      "revId": "451882b7e96b2e9dd6512095ec4bb06dcae2c572",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
