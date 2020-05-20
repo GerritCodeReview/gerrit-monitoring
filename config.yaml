@@ -19,47 +19,49 @@ namespace: namespace
 tls:
   skipVerify: true
   caCert:
-prometheus:
-  server:
-    host: prometheus.example.com
-    username:
-    password:
+monitoring:
+  prometheus:
+    server:
+      host: prometheus.example.com
+      username:
+      password:
+      tls:
+        cert:
+        key:
+    alertmanager:
+      slack:
+        apiUrl: https://hooks.slack.com/services/xxx/xxx
+        channel: '#alerts'
+  grafana:
+    host: grafana.example.com
     tls:
       cert:
       key:
-  alertmanager:
-    slack:
-      apiUrl: https://hooks.slack.com/services/xxx/xxx
-      channel: '#alerts'
-loki:
-  host: loki.example.com
-  username:
-  password:
-  s3:
-    protocol: https
-    host: s3.eu-de-1.example.com
-    accessToken: abcd
-    secret: "1234"
-    bucket: bucket
-    region: eu-de-1
-  tls:
-    cert:
-    key:
-grafana:
-  host: grafana.example.com
-  tls:
-    cert:
-    key:
-  admin:
-    username: admin
-    password: secret
-  ldap:
-    enabled: false
-    host:
-    port: ""
+    admin:
+      username: admin
+      password: secret
+    ldap:
+      enabled: false
+      host:
+      port: ""
+      password:
+      bind_dn:
+      accountBases: "[]"
+      groupBases: "[]"
+    dashboards:
+      editable: false
+logging:
+  loki:
+    host: loki.example.com
+    username:
     password:
-    bind_dn:
-    accountBases: "[]"
-    groupBases: "[]"
-  dashboards:
-    editable: false
+    s3:
+      protocol: https
+      host: s3.eu-de-1.example.com
+      accessToken: abcd
+      secret: "1234"
+      bucket: bucket
+      region: eu-de-1
+    tls:
+      cert:
+      key:

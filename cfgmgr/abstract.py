@@ -26,8 +26,8 @@ class AbstractConfigManager(abc.ABC):
         self.config_path = config_path
 
         self.requires_htpasswd = [
-            ["loki"],
-            ["prometheus", "server"],
+            ["logging", "loki"],
+            ["monitoring", "prometheus", "server"],
         ]
 
     def get_config(self):

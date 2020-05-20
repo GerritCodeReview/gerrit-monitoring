@@ -2,18 +2,18 @@
 (@ def format_ldap_toml(): -@)
 [[servers]]
 
-host = "(@= data.values.grafana.ldap.host @)"
-port = (@= data.values.grafana.ldap.port @)
+host = "(@= data.values.monitoring.grafana.ldap.host @)"
+port = (@= data.values.monitoring.grafana.ldap.port @)
 use_ssl = true
 start_tls = false
 ssl_skip_verify = (@= "{}".format(data.values.tls.skipVerify).lower() @)
 root_ca_cert = "/etc/secrets/server.ca.crt"
-bind_dn = "(@= data.values.grafana.ldap.bind_dn @)"
-bind_password = "(@= data.values.grafana.ldap.password @)"
+bind_dn = "(@= data.values.monitoring.grafana.ldap.bind_dn @)"
+bind_password = "(@= data.values.monitoring.grafana.ldap.password @)"
 search_filter = "(cn=%s)"
-search_base_dns = (@= data.values.grafana.ldap.accountBases @)
+search_base_dns = (@= data.values.monitoring.grafana.ldap.accountBases @)
 group_search_filter = "(cn=%s)"
-group_search_base_dns = (@= data.values.grafana.ldap.groupBases @)
+group_search_base_dns = (@= data.values.monitoring.grafana.ldap.groupBases @)
 
 [[servers.group_mappings]]
 group_dn = "*"
