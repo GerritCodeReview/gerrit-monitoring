@@ -226,6 +226,10 @@ def install(config_manager, output_dir, dryrun, update_repo):
         update_repo {boolean} -- Whether to update the helm repositories locally
     """
     config = config_manager.get_config()
+
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
     _run_ytt(config, output_dir)
 
     namespace = config_manager.get_config()["namespace"]
