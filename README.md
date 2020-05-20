@@ -77,43 +77,43 @@ setup, some configuration is highly dependent on the specific installation.
 These options have to be configured in the `./config.yaml` before installing and
 are listed here:
 
-| option                                  | description                                                                            |
-|-----------------------------------------|----------------------------------------------------------------------------------------|
-| `gerritServers`                         | List of Gerrit servers to scrape. For details refer to section [below](#gerritServers) |
-| `namespace`                             | The namespace the charts are installed to                                              |
-| `tls.skipVerify`                        | Whether to skip TLS certificate verification                                           |
-| `tls.caCert`                            | CA certificate used for TLS certificate verification                                   |
-| `prometheus.server.host`                | Prometheus server ingress hostname                                                     |
-| `prometheus.server.username`            | Username for Prometheus                                                                |
-| `prometheus.server.password`            | Password for Prometheus                                                                |
-| `prometheus.server.tls.cert`            | TLS certificate                                                                        |
-| `prometheus.server.tls.key`             | TLS key                                                                                |
-| `prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                           |
-| `prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                           |
-| `loki.host`                             | Loki ingress hostname                                                                  |
-| `loki.username`                         | Username for Loki                                                                      |
-| `loki.password`                         | Password for Loki                                                                      |
-| `loki.s3.protocol`                      | Protocol used for communicating with S3                                                |
-| `loki.s3.host`                          | Hostname of the S3 object store                                                        |
-| `loki.s3.accessToken`                   | The EC2 accessToken used for authentication with S3                                    |
-| `loki.s3.secret`                        | The secret associated with the accessToken                                             |
-| `loki.s3.bucket`                        | The name of the S3 bucket                                                              |
-| `loki.s3.region`                        | The region in which the S3 bucket is hosted                                            |
-| `loki.tls.cert`                         | TLS certificate                                                                        |
-| `loki.tls.key`                          | TLS key                                                                                |
-| `grafana.host`                          | Grafana ingress hostname                                                               |
-| `grafana.tls.cert`                      | TLS certificate                                                                        |
-| `grafana.tls.key`                       | TLS key                                                                                |
-| `grafana.admin.username`                | Username for the admin user                                                            |
-| `grafana.admin.password`                | Password for the admin user                                                            |
-| `grafana.ldap.enabled`                  | Whether to enable LDAP                                                                 |
-| `grafana.ldap.host`                     | Hostname of LDAP server                                                                |
-| `grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                              |
-| `grafana.ldap.password`                 | Password of LDAP server                                                                |
-| `grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                                  |
-| `grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)          |
-| `grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)            |
-| `grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                    |
+| option                                             | description                                                                            |
+|----------------------------------------------------|----------------------------------------------------------------------------------------|
+| `gerritServers`                                    | List of Gerrit servers to scrape. For details refer to section [below](#gerritServers) |
+| `namespace`                                        | The namespace the charts are installed to                                              |
+| `tls.skipVerify`                                   | Whether to skip TLS certificate verification                                           |
+| `tls.caCert`                                       | CA certificate used for TLS certificate verification                                   |
+| `monitoring.prometheus.server.host`                | Prometheus server ingress hostname                                                     |
+| `monitoring.prometheus.server.username`            | Username for Prometheus                                                                |
+| `monitoring.prometheus.server.password`            | Password for Prometheus                                                                |
+| `monitoring.prometheus.server.tls.cert`            | TLS certificate                                                                        |
+| `monitoring.prometheus.server.tls.key`             | TLS key                                                                                |
+| `monitoring.prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                           |
+| `monitoring.prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                           |
+| `monitoring.grafana.host`                          | Grafana ingress hostname                                                               |
+| `monitoring.grafana.tls.cert`                      | TLS certificate                                                                        |
+| `monitoring.grafana.tls.key`                       | TLS key                                                                                |
+| `monitoring.grafana.admin.username`                | Username for the admin user                                                            |
+| `monitoring.grafana.admin.password`                | Password for the admin user                                                            |
+| `monitoring.grafana.ldap.enabled`                  | Whether to enable LDAP                                                                 |
+| `monitoring.grafana.ldap.host`                     | Hostname of LDAP server                                                                |
+| `monitoring.grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                              |
+| `monitoring.grafana.ldap.password`                 | Password of LDAP server                                                                |
+| `monitoring.grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                                  |
+| `monitoring.grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)          |
+| `monitoring.grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)            |
+| `monitoring.grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                    |
+| `logging.loki.host`                                | Loki ingress hostname                                                                  |
+| `logging.loki.username`                            | Username for Loki                                                                      |
+| `logging.loki.password`                            | Password for Loki                                                                      |
+| `logging.loki.s3.protocol`                         | Protocol used for communicating with S3                                                |
+| `logging.loki.s3.host`                             | Hostname of the S3 object store                                                        |
+| `logging.loki.s3.accessToken`                      | The EC2 accessToken used for authentication with S3                                    |
+| `logging.loki.s3.secret`                           | The secret associated with the accessToken                                             |
+| `logging.loki.s3.bucket`                           | The name of the S3 bucket                                                              |
+| `logging.loki.s3.region`                           | The region in which the S3 bucket is hosted                                            |
+| `logging.loki.tls.cert`                            | TLS certificate                                                                        |
+| `logging.loki.tls.key`                             | TLS key                                                                                |
 
 ### `gerritServers`
 

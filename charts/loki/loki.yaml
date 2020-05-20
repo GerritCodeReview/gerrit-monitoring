@@ -14,13 +14,13 @@ ingress:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: #@ data.values.loki.host
+    - host: #@ data.values.logging.loki.host
       paths:
         - /
   tls:
     - secretName: loki-server-tls
       hosts:
-        - #@ data.values.loki.host
+        - #@ data.values.logging.loki.host
 
 ## Affinity for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -87,7 +87,7 @@ config:
     boltdb:
       directory: /data/loki/index
     aws:
-      s3: #@ "{}://{}:{}@{}/{}".format(data.values.loki.s3.protocol, data.values.loki.s3.accessToken, data.values.loki.s3.secret, data.values.loki.s3.host, data.values.loki.s3.bucket)
+      s3: #@ "{}://{}:{}@{}/{}".format(data.values.logging.loki.s3.protocol, data.values.logging.loki.s3.accessToken, data.values.logging.loki.s3.secret, data.values.logging.loki.s3.host, data.values.logging.loki.s3.bucket)
       s3forcepathstyle: true
   chunk_store_config:
     max_look_back_period: 0
@@ -243,4 +243,4 @@ extraPorts: []
 # Extra env variables to pass to the loki container
 env:
 - name: AWS_REGION
-  value: #@ data.values.loki.s3.region
+  value: #@ data.values.logging.loki.s3.region
