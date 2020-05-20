@@ -10,15 +10,15 @@ positions:
   filename: #@ "{}/positions.yaml".format(data.values.gerritServers.other[i].promtail.storagePath)
 
 clients:
-  - url: #@ "https://{}/loki/api/v1/push".format(data.values.loki.host)
+  - url: #@ "https://{}/loki/api/v1/push".format(data.values.logging.loki.host)
     tls_config:
       insecure_skip_verify: #@ data.values.tls.skipVerify
       #@ if not data.values.tls.skipVerify:
       ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers.other[i].promtail.storagePath)
       #@ end
     basic_auth:
-      username: #@ data.values.loki.username
-      password: #@ data.values.loki.password
+      username: #@ data.values.logging.loki.username
+      password: #@ data.values.logging.loki.password
 scrape_configs:
 - job_name: gerrit_error
   static_configs:
