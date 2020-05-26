@@ -13,6 +13,7 @@ found on GitHub:
 - [Elasticsearch](https://github.com/elastic/helm-charts/tree/master/elasticsearch)
 - [Fluent-Bit](https://github.com/helm/charts/tree/master/stable/fluent-bit)
 - [Grafana](https://github.com/helm/charts/tree/master/stable/grafana)
+- [Kibana](https://github.com/elastic/helm-charts/tree/master/kibana)
 - [Loki](https://github.com/grafana/loki/tree/master/production/helm/loki)
 - [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
 - [Promtail](https://github.com/grafana/loki/tree/master/production/helm/promtail)
@@ -122,6 +123,12 @@ are listed here:
 | `logging.elasticsearch.password`                   | Password for Elasticsearch                                                             |
 | `logging.elasticsearch.tls.cert`                   | TLS certificate                                                                        |
 | `logging.elasticsearch.tls.key`                    | TLS key                                                                                |
+| `logging.kibana.enabled`                           | Whether to install Kibana (Logs will always be viewable in Grafana)                    |
+| `logging.kibana.host`                              | Kibana ingress hostname                                                                |
+| `logging.kibana.username`                          | Username for Kibana                                                                    |
+| `logging.kibana.password`                          | Password for Kibana                                                                    |
+| `logging.kibana.tls.cert`                          | TLS certificate                                                                        |
+| `logging.kibana.tls.key`                           | TLS key                                                                                |
 
 ### `gerritServers`
 

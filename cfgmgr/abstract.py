@@ -45,6 +45,8 @@ class AbstractConfigManager(abc.ABC):
             requires_htpasswd.append(["logging", "loki"])
         elif config["logging"]["stack"] == "EFK":
             requires_htpasswd.append(["logging", "elasticsearch"])
+            if config["logging"]["kibana"]["enabled"]:
+                requires_htpasswd.append(["logging", "kibana"])
         else:
             raise ValueError("Unknown logging stack.")
 

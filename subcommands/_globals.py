@@ -25,6 +25,7 @@ PLG_HELM_CHARTS = {
 EFK_HELM_CHARTS = {
     "elasticsearch": "elastic/elasticsearch",
     "fluentbit": "stable/fluent-bit",
+    "kibana": "elastic/kibana",
 }
 
 
@@ -45,5 +46,7 @@ def get_helm_charts(config):
         charts.update(PLG_HELM_CHARTS)
     elif logging_stack == "EFK":
         charts.update(EFK_HELM_CHARTS)
+        if not config["logging"]["kibana"]["enabled"]:
+            charts.pop("kibana")
 
     return charts
