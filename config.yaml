@@ -51,6 +51,7 @@ monitoring:
     dashboards:
       editable: false
 logging:
+  stack: PLG
   loki:
     host: loki.example.com
     username:
@@ -62,6 +63,13 @@ logging:
       secret: "1234"
       bucket: bucket
       region: eu-de-1
+    tls:
+      cert:
+      key:
+  elasticsearch:
+    host: es.example.com
+    username:
+    password:
     tls:
       cert:
       key:

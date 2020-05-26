@@ -304,6 +304,7 @@ datasources:
       url: #@ "http://prometheus-{}-server.{}.svc.cluster.local".format(data.values.namespace, data.values.namespace)
       access: proxy
       isDefault: true
+    #@ if data.values.logging.stack == "PLG":
     - name: LokiLogQL
       type: loki
       url: #@ "http://loki-{}.{}.svc.cluster.local:3100".format(data.values.namespace, data.values.namespace)
@@ -316,6 +317,20 @@ datasources:
       url: #@ "http://loki-{}.{}.svc.cluster.local:3100/loki".format(data.values.namespace, data.values.namespace)
       access: proxy
       isDefault: false
+    #@ elif data.values.logging.stack == "EFK":
+    - name: Elasticsearch
+      type: elasticsearch
+      url: #@ "http://elasticsearch-{}-master.{}.svc.cluster.local:9200".format(data.values.namespace, data.values.namespace)
+      access: proxy
+      isDefault: false
+      database: "[kubernetes_cluster-]YYYY.MM.DD"
+      jsonData:
+        interval: Daily
+        timeField: "@timestamp"
+        esVersion: 70
+        logMessageField: log
+        logLevelField: fields.level
+    #@ end
 
 ## Configure notifiers
 ## ref: http://docs.grafana.org/administration/provisioning/#alert-notification-channels

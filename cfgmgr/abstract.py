@@ -25,11 +25,6 @@ class AbstractConfigManager(abc.ABC):
     def __init__(self, config_path):
         self.config_path = config_path
 
-        self.requires_htpasswd = [
-            ["logging", "loki"],
-            ["monitoring", "prometheus", "server"],
-        ]
-
     def get_config(self):
         """Parse the configuration and return it as a dictionary.
 
@@ -38,21 +33,32 @@ class AbstractConfigManager(abc.ABC):
               from the file
         """
 
-        config = self._parse()
-        for component in self.requires_htpasswd:
-            section = config
-            for i in component:
-                section = section[i]
-            section["htpasswd"] = self._create_htpasswd_entry(
-                section["username"], section["password"]
-            )
-        return config
+        return self._create_htpasswd_entries(self._parse())
 
     @staticmethod
-    def _create_htpasswd_entry(username, password):
-        htpasswd = HtpasswdFile()
-        htpasswd.set_password(username, password)
-        return htpasswd.to_string()[:-1]
+    def _create_htpasswd_entries(config):
+        requires_htpasswd = [
+            ["monitoring", "prometheus", "server"],
+        ]
+
+        if config["logging"]["stack"] == "PLG":
+            requires_htpasswd.append(["logging", "loki"])
+        elif config["logging"]["stack"] == "EFK":
+            requires_htpasswd.append(["logging", "elasticsearch"])
+        else:
+            raise ValueError("Unknown logging stack.")
+
+        for component in requires_htpasswd:
+            try:
+                section = config
+                for i in component:
+                    section = section[i]
+                htpasswd = HtpasswdFile()
+                htpasswd.set_password(section["username"], section["password"])
+                section["htpasswd"] = htpasswd.to_string()[:-1]
+            except KeyError:
+                continue
+        return config
 
     @abc.abstractmethod
     def _parse(self):
