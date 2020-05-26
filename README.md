@@ -2,7 +2,7 @@
 
 This project provides a setup for monitoring Gerrit instances. The setup is
 based on Prometheus and Grafana running in Kubernetes. In addition, logging will
-be provided by Grafana Loki.
+be provided by Grafana Loki or FLuent-Bit and Elasticsearch.
 
 The setup is provided as a helm chart. It can be installed using Helm
 (This README expects Helm version 3.0 or higher).
@@ -10,6 +10,8 @@ The setup is provided as a helm chart. It can be installed using Helm
 The charts used in this setup are the chart provided in the open source and can be
 found on GitHub:
 
+- [Elasticsearch](https://github.com/elastic/helm-charts/tree/master/elasticsearch)
+- [Fluent-Bit](https://github.com/helm/charts/tree/master/stable/fluent-bit)
 - [Grafana](https://github.com/helm/charts/tree/master/stable/grafana)
 - [Loki](https://github.com/grafana/loki/tree/master/production/helm/loki)
 - [Prometheus](https://github.com/helm/charts/tree/master/stable/prometheus)
@@ -58,7 +60,7 @@ addition persistent storage of about 30 GB will be used.
 The charts currently expect a Nginx ingress controller to be installed in the
 cluster.
 
-- Object store \
+- Object store (only when using PLG stack) \
 Loki will store the data chunks in an object store. This store has to be callable
 via the S3 API.
 
@@ -103,6 +105,7 @@ are listed here:
 | `monitoring.grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)          |
 | `monitoring.grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)            |
 | `monitoring.grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                    |
+| `logging.stack`                                    | WHich logging stack should be used (either `PLG` or `EFK`)                             |
 | `logging.loki.host`                                | Loki ingress hostname                                                                  |
 | `logging.loki.username`                            | Username for Loki                                                                      |
 | `logging.loki.password`                            | Password for Loki                                                                      |
@@ -114,6 +117,11 @@ are listed here:
 | `logging.loki.s3.region`                           | The region in which the S3 bucket is hosted                                            |
 | `logging.loki.tls.cert`                            | TLS certificate                                                                        |
 | `logging.loki.tls.key`                             | TLS key                                                                                |
+| `logging.elasticsearch.host`                       | Elasticsearch ingress hostname                                                         |
+| `logging.elasticsearch.username`                   | Username for Elasticsearch                                                             |
+| `logging.elasticsearch.password`                   | Password for Elasticsearch                                                             |
+| `logging.elasticsearch.tls.cert`                   | TLS certificate                                                                        |
+| `logging.elasticsearch.tls.key`                    | TLS key                                                                                |
 
 ### `gerritServers`
 
@@ -207,29 +215,6 @@ JSON-format. This can be configured by setting `log.jsonLogging = true` in the
 `gerrit.config`.
 
 ## Uninstallation
-
-To remove the Prometheus chart from the cluster, run
-
-```sh
-helm uninstall prometheus --namespace $NAMESPACE
-helm uninstall loki --namespace $NAMESPACE
-helm uninstall grafana --namespace $NAMESPACE
-kubectl delete -f ./dist/configuration
-```
-
-To also release the volumes, run
-
-```sh
-kubectl delete -f ./dist/storage
-```
-
-NOTE: Doing so, all data, which was not backed up will be lost!
-
-Remove the namespace:
-
-```sh
-kubectl delete -f ./dist/namespace.yaml
-```
 
 The `./gerrit-monitoring.py uninstall`-script will automatically remove the
 charts installed in the configured namespace and delete the namespace as well:
