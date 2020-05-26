@@ -73,3 +73,11 @@ logging:
     tls:
       cert:
       key:
+  kibana:
+    enabled: false
+    host: kibana.example.com
+    username:
+    password:
+    tls:
+      cert:
+      key:
