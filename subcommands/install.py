@@ -38,6 +38,7 @@ PLG_TEMPLATES = [
 EFK_TEMPLATES = [
     "charts/elasticsearch",
     "charts/fluentbit",
+    "charts/kibana",
 ]
 
 HELM_REPOS = {
@@ -154,6 +155,9 @@ def _run_ytt(config, output_dir):
     logging_templates = (
         PLG_TEMPLATES if config["logging"]["stack"] == "PLG" else EFK_TEMPLATES
     )
+
+    if not config["logging"]["kibana"]["enabled"]:
+        logging_templates.remove("charts/kibana")
 
     for template in TEMPLATES + logging_templates:
         command += ["-f", template]
