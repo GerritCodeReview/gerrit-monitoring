@@ -14,7 +14,36 @@
 
 HELM_CHARTS = {
     "grafana": "stable/grafana",
-    "loki": "loki/loki",
     "prometheus": "stable/prometheus",
+}
+
+PLG_HELM_CHARTS = {
+    "loki": "loki/loki",
     "promtail": "loki/promtail",
 }
+
+EFK_HELM_CHARTS = {
+    "elasticsearch": "elastic/elasticsearch",
+    "fluentbit": "stable/fluent-bit",
+}
+
+
+def get_helm_charts(config):
+    """Return charts that are part of the configuration.
+
+    Arguments:
+        config {dict} -- Configuration of the monitoring setup
+
+    Returns:
+        dict -- Helm charts that are part of the configured monitoring setup
+    """
+    charts = HELM_CHARTS.copy()
+
+    logging_stack = config["logging"]["stack"]
+
+    if logging_stack == "PLG":
+        charts.update(PLG_HELM_CHARTS)
+    elif logging_stack == "EFK":
+        charts.update(EFK_HELM_CHARTS)
+
+    return charts

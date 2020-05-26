@@ -20,19 +20,28 @@ import zipfile
 import requests
 import yaml
 
-from ._globals import HELM_CHARTS
+from ._globals import get_helm_charts
 
 
 TEMPLATES = [
     "charts/namespace.yaml",
     "charts/prometheus",
-    "charts/promtail",
-    "charts/loki",
     "charts/grafana",
+]
+
+PLG_TEMPLATES = [
+    "charts/loki",
+    "charts/promtail",
     "promtail",
 ]
 
+EFK_TEMPLATES = [
+    "charts/elasticsearch",
+    "charts/fluentbit",
+]
+
 HELM_REPOS = {
+    "elastic": "https://helm.elastic.co",
     "stable": "https://kubernetes-charts.storage.googleapis.com",
     "loki": "https://grafana.github.io/loki/charts",
 }
@@ -142,7 +151,11 @@ def _run_ytt(config, output_dir):
         "ytt",
     ]
 
-    for template in TEMPLATES:
+    logging_templates = (
+        PLG_TEMPLATES if config["logging"]["stack"] == "PLG" else EFK_TEMPLATES
+    )
+
+    for template in TEMPLATES + logging_templates:
         command += ["-f", template]
 
     command += [
@@ -189,10 +202,10 @@ def _get_installed_charts_in_namespace(namespace):
     return subprocess.check_output(command).decode("utf-8").split("\n")
 
 
-def _install_or_update_charts(output_dir, namespace):
+def _install_or_update_charts(config, output_dir, namespace):
     installed_charts = _get_installed_charts_in_namespace(namespace)
     charts_path = os.path.abspath("./charts")
-    for chart, repo in HELM_CHARTS.items():
+    for chart, repo in get_helm_charts(config).items():
         chart_name = chart + "-" + namespace
         with open(f"{charts_path}/{chart}/VERSION", "r") as f:
             chart_version = f.readlines()[0].strip()
@@ -236,7 +249,9 @@ def install(config_manager, output_dir, dryrun, update_repo):
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
 
-    if os.path.exists(os.path.join(output_dir, "promtailLocalConfig.yaml")):
+    if config["logging"]["stack"] == "PLG" and os.path.exists(
+        os.path.join(output_dir, "promtailLocalConfig.yaml")
+    ):
         _create_promtail_configs(config, output_dir)
         if not dryrun:
             _download_promtail(output_dir)
@@ -245,4 +260,4 @@ def install(config_manager, output_dir, dryrun, update_repo):
         if update_repo:
             _update_helm_repos()
         _deploy_loose_resources(output_dir)
-        _install_or_update_charts(output_dir, namespace)
+        _install_or_update_charts(config, output_dir, namespace)

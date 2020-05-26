@@ -14,7 +14,7 @@
 
 import subprocess
 
-from ._globals import HELM_CHARTS
+from ._globals import get_helm_charts
 
 
 def _get_yn_response(message):
@@ -54,6 +54,6 @@ def uninstall(config_manager):
           configuration of the monitoring setup to be uninstalled.
     """
     namespace = config_manager.get_config()["namespace"]
-    for chart in HELM_CHARTS:
+    for chart in get_helm_charts(config_manager.get_config()):
         _remove_helm_deployment(chart, namespace)
     _delete_namespace(namespace)
