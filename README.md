@@ -153,13 +153,13 @@ configuration parameters:
   Gerrit installations with just one replica that can run anywhere, where they
   are reachable via HTTP.
 
-| option                                         | description                                                                        |
-|------------------------------------------------|------------------------------------------------------------------------------------|
-| `gerritServers.other.[*].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
-| `gerritServers.other.[*].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.other.[*].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
-| `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
+| option                                             | description                                                                        |
+|----------------------------------------------------|------------------------------------------------------------------------------------|
+| `gerritServers.other.[*].host`                     | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
+| `gerritServers.other.[*].username`                 | Username of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.other.[*].password`                 | Password of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.other.[*].logForwarder.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
+| `gerritServers.other.[*].logForwarder.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
 
 
 ### Encryption
@@ -198,7 +198,21 @@ is not set. If the `--update-repo`-flag is used, the helm repository will be upd
 before installing the helm charts. This is for example required, if a chart version
 was updated.
 
-## Configure Promtail
+## Install Log Collector
+
+To collect logs from Gerrit either fluent-bit or Promtail can be used, depending
+on whether the EFK or PLG stack is used.
+
+The log forwarder configurations provided here expect the logs to be available in
+JSON-format. This can be configured by setting `log.jsonLogging = true` in the
+`gerrit.config`.
+
+If TLS-verification is activated, the CA-certificate used for verification
+(usually the one configured for `tls.caCert`) has to be present in the
+directory configured for `logForwarder.storagePath` in the `config.yaml` and has to
+be called either `promtail.ca.crt` or `fluentbit.ca.crt`.
+
+### Install Promtail
 
 Promtail has to be installed with access to the directory containing the Gerrit
 logs, e.g. on the same host. The installation as described above will create a
@@ -212,14 +226,17 @@ $PATH_TO_PROMTAIL/promtail \
   -config.file=./dist/promtail.yaml
 ```
 
-If TLS-verification is activated, the CA-certificate used for verification
-(usually the one configured for `tls.caCert`) has to be present in the
-directory configured for `promtail.storagePath` in the `config.yaml` and has to
-be called `promtail.ca.crt`.
+### Install Fluent-Bit
 
-The Promtail configuration provided here expects the logs to be available in
-JSON-format. This can be configured by setting `log.jsonLogging = true` in the
-`gerrit.config`.
+Install FLuent-Bit following the
+[official documentation](https://docs.fluentbit.io/manual/v/1.3/installation/supported_platforms).
+The setup provided in this project will create a configuration for each target
+under `$OUTPUT_DIR/fluentbit/fluentbit-$TARGET_HOST`. Use it to configure
+Fluent-Bit:
+
+```sh
+$PATH_TO_FLUENTBIT/fluent-bit -c $OUTPUT_DIR/fluentbit/fluentbit-$TARGET_HOST
+```
 
 ## Uninstallation
 

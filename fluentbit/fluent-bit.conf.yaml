@@ -1,0 +1,48 @@
+#@ load("@ytt:data", "data")
+
+#@ for gerrit in data.values.gerritServers.other:
+#@yaml/text-templated-strings
+(@= gerrit.host @): |
+  [SERVICE]
+    Flush 1
+    Daemon Off
+    Log_Level info
+
+  [INPUT]
+    Name tail
+    Path (@= "{}/*_log.json".format(gerrit.logForwarder.logPath) @)
+    Parser json
+    Tag gerrit.*
+    Refresh_Interval 5
+    Mem_Buf_Limit 5MB
+    Skip_Long_Lines On
+    DB (@= "{}/tail-containers-state.db".format(gerrit.logForwarder.storagePath) @)
+    DB.Sync Normal
+
+  [FILTER]
+    Name modify
+    Match *
+    Add instance (@= gerrit.host @)
+
+  [OUTPUT]
+    Name es
+    Match *
+    Host (@= data.values.logging.elasticsearch.host @)
+    Port 443
+    HTTP_User (@= data.values.logging.elasticsearch.username @)
+    HTTP_Passwd (@= data.values.logging.elasticsearch.password @)
+    Logstash_Format On
+    Retry_Limit False
+    Type flb_type
+    Time_Key @time
+    Replace_Dots On
+    Logstash_Prefix gerrit
+    Index gerrit
+    tls On
+    (@ if data.values.tls.skipVerify: -@)
+    tls.verify Off
+    (@ else: -@)
+    tls.verify On
+    tls.ca_file (@= "{}/fluentbit.ca.crt".format(gerrit.logForwarder.storagePath) @)
+    (@ end -@)
+#@ end

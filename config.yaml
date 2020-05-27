@@ -12,7 +12,7 @@ gerritServers:
   - host: gerrit.example.com
     username: admin
     password: secret
-    promtail:
+    logForwarder:
       storagePath: /var/promtail
       logPath: /var/gerrit/logs
 namespace: namespace
