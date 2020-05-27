@@ -39,6 +39,7 @@ EFK_TEMPLATES = [
     "charts/elasticsearch",
     "charts/fluentbit",
     "charts/kibana",
+    "fluentbit",
 ]
 
 HELM_REPOS = {
@@ -142,6 +143,29 @@ def _download_promtail(output_dir):
         os.stat(promtail_exe).st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH,
     )
     os.remove(output_zip)
+
+
+def _create_fluentbit_configs(config, output_dir):
+    if not os.path.exists(os.path.join(output_dir, "fluentbit")):
+        os.mkdir(os.path.join(output_dir, "fluentbit"))
+
+    with open(os.path.join(output_dir, "fluent-bit.conf.yaml")) as f:
+        for host, fluentbit_config in yaml.load(f, Loader=yaml.SafeLoader).items():
+            with open(
+                os.path.join(output_dir, "fluentbit", f"fluentbit-{host}.conf"), "w",
+            ) as f:
+                f.write(fluentbit_config)
+
+    os.remove(os.path.join(output_dir, "fluent-bit.conf.yaml"))
+
+    if not config["tls"]["skipVerify"]:
+        try:
+            with open(
+                os.path.join(output_dir, "fluentbit", "fluentbit.ca.crt"), "w"
+            ) as f:
+                f.write(config["tls"]["caCert"])
+        except TypeError:
+            print("CA certificate for TLS verification has to be given.")
 
 
 def _run_ytt(config, output_dir):
@@ -259,6 +283,10 @@ def install(config_manager, output_dir, dryrun, update_repo):
         _create_promtail_configs(config, output_dir)
         if not dryrun:
             _download_promtail(output_dir)
+    elif config["logging"]["stack"] == "EFK" and os.path.exists(
+        os.path.join(output_dir, "fluent-bit.conf.yaml")
+    ):
+        _create_fluentbit_configs(config, output_dir)
 
     if not dryrun:
         if update_repo:

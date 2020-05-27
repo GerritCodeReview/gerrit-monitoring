@@ -318,7 +318,7 @@ datasources:
       access: proxy
       isDefault: false
     #@ elif data.values.logging.stack == "EFK":
-    - name: Elasticsearch
+    - name: ElasticsearchKubernetes
       type: elasticsearch
       url: #@ "http://elasticsearch-{}-master.{}.svc.cluster.local:9200".format(data.values.namespace, data.values.namespace)
       access: proxy
@@ -330,6 +330,17 @@ datasources:
         esVersion: 70
         logMessageField: log
         logLevelField: fields.level
+    - name: ElasticsearchGerrit
+      type: elasticsearch
+      url: #@ "http://elasticsearch-{}-master.{}.svc.cluster.local:9200".format(data.values.namespace, data.values.namespace)
+      access: proxy
+      isDefault: false
+      database: "[gerrit-]YYYY.MM.DD"
+      jsonData:
+        interval: Daily
+        timeField: "@timestamp"
+        esVersion: 70
+        logLevelField: level
     #@ end
 
 ## Configure notifiers

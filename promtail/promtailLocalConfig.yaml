@@ -7,14 +7,14 @@ server:
   grpc_listen_port: 0
 
 positions:
-  filename: #@ "{}/positions.yaml".format(data.values.gerritServers.other[i].promtail.storagePath)
+  filename: #@ "{}/positions.yaml".format(data.values.gerritServers.other[i].logForwarder.storagePath)
 
 clients:
   - url: #@ "https://{}/loki/api/v1/push".format(data.values.logging.loki.host)
     tls_config:
       insecure_skip_verify: #@ data.values.tls.skipVerify
       #@ if not data.values.tls.skipVerify:
-      ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers.other[i].promtail.storagePath)
+      ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers.other[i].logForwarder.storagePath)
       #@ end
     basic_auth:
       username: #@ data.values.logging.loki.username
@@ -26,7 +26,7 @@ scrape_configs:
       - localhost
     labels:
       job: gerrit_error
-      __path__: #@ "{}/error_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      __path__: #@ "{}/error_log.json".format(data.values.gerritServers.other[i].logForwarder.logPath)
       host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
@@ -57,7 +57,7 @@ scrape_configs:
     - localhost
     labels:
       job: gerrit_httpd
-      __path__: #@ "{}/httpd_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      __path__: #@ "{}/httpd_log.json".format(data.values.gerritServers.other[i].logForwarder.logPath)
       host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
@@ -76,7 +76,7 @@ scrape_configs:
     - localhost
     labels:
       job: gerrit_sshd
-      __path__: #@ "{}/sshd_log.json".format(data.values.gerritServers.other[i].promtail.logPath)
+      __path__: #@ "{}/sshd_log.json".format(data.values.gerritServers.other[i].logForwarder.logPath)
       host: #@ data.values.gerritServers.other[i].host
   entry_parser: raw
   pipeline_stages:
