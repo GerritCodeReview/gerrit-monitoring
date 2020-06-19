@@ -14,7 +14,9 @@
 
 import os.path
 import stat
+import shutil
 import subprocess
+import sys
 import zipfile
 
 import requests
@@ -146,7 +148,7 @@ def _run_ytt(config, output_dir):
         command += ["-f", template]
 
     command += [
-        "--output-directory",
+        "--output-files",
         output_dir,
         "--ignore-unknown-comments",
         "-f",
@@ -230,6 +232,23 @@ def install(config_manager, output_dir, dryrun, update_repo):
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
+    elif os.listdir(output_dir):
+        while True:
+            response = input(
+                (
+                    "Output directory already exists. This may lead to file conflicts "
+                    "and unwanted configuration applied to the cluster. Do you want "
+                    "to empty the directory? [y/n] "
+                )
+            )
+            if response == "y":
+                shutil.rmtree(output_dir)
+                os.mkdir(output_dir)
+                break
+            if response == "n":
+                print("Aborting installation. Please provide empty directory.")
+                sys.exit(1)
+            print("Unknown input.")
 
     _run_ytt(config, output_dir)
 
