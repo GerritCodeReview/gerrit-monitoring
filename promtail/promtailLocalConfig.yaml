@@ -16,9 +16,13 @@ clients:
       #@ if not data.values.tls.skipVerify:
       ca_file: #@ "{}/promtail.ca.crt".format(data.values.gerritServers.other[i].promtail.storagePath)
       #@ end
+    #@ if data.values.istio.enabled:
+    bearer_token: #@ data.values.gerritServers.other[i].promtail.token
+    #@ else:
     basic_auth:
       username: #@ data.values.logging.loki.username
       password: #@ data.values.logging.loki.password
+    #@ end
 scrape_configs:
 - job_name: gerrit_error
   static_configs:

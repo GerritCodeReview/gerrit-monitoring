@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
 
 ingress:
-  enabled: true
+  enabled: #@ not data.values.istio.enabled
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/auth-type: basic
@@ -130,7 +130,8 @@ persistence:
   # existingClaim:
 
 ## Pod Labels
-podLabels: {}
+podLabels:
+  istio-jwt: enabled
 
 ## Pod Annotations
 podAnnotations:

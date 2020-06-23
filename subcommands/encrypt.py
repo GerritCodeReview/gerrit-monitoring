@@ -23,6 +23,7 @@ ENCRYPTED_KEYS = [
     "caCert",
     "cert",
     "htpasswd",
+    "issuer",
     "key",
     "password",
     "secret",

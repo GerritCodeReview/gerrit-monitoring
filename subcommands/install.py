@@ -27,6 +27,7 @@ from ._globals import HELM_CHARTS
 
 
 TEMPLATES = [
+    "charts/istio.yaml",
     "charts/namespace.yaml",
     "charts/prometheus",
     "charts/promtail",
@@ -244,6 +245,10 @@ def install(config_manager, output_dir, dryrun, update_repo):
         update_repo {boolean} -- Whether to update the helm repositories locally
     """
     config = config_manager.get_config()
+
+    if config["istio"]["enabled"]:
+        LOOSE_RESOURCES.append("istio.yaml")
+        LOOSE_RESOURCES.append("istio")
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)

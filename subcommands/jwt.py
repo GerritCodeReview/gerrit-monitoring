@@ -12,7 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .encrypt import encrypt
-from .install import install
-from .jwt import jwt
-from .uninstall import uninstall
+import getpass
+import os
+
+
+def jwt(config_manager):
+    """Create JWT token.
+
+    Args:
+        config_manager {AbstractConfigManager} -- ConfigManager
+    """
+    config = config_manager.get_config()
+    payload = {
+        "iss": config["istio"]["jwt"]["issuer"],
+        "sub": f"{getpass.getuser()}@{os.uname()[1]}",
+    }
+
+    token = config_manager.get_jwt_token(payload)
+
+    print(f"Payload: {payload}")
+    print(f"JWT token:\n{token}")

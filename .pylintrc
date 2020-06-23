@@ -1,5 +1,5 @@
 [MESSAGES CONTROL]
-disable=C0330, C0114, R0903
+disable=C0330, C0114, R0903, W0511
 
 [BASIC]
 no-docstring-rgx=(__.*__)|(_.*)

@@ -247,6 +247,10 @@ config:
     # Maximum time to wait for server to respond to a request
     timeout: 10s
 
+    #@ if data.values.istio.enabled:
+    bearer_token: #@ data.values.logging.promtail.token
+    #@ end
+
     backoff_config:
       # Initial backoff time between retries
       minbackoff: 100ms

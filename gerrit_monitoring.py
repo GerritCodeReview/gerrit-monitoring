@@ -17,7 +17,7 @@ import argparse
 import os.path
 
 from cfgmgr import get_config_manager
-from subcommands import encrypt, install, uninstall
+from subcommands import encrypt, install, jwt, uninstall
 
 
 def _run_encrypt(args):
@@ -38,6 +38,10 @@ def _run_install(args):
         args.dryrun,
         args.update_repo,
     )
+
+
+def _run_jwt(args):
+    jwt(get_config_manager(os.path.abspath(args.config)))
 
 
 def _run_uninstall(args):
@@ -131,6 +135,9 @@ def main():
         dest="vault_key",
         action="store",
     )
+
+    parser_jwt = subparsers.add_parser("jwt", help="Create JWT token")
+    parser_jwt.set_defaults(func=_run_jwt)
 
     args = parser.parse_args()
     args.func(args)

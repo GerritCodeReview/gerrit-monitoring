@@ -106,43 +106,49 @@ setup, some configuration is highly dependent on the specific installation.
 These options have to be configured in the `./config.yaml` before installing and
 are listed here:
 
-| option                                             | description                                                                            |
-|----------------------------------------------------|----------------------------------------------------------------------------------------|
-| `gerritServers`                                    | List of Gerrit servers to scrape. For details refer to section [below](#gerritServers) |
-| `namespace`                                        | The namespace the charts are installed to                                              |
-| `tls.skipVerify`                                   | Whether to skip TLS certificate verification                                           |
-| `tls.caCert`                                       | CA certificate used for TLS certificate verification                                   |
-| `monitoring.prometheus.server.host`                | Prometheus server ingress hostname                                                     |
-| `monitoring.prometheus.server.username`            | Username for Prometheus                                                                |
-| `monitoring.prometheus.server.password`            | Password for Prometheus                                                                |
-| `monitoring.prometheus.server.tls.cert`            | TLS certificate                                                                        |
-| `monitoring.prometheus.server.tls.key`             | TLS key                                                                                |
-| `monitoring.prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                           |
-| `monitoring.prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                           |
-| `monitoring.grafana.host`                          | Grafana ingress hostname                                                               |
-| `monitoring.grafana.tls.cert`                      | TLS certificate                                                                        |
-| `monitoring.grafana.tls.key`                       | TLS key                                                                                |
-| `monitoring.grafana.admin.username`                | Username for the admin user                                                            |
-| `monitoring.grafana.admin.password`                | Password for the admin user                                                            |
-| `monitoring.grafana.ldap.enabled`                  | Whether to enable LDAP                                                                 |
-| `monitoring.grafana.ldap.host`                     | Hostname of LDAP server                                                                |
-| `monitoring.grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                              |
-| `monitoring.grafana.ldap.password`                 | Password of LDAP server                                                                |
-| `monitoring.grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                                  |
-| `monitoring.grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)          |
-| `monitoring.grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)            |
-| `monitoring.grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                    |
-| `logging.loki.host`                                | Loki ingress hostname                                                                  |
-| `logging.loki.username`                            | Username for Loki                                                                      |
-| `logging.loki.password`                            | Password for Loki                                                                      |
-| `logging.loki.s3.protocol`                         | Protocol used for communicating with S3                                                |
-| `logging.loki.s3.host`                             | Hostname of the S3 object store                                                        |
-| `logging.loki.s3.accessToken`                      | The EC2 accessToken used for authentication with S3                                    |
-| `logging.loki.s3.secret`                           | The secret associated with the accessToken                                             |
-| `logging.loki.s3.bucket`                           | The name of the S3 bucket                                                              |
-| `logging.loki.s3.region`                           | The region in which the S3 bucket is hosted                                            |
-| `logging.loki.tls.cert`                            | TLS certificate                                                                        |
-| `logging.loki.tls.key`                             | TLS key                                                                                |
+| option                                             | description                                                                             |
+|----------------------------------------------------|-----------------------------------------------------------------------------------------|
+| `gerritServers`                                    | List of Gerrit servers to scrape. For details refer to section [below](#gerritServers)  |
+| `namespace`                                        | The namespace the charts are installed to                                               |
+| `tls.skipVerify`                                   | Whether to skip TLS certificate verification                                            |
+| `tls.caCert`                                       | CA certificate used for TLS certificate verification                                    |
+| `istio.enabled`                                    | Whether to use istio                                                                    |
+| `istio.crt`                                        | TLS cert for Ingress gateway (should have alternative names for URLs of all components) |
+| `istio.key`                                        | TLS key for Ingress gateway                                                             |
+| `istio.jwt.cert`                                   | RSA certificate to be used to create JWT tokens                                         |
+| `istio.jwt.key`                                    | RSA key to be used to create JWT tokens                                                 |
+| `istio.jwt.issuer`                                 | Issuer to be used for tokens (e.g. an email address)                                    |
+| `monitoring.prometheus.server.host`                | Prometheus server ingress hostname                                                      |
+| `monitoring.prometheus.server.username`            | Username for Prometheus (only required if not using istio)                              |
+| `monitoring.prometheus.server.password`            | Password for Prometheus (only required if not using istio)                              |
+| `monitoring.prometheus.server.tls.cert`            | TLS certificate                                                                         |
+| `monitoring.prometheus.server.tls.key`             | TLS key                                                                                 |
+| `monitoring.prometheus.alertmanager.slack.apiUrl`  | API URL of the Slack Webhook                                                            |
+| `monitoring.prometheus.alertmanager.slack.channel` | Channel to which the alerts should be posted                                            |
+| `monitoring.grafana.host`                          | Grafana ingress hostname                                                                |
+| `monitoring.grafana.tls.cert`                      | TLS certificate (only required if not using istio)                                      |
+| `monitoring.grafana.tls.key`                       | TLS key (only required if not using istio)                                              |
+| `monitoring.grafana.admin.username`                | Username for the admin user                                                             |
+| `monitoring.grafana.admin.password`                | Password for the admin user                                                             |
+| `monitoring.grafana.ldap.enabled`                  | Whether to enable LDAP                                                                  |
+| `monitoring.grafana.ldap.host`                     | Hostname of LDAP server                                                                 |
+| `monitoring.grafana.ldap.port`                     | Port of LDAP server (Has to be `quoted`!)                                               |
+| `monitoring.grafana.ldap.password`                 | Password of LDAP server                                                                 |
+| `monitoring.grafana.ldap.bind_dn`                  | Bind DN (username) of the LDAP server                                                   |
+| `monitoring.grafana.ldap.accountBases`             | List of base DNs to discover accounts (Has to have the format `"['a', 'b']"`)           |
+| `monitoring.grafana.ldap.groupBases`               | List of base DNs to discover groups (Has to have the format `"['a', 'b']"`)             |
+| `monitoring.grafana.dashboards.editable`           | Whether dashboards can be edited manually in the UI                                     |
+| `logging.loki.host`                                | Loki ingress hostname                                                                   |
+| `logging.loki.username`                            | Username for Loki (only required if not using istio)                                    |
+| `logging.loki.password`                            | Password for Loki (only required if not using istio)                                    |
+| `logging.loki.s3.protocol`                         | Protocol used for communicating with S3                                                 |
+| `logging.loki.s3.host`                             | Hostname of the S3 object store                                                         |
+| `logging.loki.s3.accessToken`                      | The EC2 accessToken used for authentication with S3                                     |
+| `logging.loki.s3.secret`                           | The secret associated with the accessToken                                              |
+| `logging.loki.s3.bucket`                           | The name of the S3 bucket                                                               |
+| `logging.loki.s3.region`                           | The region in which the S3 bucket is hosted                                             |
+| `logging.loki.tls.cert`                            | TLS certificate (only required if not using istio)                                      |
+| `logging.loki.tls.key`                             | TLS key (only required if not using istio)                                              |
 
 ### `gerritServers`
 
@@ -197,6 +203,23 @@ e.g. with the CI-system, it is meant to be encrypted. The encryption is explaine
 
 The `gerrit_monitoring.py install`-command will decrypt the file before templating,
 if it was encrypted with `sops`.
+
+## Using Istio
+
+The easiest way of using the monitoring setup, is to use an Ingress Controller,
+but it is also possible to use the setup within an Istio service mesh. To do this,
+Istio has to be already installed in the cluster and the istio-ingressgateway
+has to open the ports 80 and 443.
+Authentication and authorization for Prometheus and Loki for users outside of the
+cluster will be done by JWT-tokens. Promtail configurations created by the installer
+will automatically get a token configured during the installation. Should another
+token be needed, the follwoing command can be used to create a token:
+
+```sh
+pipenv run python ./gerrit-monitoring.py \
+  --config config.yaml \
+  jwt
+```
 
 ## Installation
 
