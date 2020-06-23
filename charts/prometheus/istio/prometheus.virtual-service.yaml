@@ -1,0 +1,21 @@
+#@ load("@ytt:data", "data")
+#@ if data.values.istio.enabled:
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-istio-virtual-service
+  namespace: #@ data.values.namespace
+  labels:
+    app: gerrit-monitoring
+spec:
+  hosts:
+  - #@ data.values.monitoring.prometheus.server.host
+  gateways:
+  - monitoring-istio-gateway
+  http:
+  - route:
+    - destination:
+        host: #@ "prometheus-{}-server.{}.svc.cluster.local".format(data.values.namespace, data.values.namespace)
+        port:
+          number: 80
+#@ end

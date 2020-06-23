@@ -1,0 +1,86 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:base64", "base64")
+#@ if data.values.istio.enabled:
+apiVersion: v1
+kind: Secret
+metadata:
+  name: #@ "monitoring-{}-istio-tls-secret".format(data.values.namespace)
+  namespace: istio-system
+  labels:
+    app: gerrit-monitoring
+    namespace: #@ data.values.namespace
+type: kubernetes.io/tls
+data:
+  tls.crt: #@ base64.encode(data.values.istio.cert)
+  tls.key: #@ base64.encode(data.values.istio.key)
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: monitoring-istio-gateway
+  namespace: #@ data.values.namespace
+  labels:
+    app: gerrit-monitoring
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - #@ data.values.monitoring.prometheus.server.host
+    - #@ data.values.monitoring.grafana.host
+    - #@ data.values.logging.loki.host
+    tls:
+      httpsRedirect: true
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    hosts:
+    - #@ data.values.monitoring.prometheus.server.host
+    - #@ data.values.monitoring.grafana.host
+    - #@ data.values.logging.loki.host
+    tls:
+      mode: SIMPLE
+      credentialName: #@ "monitoring-{}-istio-tls-secret".format(data.values.namespace)
+---
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: monitoring-request-authentication
+  namespace: istio-system
+  labels:
+    app: gerrit-monitoring
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  jwtRules:
+  - issuer: #@ data.values.istio.jwt.issuer
+    jwks: #@ data.values.istio.jwt.jwks
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "AuthorizationPolicy"
+metadata:
+  name: monitoring-auth-policy
+  namespace: istio-system
+  labels:
+    app: gerrit-monitoring
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  action: DENY
+  rules:
+  - from:
+    - source:
+        notRequestPrincipals: ["*"]
+    to:
+    - operation:
+        hosts:
+        - #@ data.values.monitoring.prometheus.server.host
+        - #@ data.values.logging.loki.host
+#@ end

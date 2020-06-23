@@ -13,7 +13,13 @@
 # limitations under the License.
 
 import abc
+import json
 
+from copy import deepcopy
+
+import python_jwt
+
+import jwcrypto.jwk as jwk
 from passlib.apache import HtpasswdFile
 
 
@@ -29,6 +35,9 @@ class AbstractConfigManager(abc.ABC):
             ["logging", "loki"],
             ["monitoring", "prometheus", "server"],
         ]
+        self.config = self._parse()
+        if self.config["istio"]["enabled"]:
+            self.jwks = self._create_jwks()
 
     def get_config(self):
         """Parse the configuration and return it as a dictionary.
@@ -37,16 +46,58 @@ class AbstractConfigManager(abc.ABC):
             dict -- Dictionary containing the unencrypted configuration as parsed
               from the file
         """
+        return self._add_computed_values()
 
-        config = self._parse()
-        for component in self.requires_htpasswd:
-            section = config
-            for i in component:
-                section = section[i]
-            section["htpasswd"] = self._create_htpasswd_entry(
-                section["username"], section["password"]
-            )
+    def get_jwt_token(self, payload):
+        """Generate JWT token from the configured private key.
+
+        Args:
+            payload (dict): Token payload (https://tools.ietf.org/html/rfc7519#section-3.1)
+
+        Returns:
+            String: JWT token
+        """
+        private_key = jwk.JWK.from_pem(
+            self.config["istio"]["jwt"]["key"].encode("utf-8")
+        ).export()
+        # TODO: The tokens should get a lifetime, as soon as a mechanism is in place of
+        # automatically cycling them
+        return python_jwt.generate_jwt(payload, jwk.JWK.from_json(private_key), "RS256")
+
+    def _add_computed_values(self):
+        config = deepcopy(self.config)
+
+        if config["istio"]["enabled"]:
+            config["istio"]["jwt"]["jwks"] = json.dumps(self.jwks)
+
+            for gerrit in config["gerritServers"]["other"]:
+                payload = {
+                    "iss": config["istio"]["jwt"]["issuer"],
+                    "sub": f"promtail_{gerrit['host']}",
+                }
+                gerrit["promtail"]["token"] = self.get_jwt_token(payload)
+
+            payload = {
+                "iss": config["istio"]["jwt"]["issuer"],
+                "sub": f"promtail_cluster",
+            }
+            config["logging"]["promtail"] = {"token": self.get_jwt_token(payload)}
+        else:
+            for component in self.requires_htpasswd:
+                section = config
+                for i in component:
+                    section = section[i]
+                section["htpasswd"] = self._create_htpasswd_entry(
+                    section["username"], section["password"]
+                )
+
         return config
+
+    def _create_jwks(self):
+        public_key = jwk.JWK.from_pem(
+            self.config["istio"]["jwt"]["cert"].encode("utf-8")
+        ).export()
+        return {"keys": [json.loads(public_key)]}
 
     @staticmethod
     def _create_htpasswd_entry(username, password):

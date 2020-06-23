@@ -25,6 +25,14 @@ namespace: namespace
 tls:
   skipVerify: true
   caCert:
+istio:
+  enabled: false
+  cert:
+  key:
+  jwt:
+    cert:
+    key:
+    issuer:
 monitoring:
   prometheus:
     server:

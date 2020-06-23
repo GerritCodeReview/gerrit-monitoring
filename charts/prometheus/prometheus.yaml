@@ -705,7 +705,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: #@ not data.values.istio.enabled
 
     ## Prometheus server Ingress annotations
     ##
@@ -846,7 +846,8 @@ server:
 
   ## Labels to be added to Prometheus server pods
   ##
-  podLabels: {}
+  podLabels:
+    istio-jwt: enabled
 
   ## Prometheus AlertManager configuration
   ##
