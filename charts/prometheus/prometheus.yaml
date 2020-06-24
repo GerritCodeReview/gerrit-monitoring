@@ -1089,6 +1089,14 @@ serverFiles:
             annotations:
               description: '{{ $labels.instance }} has been unresponsive for 3 min.'
               summary: '{{ $labels.instance }} down'
+          - alert: ThreadDeadlock
+            expr: proc_jvm_thread_num_deadlocked_threads > 0
+            for: 1m
+            labels:
+              severity: critical
+            annotations:
+              description: '{{ $labels.instance }} has deadlocked threads.'
+              summary: '{{ $labels.instance }} deadlocks'
           - alert: SSHBatchUserScheduledTasks
             expr: queue_ssh_batch_worker_scheduled_tasks > 200
             for: 5m
