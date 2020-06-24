@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5ba672c_1089153a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-06-24T11:29:40Z",
+      "side": 1,
+      "message": "The alert is created correctly. I haven\u0027t tested however, whether it fires as planned.",
+      "revId": "3bc1225df017db431ab1d6d398abd75f559c71d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
