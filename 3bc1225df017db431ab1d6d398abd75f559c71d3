@@ -16,6 +16,29 @@
       "revId": "3bc1225df017db431ab1d6d398abd75f559c71d3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "49f86d56_4697e4f4",
+        "filename": "charts/prometheus/prometheus.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-06-24T21:19:20Z",
+      "side": 1,
+      "message": "shouldn\u0027t this use \u003e 0 ?",
+      "range": {
+        "startLine": 1093,
+        "startChar": 57,
+        "endLine": 1093,
+        "endChar": 60
+      },
+      "revId": "3bc1225df017db431ab1d6d398abd75f559c71d3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
