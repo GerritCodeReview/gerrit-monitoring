@@ -675,7 +675,7 @@ server:
     ## Must be provided if Ingress is enabled
     ##
     hosts:
-    - #@ data.values.prometheus.server.host
+    - #@ data.values.monitoring.prometheus.server.host
     #   - prometheus.domain.com
     #   - domain.com/prometheus
 
@@ -692,7 +692,7 @@ server:
     tls:
     - secretName: prometheus-server-tls
       hosts:
-      - #@ data.values.prometheus.server.host
+      - #@ data.values.monitoring.prometheus.server.host
 
   ## Server Deployment Strategy type
   # strategy:
@@ -1055,12 +1055,12 @@ pushgateway:
 alertmanagerFiles:
   alertmanager.yml:
     global:
-      slack_api_url: #@ data.values.prometheus.alertmanager.slack.apiUrl
+      slack_api_url: #@ data.values.monitoring.prometheus.alertmanager.slack.apiUrl
 
     receivers:
       - name: gerrit-admin
         slack_configs:
-          - channel: #@ data.values.prometheus.alertmanager.slack.channel
+          - channel: #@ data.values.monitoring.prometheus.alertmanager.slack.channel
             send_resolved: true
             title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
             text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"

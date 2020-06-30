@@ -14,7 +14,9 @@
 
 import os.path
 import stat
+import shutil
 import subprocess
+import sys
 import zipfile
 
 import requests
@@ -26,6 +28,7 @@ from ._globals import HELM_CHARTS
 TEMPLATES = [
     "charts/namespace.yaml",
     "charts/prometheus",
+    "charts/promtail",
     "charts/loki",
     "charts/grafana",
     "promtail",
@@ -79,7 +82,7 @@ def _create_promtail_configs(config, output_dir):
     if not os.path.exists(os.path.join(output_dir, "promtail")):
         os.mkdir(os.path.join(output_dir, "promtail"))
 
-    with open(os.path.join(output_dir, "promtail.yaml")) as f:
+    with open(os.path.join(output_dir, "promtailLocalConfig.yaml")) as f:
         for promtail_config in yaml.load_all(f, Loader=yaml.SafeLoader):
             with open(
                 os.path.join(
@@ -94,7 +97,7 @@ def _create_promtail_configs(config, output_dir):
             ) as f:
                 yaml.dump(promtail_config, f)
 
-    os.remove(os.path.join(output_dir, "promtail.yaml"))
+    os.remove(os.path.join(output_dir, "promtailLocalConfig.yaml"))
 
     if not config["tls"]["skipVerify"]:
         try:
@@ -145,7 +148,7 @@ def _run_ytt(config, output_dir):
         command += ["-f", template]
 
     command += [
-        "--output-directory",
+        "--output-files",
         output_dir,
         "--ignore-unknown-comments",
         "-f",
@@ -229,13 +232,30 @@ def install(config_manager, output_dir, dryrun, update_repo):
 
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
+    elif os.listdir(output_dir):
+        while True:
+            response = input(
+                (
+                    "Output directory already exists. This may lead to file conflicts "
+                    "and unwanted configuration applied to the cluster. Do you want "
+                    "to empty the directory? [y/n] "
+                )
+            )
+            if response == "y":
+                shutil.rmtree(output_dir)
+                os.mkdir(output_dir)
+                break
+            if response == "n":
+                print("Aborting installation. Please provide empty directory.")
+                sys.exit(1)
+            print("Unknown input.")
 
     _run_ytt(config, output_dir)
 
     namespace = config_manager.get_config()["namespace"]
     _create_dashboard_configmaps(output_dir, namespace)
 
-    if os.path.exists(os.path.join(output_dir, "promtail.yaml")):
+    if os.path.exists(os.path.join(output_dir, "promtailLocalConfig.yaml")):
         _create_promtail_configs(config, output_dir)
         if not dryrun:
             _download_promtail(output_dir)
