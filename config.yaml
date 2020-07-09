@@ -1,6 +1,7 @@
 gerritServers:
   kubernetes:
   - namespace: default
+    silent: false
     label:
       name: app
       value: gerrit-slave
@@ -12,6 +13,7 @@ gerritServers:
   - host: gerrit.example.com
     username: admin
     password: secret
+    silent: false
     promtail:
       storagePath: /var/promtail
       logPath: /var/gerrit/logs

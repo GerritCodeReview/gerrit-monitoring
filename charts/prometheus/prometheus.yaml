@@ -1071,6 +1071,20 @@ alertmanagerFiles:
       receiver: gerrit-admin
       repeat_interval: 3h
 
+    inhibit_rules:
+    #@ for gerrit in data.values.gerritServers.kubernetes:
+    #@ if gerrit.silent:
+    - target_match:
+        job: #@ "gerrit-{}".format(gerrit.namespace)
+    #@ end
+    #@ end
+    #@ for gerrit in data.values.gerritServers.other:
+    #@ if gerrit.silent:
+    - target_match:
+        job: #@ "gerrit-{}".format(gerrit.host)
+    #@ end
+    #@ end
+
 ## Prometheus server ConfigMap entries
 ##
 serverFiles:

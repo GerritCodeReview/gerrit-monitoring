@@ -127,6 +127,7 @@ configuration parameters:
 | option                                       | description                                              |
 |----------------------------------------------|----------------------------------------------------------|
 | `gerritServers.kubernetes.[*].namespace`     | Namespace into which Gerrit was deployed                 |
+| `gerritServers.kubernetes.[*].silent`        | Whether to silence alerts for this instance              |
 | `gerritServers.kubernetes.[*].label.name`    | Label name used to select deployments                    |
 | `gerritServers.kubernetes.[*].label.value`   | Label value to select deployments                        |
 | `gerritServers.kubernetes.[*].containerName` | Name of container in the pod that runs Gerrit            |
@@ -143,6 +144,7 @@ configuration parameters:
 | `gerritServers.other.[*].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
 | `gerritServers.other.[*].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
 | `gerritServers.other.[*].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
+| `gerritServers.other.[*].silent`               | Whether to silence alerts for this instance                                        |
 | `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
 | `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
 
