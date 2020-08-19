@@ -28,8 +28,8 @@ loki:
   serviceName: #@ "loki-{}".format(data.values.namespace)
   servicePort: 3100
   serviceScheme: http
-  user: #@ data.values.logging.loki.username
-  password: #@ data.values.logging.loki.password
+  user:
+  password:
 
 nameOverride: #@ "promtail-{}".format(data.values.namespace, data.values.namespace)
 
