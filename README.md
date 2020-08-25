@@ -48,6 +48,17 @@ based on a lock-file, ensuring a deterministic Python environment. Instruction o
 how Pipenv can be installed, can be found
 [here](https://github.com/pypa/pipenv#installation)
 
+- Jsonnet \
+Jsonnet is used to create the JSON-files describing the Grafana dashboards.
+Instruction on how Jsonnet can be installed, can be found
+[here](https://github.com/google/jsonnet#packages)
+
+- Grafonnet \
+Grafonnet should be installed using jsonnet-bundler and the `jsonnetfile.json`
+provided by this project. Install jsonnet-bundler as described
+[here](https://github.com/jsonnet-bundler/jsonnet-bundler#install). Then run
+`jb install` from this project's root directory.
+
 ### Infrastructure
 
 - Kubernetes Cluster \
