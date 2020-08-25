@@ -48,6 +48,17 @@ based on a lock-file, ensuring a deterministic Python environment. Instruction o
 how Pipenv can be installed, can be found
 [here](https://github.com/pypa/pipenv#installation)
 
+- Jsonnet \
+Jsonnet is used to create the JSON-files describing the Grafana dashboards.
+Instruction on how Jsonnet can be installed, can be found
+[here](https://github.com/google/jsonnet#packages)
+
+- Grafonnet \
+Grafonnet should be installed using jsonnet-bundler and the `jsonnetfile.json`
+provided by this project. Install jsonnet-bundler as described
+[here](https://github.com/jsonnet-bundler/jsonnet-bundler#install). Then run
+`jb install` from this project's root directory.
+
 ### Infrastructure
 
 - Kubernetes Cluster \
@@ -64,11 +75,29 @@ via the S3 API.
 
 ## Add dashboards
 
-To have dashboards deployed automatically during installation, export the dashboards
-to a JSON-file or create JSON-files describing the dashboards in another way.
-Put these dashboards into the `./dashboards`-directory of this repository. During
-the installation the dashboards will be added to a configmap and with this
-automatically installed to Grafana.
+There are two ways to have dashboards deployed automatically during installation:
+
+### Using JSON
+
+One way is to export the dashboards to a JSON-file in the UI or create JSON-files
+describing the dashboards in another way. Put these dashboards into the
+`./dashboards`-directory of this repository.
+
+### Using Jsonnet + Grafonnet
+
+The other way is to use Jsonnet/Grafonnet to programmatically create dashboards.
+Install Grafonnet into the project as described above and put your dashboard
+jsonnet files into the dashboards-directory or one of its subdirectories. The
+jsonnet-based dashboards can be transcribed into json manually using the following
+command:
+
+```sh
+jsonnet -J grafonnet-lib --ext-code publish=false dashboards/<dashboard>.jsonnet
+```
+
+The external variable `publish` should be set to `false`, if the dashboard is
+imported via API and to `true`, if it is published to the Grafana homepage or
+imported via the UI.
 
 ## Configuration
 

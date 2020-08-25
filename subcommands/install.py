@@ -19,6 +19,7 @@ import subprocess
 import sys
 import zipfile
 
+import _jsonnet
 import requests
 import yaml
 
@@ -55,31 +56,41 @@ def _create_dashboard_configmaps(output_dir, namespace):
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
-    for dashboard in os.listdir(dashboards_dir):
-        dashboard_path = os.path.join(dashboards_dir, dashboard)
-        dashboard_name = os.path.splitext(dashboard)[0]
-        output_file = f"{output_dir}/{dashboard_name}.dashboard.yaml"
-        command = (
-            f"kubectl create configmap {dashboard_name} -o yaml "
-            f"--from-file={dashboard_path} --dry-run=client --namespace={namespace} "
-            f"> {output_file}"
-        )
+    for dir_path, _, files in os.walk(dashboards_dir):
+        for dashboard in files:
+            dashboard_path = os.path.join(dir_path, dashboard)
+            dashboard_name, ext = os.path.splitext(dashboard)
+            if ext == ".json":
+                source = f"--from-file={dashboard_path}"
+            elif ext == ".jsonnet":
+                json = _jsonnet.evaluate_file(dashboard_path, ext_codes={"publish": "false"})
+                source = f"--from-literal={dashboard_name}.json='{json}'"
+            else:
+                continue
 
-        try:
-            subprocess.check_output(command, shell=True)
-        except subprocess.CalledProcessError as err:
-            print(err.output)
+            output_file = f"{output_dir}/{dashboard_name}.dashboard.yaml"
 
-        with open(output_file, "r") as f:
-            dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
-            dashboard_cm["metadata"]["labels"] = dict()
-            dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
-            dashboard_cm["data"][dashboard] = dashboard_cm["data"][dashboard].replace(
-                '"${DS_PROMETHEUS}"', "null"
+            command = (
+                f"kubectl create configmap {dashboard_name} -o yaml "
+                f"{source} --dry-run=client --namespace={namespace} "
+                f"> {output_file}"
             )
 
-        with open(output_file, "w") as f:
-            yaml.dump(dashboard_cm, f)
+            try:
+                subprocess.check_output(command, shell=True)
+            except subprocess.CalledProcessError as err:
+                print(err.output)
+
+            with open(output_file, "r") as f:
+                dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
+                dashboard_cm["metadata"]["labels"] = dict()
+                dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
+                dashboard_cm["data"][f"{dashboard_name}.json"] = dashboard_cm["data"][
+                    f"{dashboard_name}.json"
+                ].replace('"${DS_PROMETHEUS}"', "null")
+
+            with open(output_file, "w") as f:
+                yaml.dump(dashboard_cm, f)
 
 
 def _create_promtail_configs(config, output_dir):
