@@ -333,6 +333,8 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": true,
         "min": true,
         "rightSide": false,
@@ -358,6 +360,14 @@
         {
           "alias": "gc time G1 young gen",
           "color": "#3274D9"
+        },
+        {
+          "alias": "gc time PS Scavange",
+          "color": "#8AB8FF"
+        },
+        {
+          "alias": "gc time PS MarkSweep",
+          "color": "#E02F44"
         }
       ],
       "spaceLength": 10,
@@ -366,13 +376,31 @@
       "targets": [
         {
           "expr": "increase(proc_jvm_gc_time_G1_Young_Generation{instance=\"$instance\",replica=\"$replica\"}[2m])/increase(proc_uptime{instance=\"$instance\",replica=\"$replica\"}[2m])",
+          "interval": "",
+          "intervalFactor": 4,
           "legendFormat": "gc time G1 young gen",
           "refId": "B"
         },
         {
           "expr": "increase(proc_jvm_gc_time_G1_Old_Generation{instance=\"$instance\",replica=\"$replica\"}[2m])/increase(proc_uptime{instance=\"$instance\",replica=\"$replica\"}[2m])",
+          "interval": "",
+          "intervalFactor": 4,
           "legendFormat": "gc time G1 old gen",
           "refId": "A"
+        },
+        {
+          "expr": "increase(proc_jvm_gc_time_PS_MarkSweep{instance=\"$instance\",replica=\"$replica\"}[2m])/increase(proc_uptime{instance=\"$instance\",replica=\"$replica\"}[2m])",
+          "interval": "",
+          "intervalFactor": 4,
+          "legendFormat": "gc time PS MarkSweep",
+          "refId": "C"
+        },
+        {
+          "expr": "increase(proc_jvm_gc_time_PS_Scavenge{instance=\"$instance\",replica=\"$replica\"}[2m])/increase(proc_uptime{instance=\"$instance\",replica=\"$replica\"}[2m])",
+          "interval": "",
+          "intervalFactor": 4,
+          "legendFormat": "gc time PS Scavange",
+          "refId": "D"
         }
       ],
       "thresholds": [],
@@ -768,7 +796,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -788,5 +816,5 @@
   "timezone": "",
   "title": "Process",
   "uid": "MeOVgCPWz",
-  "version": 4
+  "version": 5
 }
