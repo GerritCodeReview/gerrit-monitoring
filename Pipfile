@@ -13,6 +13,8 @@ pyyaml = "~=5.3"
 passlib = "~=1.7.2"
 python-gnupg = "~=0.4.5"
 requests = "~=2.23.0"
+grafanalib = "*"
+attrs = "*"
 
 [requires]
 python_version = "3.8"

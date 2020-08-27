@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import os.path
 import stat
 import shutil
@@ -21,6 +22,8 @@ import zipfile
 
 import requests
 import yaml
+
+from grafanalib._gen import load_dashboard, DashboardEncoder
 
 from ._globals import HELM_CHARTS
 
@@ -54,28 +57,41 @@ def _create_dashboard_configmaps(output_dir, namespace):
     if not os.path.exists(output_dir):
         os.mkdir(output_dir)
 
-    for dashboard in os.listdir(dashboards_dir):
-        dashboard_path = os.path.join(dashboards_dir, dashboard)
-        dashboard_name = os.path.splitext(dashboard)[0]
-        output_file = f"{output_dir}/{dashboard_name}.dashboard.yaml"
-        command = (
-            f"kubectl create configmap {dashboard_name} -o yaml "
-            f"--from-file={dashboard_path} --dry-run=client --namespace={namespace} "
-            f"> {output_file}"
-        )
+    for dir_path, _, files in os.walk(dashboards_dir):
+        for dashboard in files:
+            dashboard_path = os.path.join(dir_path, dashboard)
+            dashboard_name, ext = os.path.splitext(dashboard)
+            if ext == ".json":
+                source = f"--from-file={dashboard_path}"
+            elif ext == ".py" and dashboard_name.endswith(".dashboard"):
+                dashboard_name = dashboard_name[:-10]
+                dashboardJson = json.dumps(
+                    load_dashboard(dashboard_path).to_json_data(), cls=DashboardEncoder
+                )
+                source = f"--from-literal={dashboard_name}.json='{dashboardJson}'"
+            else:
+                continue
 
-        try:
-            subprocess.check_output(command, shell=True)
-        except subprocess.CalledProcessError as err:
-            print(err.output)
+            output_file = f"{output_dir}/{dashboard_name}.dashboard.yaml"
 
-        with open(output_file, "r") as f:
-            dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
-            dashboard_cm["metadata"]["labels"] = dict()
-            dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
+            command = (
+                f"kubectl create configmap {dashboard_name} -o yaml "
+                f"{source} --dry-run=client --namespace={namespace} "
+                f"> {output_file}"
+            )
 
-        with open(output_file, "w") as f:
-            yaml.dump(dashboard_cm, f)
+            try:
+                subprocess.check_output(command, shell=True)
+            except subprocess.CalledProcessError as err:
+                print(err.output)
+
+            with open(output_file, "r") as f:
+                dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
+                dashboard_cm["metadata"]["labels"] = dict()
+                dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
+
+            with open(output_file, "w") as f:
+                yaml.dump(dashboard_cm, f)
 
 
 def _create_promtail_configs(config, output_dir):
