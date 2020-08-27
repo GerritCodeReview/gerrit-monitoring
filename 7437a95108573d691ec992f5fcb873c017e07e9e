@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a116734_ae142856",
+        "filename": "dashboards/gerrit/process/panels/file-descriptors.libsonnet",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-08-27T08:37:42Z",
+      "side": 1,
+      "message": "Wrong query. Should be: jgit_block_cache_open_files{instance\u003d\"$instance\",replica\u003d\"$replica\"}",
+      "revId": "7437a95108573d691ec992f5fcb873c017e07e9e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
