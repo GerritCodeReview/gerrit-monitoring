@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "995bf6c4_bc8c8933",
+        "filename": "dashboards/gerrit_process.dashboard.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-08-27T12:37:48Z",
+      "side": 1,
+      "message": "add license header to all source files ?",
+      "revId": "04708c9a6de2914e6ea2c0aaedb4f38b70469603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d632a666_cdabbb58",
+        "filename": "dashboards/globals/dashboard.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-08-27T12:37:48Z",
+      "side": 1,
+      "message": "that\u0027s the dashboard name, shouldn\u0027t that be a parameter ? We have more dashboards ...",
+      "range": {
+        "startLine": 17,
+        "startChar": 28,
+        "endLine": 17,
+        "endChar": 37
+      },
+      "revId": "04708c9a6de2914e6ea2c0aaedb4f38b70469603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b237d98_a8b69071",
+        "filename": "dashboards/panels/gerrit/process/gc.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-08-27T12:37:48Z",
+      "side": 1,
+      "message": "maybe split these long strings to improve readability ?",
+      "revId": "04708c9a6de2914e6ea2c0aaedb4f38b70469603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03971d44_9d8366d6",
+        "filename": "dashboards/panels/gerrit/process/gc.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-08-27T12:37:48Z",
+      "side": 1,
+      "message": "old gen ?",
+      "revId": "04708c9a6de2914e6ea2c0aaedb4f38b70469603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c35cc9_791907bb",
+        "filename": "dashboards/panels/gerrit/process/gc.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-08-27T12:37:48Z",
+      "side": 1,
+      "message": "Scavenge",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "04708c9a6de2914e6ea2c0aaedb4f38b70469603",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
