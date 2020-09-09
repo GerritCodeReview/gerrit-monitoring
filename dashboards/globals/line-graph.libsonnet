@@ -11,6 +11,7 @@ local defaults = import './defaults.libsonnet';
     formatY1='short',
     formatY2='short',
     stack=false,
+    fill=1,
   ):: graphPanel.new(
     title=title,
     labelY1=labelY1,
@@ -18,8 +19,8 @@ local defaults = import './defaults.libsonnet';
     formatY1=formatY1,
     formatY2=formatY2,
     stack=stack,
+    fill=fill,
     datasource='Prometheus',
-    fill=1,
     legend_alignAsTable=true,
     legend_avg=true,
     legend_current=true,
