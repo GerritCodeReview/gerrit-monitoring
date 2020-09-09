@@ -6,8 +6,4 @@
     timeTo: 'now',
     refresh: '1m',
   },
-  panels: {
-    width: 12,
-    height: 11,
-  },
 }
