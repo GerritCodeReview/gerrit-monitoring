@@ -2,11 +2,14 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local barGraph = import '../../../globals/bar-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 barGraph.new(
   title='Java - % of time spent in GC',
-  formatY1='percentunit',
-  labelY1='GC Time',
+  yAxis1=yAxis.new(
+    label='Open File Descriptors',
+    format='percentunit',
+  ),
 )
 .addTarget(
   prometheus.target(

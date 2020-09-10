@@ -2,11 +2,14 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='REST API request rate',
-  labelY1='Requests/Second',
-  formatY1='reqps',
+  yAxis1=yAxis.new(
+    label='Threads',
+    format='reqps',
+  ),
 )
 .addTarget(
   prometheus.target(

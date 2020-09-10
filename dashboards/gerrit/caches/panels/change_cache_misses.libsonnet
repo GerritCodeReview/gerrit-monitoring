@@ -1,10 +1,10 @@
 local target = import './cache_target.libsonnet';
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='CHANGE cache misses',
-  labelY1='Cache Misses',
-  formatY1='percent',
+  yAxis1=yAxis.cache_misses,
   fill=0,
 )
 .addTarget(target.new('change_kind'))

@@ -2,6 +2,7 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 local BATCH_THREADS_TARGET = 'batch threads';
 local BATCH_POOL_SIZE_TARGET = 'batch pool size';
@@ -10,7 +11,7 @@ local INTERACTIVE_POOL_SIZE_TARGET = 'interactive pool size';
 
 lineGraph.new(
   title='INDEX threads',
-  labelY1='Threads',
+  yAxis1=yAxis.new(label='Threads'),
 )
 .addTarget(
   prometheus.target(

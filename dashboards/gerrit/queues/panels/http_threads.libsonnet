@@ -2,6 +2,7 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 local ACTIVE_THREADS_TARGET = 'active threads';
 local RESERVED_THREADS_TARGET = 'reserved threads';
@@ -10,7 +11,7 @@ local POOL_SIZE_TARGET = 'pool size';
 
 lineGraph.new(
   title='HTTP threads',
-  labelY1='Threads',
+  yAxis1=yAxis.new(label='Threads'),
 )
 .addTarget(
   prometheus.target(
