@@ -3,10 +3,11 @@ local graphPanel = grafana.graphPanel;
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='Threads',
-  labelY1='Live Threads',
+  yAxis1=yAxis.new(label='Live Threads'),
 )
 .addTarget(
   prometheus.target(

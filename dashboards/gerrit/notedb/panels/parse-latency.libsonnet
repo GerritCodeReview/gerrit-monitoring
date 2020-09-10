@@ -3,11 +3,11 @@ local graphPanel = grafana.graphPanel;
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='Parse Latency',
-  labelY1='Latency',
-  formatY1='s',
+  yAxis1=yAxis.latency,
 )
 .addTarget(
   prometheus.target(

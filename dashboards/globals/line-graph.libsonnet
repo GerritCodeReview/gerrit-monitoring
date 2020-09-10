@@ -2,22 +2,27 @@ local grafana = import '../../vendor/grafonnet/grafana.libsonnet';
 local graphPanel = grafana.graphPanel;
 
 local defaults = import './defaults.libsonnet';
+local yAxis = import './yaxis.libsonnet';
 
 {
   new(
     title,
-    labelY1,
-    labelY2='',
-    formatY1='short',
-    formatY2='short',
+    yAxis1,
+    yAxis2=yAxis.new(),
+    min=null,
+    max=null,
     stack=false,
     fill=1,
   ):: graphPanel.new(
     title=title,
-    labelY1=labelY1,
-    labelY2=labelY2,
-    formatY1=formatY1,
-    formatY2=formatY2,
+    labelY1=yAxis1.label,
+    formatY1=yAxis1.format,
+    logBase1Y=yAxis1.logBase,
+    labelY2=yAxis2.label,
+    formatY2=yAxis2.format,
+    logBase2Y=yAxis2.logBase,
+    min=min,
+    max=max,
     stack=stack,
     fill=fill,
     datasource='Prometheus',
