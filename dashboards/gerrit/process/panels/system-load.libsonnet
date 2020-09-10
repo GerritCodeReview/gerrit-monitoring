@@ -3,10 +3,11 @@ local graphPanel = grafana.graphPanel;
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='System load',
-  labelY1='System load',
+  yAxis1=yAxis.new(label='System load'),
 )
 .addTarget(
   prometheus.target(
