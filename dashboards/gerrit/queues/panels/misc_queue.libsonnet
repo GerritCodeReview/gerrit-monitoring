@@ -2,6 +2,7 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 local STREAM_TARGET = 'stream threads';
 local EMAIL_TARGET = 'email threads';
@@ -9,7 +10,7 @@ local RECEIVE_COMMIT_TARGET = 'receive-commit threads';
 
 lineGraph.new(
   title='MISC queues',
-  labelY1='Tasks',
+  yAxis1=yAxis.new(label='Tasks'),
 )
 .addTarget(
   prometheus.target(
