@@ -2,6 +2,7 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 local STREAM_TARGET = 'stream threads';
 local STREAM_POOL_SIZE_TARGET = 'stream pool size';
@@ -12,7 +13,7 @@ local RECEIVE_COMMIT_POOL_SIZE_TARGET = 'receive-commit pool size';
 
 lineGraph.new(
   title='MISC threads',
-  labelY1='Threads',
+  yAxis1=yAxis.new(label='Threads'),
 )
 .addTarget(
   prometheus.target(

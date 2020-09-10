@@ -3,13 +3,18 @@ local graphPanel = grafana.graphPanel;
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='JGit block cache',
-  formatY1='percentunit',
-  labelY1='miss ratio',
-  formatY2='percentunit',
-  labelY2='eviction ratio',
+  yAxis1=yAxis.new(
+    label='miss ratio',
+    format='percentunit',
+  ),
+  yAxis2=yAxis.new(
+    label='eviction ratio',
+    format='percentunit',
+  ),
 )
 .addTarget(
   prometheus.target(

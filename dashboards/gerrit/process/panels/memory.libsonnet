@@ -3,11 +3,14 @@ local graphPanel = grafana.graphPanel;
 local prometheus = grafana.prometheus;
 
 local lineGraph = import '../../../globals/line-graph.libsonnet';
+local yAxis = import '../../../globals/yaxis.libsonnet';
 
 lineGraph.new(
   title='Memory',
-  formatY1='decbytes',
-  labelY1='Memory Consumption',
+  yAxis1=yAxis.new(
+    label='Memory Consumption',
+    format='decbytes',
+  ),
 )
 .addTarget(
   prometheus.target(
