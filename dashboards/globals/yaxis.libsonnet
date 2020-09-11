@@ -10,6 +10,7 @@
   latency: self.new(
     label='Latency',
     format='s',
+    logBase=10,
   ),
   cache_misses: self.new(
     label='Cache Misses',
