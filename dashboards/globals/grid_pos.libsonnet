@@ -8,12 +8,13 @@ local DEFAULT_HEIGHT = 11;
     row,
     column,
     total_columns=2,
+    height=DEFAULT_HEIGHT
   ):: {
     local width = TOTAL_WIDTH / total_columns,
 
     x: column * width,
-    y: row * DEFAULT_HEIGHT,
+    y: row * height,
     w: width,
-    h: DEFAULT_HEIGHT,
+    h: height,
   },
 }
