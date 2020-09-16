@@ -36,8 +36,9 @@ TEMPLATES = [
 ]
 
 HELM_REPOS = {
-    "stable": "https://kubernetes-charts.storage.googleapis.com",
+    "grafana": "https://grafana.github.io/helm-charts",
     "loki": "https://grafana.github.io/loki/charts",
+    "stable": "https://kubernetes-charts.storage.googleapis.com",
 }
 
 LOOSE_RESOURCES = [
