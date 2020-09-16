@@ -13,7 +13,7 @@
 # limitations under the License.
 
 HELM_CHARTS = {
-    "grafana": "stable/grafana",
+    "grafana": "grafana/grafana",
     "loki": "loki/loki",
     "prometheus": "prometheus-community/prometheus",
     "promtail": "loki/promtail",
