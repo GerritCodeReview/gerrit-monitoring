@@ -73,6 +73,9 @@ def _create_dashboard_configmaps(output_dir, namespace):
             dashboard_cm = yaml.load(f, Loader=yaml.SafeLoader)
             dashboard_cm["metadata"]["labels"] = dict()
             dashboard_cm["metadata"]["labels"]["grafana_dashboard"] = dashboard_name
+            dashboard_cm["data"][dashboard] = dashboard_cm["data"][dashboard].replace(
+                '"${DS_PROMETHEUS}"', "null"
+            )
 
         with open(output_file, "w") as f:
             yaml.dump(dashboard_cm, f)
