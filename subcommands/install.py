@@ -37,6 +37,7 @@ TEMPLATES = [
 HELM_REPOS = {
     "stable": "https://charts.helm.sh/stable",
     "loki": "https://grafana.github.io/loki/charts",
+    "prometheus-community": "https://prometheus-community.github.io/helm-charts",
 }
 
 LOOSE_RESOURCES = [
