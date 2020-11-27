@@ -16,6 +16,24 @@
       "message": "Thank you so much for making it easier to import your dashboards.  I previously had to change the \"datasource\" fields via file editing before importing them. Wikimedia has several Prometheus servers and a high availability system in front of them (Thanos).\n\nWith your change, when I import the json dashboards, I can now pick the Prometheus source via a selection list. Example when picking the \"Thanos\" datasource https://phabricator.wikimedia.org/F33926599\n\nHowever template variables are still hardcoding a datasource of \"Prometheus\":\n\n $ jq -c \u0027.templating.list[] | {file:input_filename, datasource, name}\u0027 dashboards/*.json\n {\"file\":\"dashboards/gerrit-caches.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-caches.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-fetch-clone.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-fetch-clone.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-latency.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-latency.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-overview.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-overview.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-process.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-process.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-queues.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-queues.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-replication.json\",\"datasource\":\"Prometheus\",\"name\":\"instance\"}\n {\"file\":\"dashboards/gerrit-replication.json\",\"datasource\":\"Prometheus\",\"name\":\"replica\"}\n {\"file\":\"dashboards/gerrit-replication.json\",\"datasource\":\"Prometheus\",\"name\":\"target\"}\n {\"file\":\"dashboards/prometheus-overview.json\",\"datasource\":null,\"name\":\"aggregation_interval\"}\n {\"file\":\"dashboards/prometheus-overview.json\",\"datasource\":\"Prometheus\",\"name\":\"quantile\"}\n {\"file\":\"dashboards/prometheus-overview.json\",\"datasource\":null,\"name\":\"long_term_interval\"}\n\nI guess they should be adjusted to use the DS_PROMETHEUS variable as well.\n\n\nThe ones being null in prometheus-overview.json are for rows and should not be a concern.",
       "revId": "f51c2eb0ad489bd56fce971053152b6ee5b3ef20",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51eae319_e8fbc35a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-11-27T12:30:53Z",
+      "side": 1,
+      "message": "Done. Thanks for pointing this out.",
+      "parentUuid": "d0e5402c_802d7ff5",
+      "revId": "f51c2eb0ad489bd56fce971053152b6ee5b3ef20",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
