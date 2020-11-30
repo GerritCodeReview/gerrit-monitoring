@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48bfde33_4e9748fa",
+        "filename": "charts/prometheus/prometheus.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-30T14:01:13Z",
+      "side": 1,
+      "message": "want",
+      "range": {
+        "startLine": 39,
+        "startChar": 86,
+        "endLine": 39,
+        "endChar": 91
+      },
+      "revId": "99555021dab2fd686806f20f44fbd01236f3e33c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ad95488_b1f76598",
+        "filename": "charts/prometheus/prometheus.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2020-11-30T14:01:13Z",
+      "side": 1,
+      "message": "creation",
+      "range": {
+        "startLine": 42,
+        "startChar": 60,
+        "endLine": 42,
+        "endChar": 68
+      },
+      "revId": "99555021dab2fd686806f20f44fbd01236f3e33c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
