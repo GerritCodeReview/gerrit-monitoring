@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b564b0aa_eeb9f720",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2020-12-01T07:15:41Z",
+      "side": 1,
+      "message": "Those grammatical mistakes were copied from the original chart\u0027s values.yaml.",
+      "revId": "baa386bd98ae6936497ebe93fc7a02655498eae2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
