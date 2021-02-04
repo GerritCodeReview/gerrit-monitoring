@@ -39,6 +39,20 @@ barGraph.new(
     interval='1m',
   )
 )
+.addTarget(
+  prometheus.target(
+    'increase(proc_jvm_gc_time_ZGC{instance="$instance",replica="$replica"}[2m])/increase(proc_uptime{instance="$instance",replica="$replica"}[2m])',
+    legendFormat='gc time ZGC',
+    interval='1m',
+  )
+)
+.addTarget(
+  prometheus.target(
+    'increase(proc_jvm_gc_time_ShenandoahGC{instance="$instance",replica="$replica"}[2m])/increase(proc_uptime{instance="$instance",replica="$replica"}[2m])',
+    legendFormat='gc time ShenandoahGC',
+    interval='1m',
+  )
+)
 .addSeriesOverride(
   {
     alias: 'gc time G1 young gen',
@@ -61,5 +75,17 @@ barGraph.new(
   {
     alias: 'gc time PS MarkSweep',
     color: '#E02F44',
+  }
+)
+.addSeriesOverride(
+  {
+    alias: 'gc time ZGC',
+    color: '#3274D9',
+  }
+)
+.addSeriesOverride(
+  {
+    alias: 'gc time ShenandoahGC',
+    color: '#3274D9',
   }
 )
