@@ -55,7 +55,7 @@ barGraph.new(
 )
 .addSeriesOverride(
   {
-    alias: 'gc time G1 young gen',
+    alias: 'gc time G1 old gen',
     color: '#F2CC0C',
   }
 )
