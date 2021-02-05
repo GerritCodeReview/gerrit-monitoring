@@ -7,7 +7,7 @@ local yAxis = import '../../../globals/yaxis.libsonnet';
 barGraph.new(
   title='Java - % of time spent in GC',
   yAxis1=yAxis.new(
-    label='Open File Descriptors',
+    label='% of time spent in GC',
     format='percentunit',
   ),
 )
