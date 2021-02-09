@@ -2,6 +2,8 @@
 
 rbac:
   create: true
+  ## Use an existing ClusterRole/Role (depending on rbac.namespaced false/true)
+  # useExistingRole: name-of-some-(cluster)role
   pspEnabled: true
   pspUseAppArmor: true
   namespaced: false
@@ -18,6 +20,7 @@ serviceAccount:
   name:
   nameTest:
 #  annotations:
+#    eks.amazonaws.com/role-arn: arn:aws:iam::123456789000:role/iam-role-name-here
 
 replicas: 1
 
@@ -52,8 +55,8 @@ livenessProbe:
 
 image:
   repository: grafana/grafana
-  tag: 7.1.5
-  sha: "dfd940ed4dd82a6369cb057fe5ab4cc8c774c1c5b943b2f4b618302a7979de61"
+  tag: 7.3.5
+  sha: "f129cbbe45d1af23d13cb3ba4cbb1fd6f5d937af4880de9a61e8e6c7d548184e"
   pullPolicy: IfNotPresent
 
   ## Optionally specify an array of imagePullSecrets.
@@ -75,6 +78,8 @@ securityContext:
   runAsGroup: 472
   fsGroup: 472
 
+containerSecurityContext:
+  {}
 
 extraConfigmapMounts: []
   # - name: certs-configmap
@@ -94,8 +99,8 @@ extraEmptyDirMounts: []
 
 downloadDashboardsImage:
   repository: curlimages/curl
-  tag: 7.70.0
-  sha: "100cf667062584b3a756ccff1d1cf45a9a14b891812c89112275dfb751bf3d62"
+  tag: 7.73.0
+  sha: "fe2e9a64f8a9c2099e691f44ae8d2ba4dacc04b25d3755a7b1b3be0df6f5df5f"
   pullPolicy: IfNotPresent
 
 downloadDashboards:
@@ -136,6 +141,8 @@ serviceMonitor:
   #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
   labels: {}
   interval: 1m
+  scheme: http
+  tlsConfig: {}
   scrapeTimeout: 30s
   relabelings: []
 
@@ -154,6 +161,9 @@ hostAliases: []
 
 ingress:
   enabled: true
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  ingressClassName: nginx
   # Values can be templated
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -236,6 +246,7 @@ persistence:
   # annotations: {}
   finalizers:
     - kubernetes.io/pvc-protection
+  # selectorLabels: {}
   # subPath: ""
   existingClaim: grafana-pvc
 
@@ -288,6 +299,27 @@ admin:
 # schedulerName:
 
 ## Extra environment variables that will be pass onto deployment pods
+##
+## to provide grafana with access to CloudWatch on AWS EKS:
+## 1. create an iam role of type "Web identity" with provider oidc.eks.* (note the provider for later)
+## 2. edit the "Trust relationships" of the role, add a line inside the StringEquals clause using the
+## same oidc eks provider as noted before (same as the existing line)
+## also, replace NAMESPACE and prometheus-operator-grafana with the service account namespace and name
+##
+##  "oidc.eks.us-east-1.amazonaws.com/id/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:sub": "system:serviceaccount:NAMESPACE:prometheus-operator-grafana",
+##
+## 3. attach a policy to the role, you can use a built in policy called CloudWatchReadOnlyAccess
+## 4. use the following env: (replace 123456789000 and iam-role-name-here with your aws account number and role name)
+##
+## env:
+##   AWS_ROLE_ARN: arn:aws:iam::123456789000:role/iam-role-name-here
+##   AWS_WEB_IDENTITY_TOKEN_FILE: /var/run/secrets/eks.amazonaws.com/serviceaccount/token
+##   AWS_REGION: us-east-1
+##
+## 5. uncomment the EKS section in extraSecretMounts: below
+## 6. uncomment the annotation section in the serviceAccount: above
+## make sure to replace arn:aws:iam::123456789000:role/iam-role-name-here with your role arn
+
 env: {}
 
 ## "valueFrom" environment variable references that will be added to deployment pods
@@ -317,6 +349,29 @@ extraSecretMounts:
     secretName: grafana-ca
     readOnly: true
 #@ end
+  # for AWS EKS (cloudwatch) use the following (see also instruction in env: above)
+  # - name: aws-iam-token
+  #   mountPath: /var/run/secrets/eks.amazonaws.com/serviceaccount
+  #   readOnly: true
+  #   projected:
+  #     defaultMode: 420
+  #     sources:
+  #       - serviceAccountToken:
+  #           audience: sts.amazonaws.com
+  #           expirationSeconds: 86400
+  #           path: token
+  #
+  # for CSI e.g. Azure Key Vault use the following
+  # - name: secrets-store-inline
+  #  mountPath: /run/secrets
+  #  readOnly: true
+  #  csi:
+  #    driver: secrets-store.csi.k8s.io
+  #    readOnly: true
+  #    volumeAttributes:
+  #      secretProviderClass: "akv-grafana-spc"
+  #    nodePublishSecretRef:                       # Only required when using service principal mode
+  #       name: grafana-akv-creds                  # Only required when using service principal mode
 
 ## Additional grafana server volume mounts
 # Defines additional volume mounts.
@@ -506,8 +561,8 @@ smtp:
 sidecar:
   image:
     repository: kiwigrid/k8s-sidecar
-    tag: 0.1.151
-    sha: "7b98eecdf6d117b053622e9f317c632a4b2b97636e8b2e96b311a5fd5c68d211"
+    tag: 1.1.0
+    sha: "3d1e7bfda06ca8d00e20e60733d1551bdbb3adb13685167185489b1931365f05"
   imagePullPolicy: IfNotPresent
   resources:
     limits:
@@ -521,8 +576,6 @@ sidecar:
   enableUniqueFilenames: false
   dashboards:
     enabled: true
-    ## Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
-    watchMethod: WATCH
     SCProvider: true
     # label that the configmaps with dashboards are marked with
     label: grafana_dashboard
@@ -534,6 +587,9 @@ sidecar:
     # Otherwise the namespace in which the sidecar is running will be used.
     # It's also possible to specify ALL to search in all namespaces
     searchNamespace: null
+    # If specified, the sidecar will look for annotation with this name to create folder and put graph here.
+    # You can use this parameter together with `provider.foldersFromFilesStructure`to annotate configmaps and create folder structure.
+    folderAnnotation: null
     # provider configuration that lets grafana manage the dashboards
     provider:
       # name of the provider, should be unique
@@ -552,8 +608,6 @@ sidecar:
       foldersFromFilesStructure: false
   datasources:
     enabled: false
-    ## Method to use to detect ConfigMap changes. With WATCH the sidecar will do a WATCH requests, with SLEEP it will list all ConfigMaps, then sleep for 60 seconds.
-    watchMethod: WATCH
     # label that the configmaps with datasources are marked with
     label: grafana_datasource
     # If specified, the sidecar will search for datasource config-maps inside this namespace.
@@ -572,3 +626,56 @@ sidecar:
 ## Override the deployment namespace
 ##
 namespaceOverride: ""
+
+## Number of old ReplicaSets to retain
+##
+revisionHistoryLimit: 10
+## Add a seperate remote image renderer deployment/service
+imageRenderer:
+  # Enable the image-renderer deployment & service
+  enabled: false
+  replicas: 1
+  image:
+    # image-renderer Image repository
+    repository: grafana/grafana-image-renderer
+    # image-renderer Image tag
+    tag: latest
+    # image-renderer Image sha (optional)
+    sha: ""
+    # image-renderer ImagePullPolicy
+    pullPolicy: Always
+  # extra environment variables
+  env:
+    HTTP_HOST: "0.0.0.0"
+    # RENDERING_ARGS: --disable-gpu,--window-size=1280x758
+    # RENDERING_MODE: clustered
+  # image-renderer deployment serviceAccount
+  serviceAccountName: ""
+  # image-renderer deployment securityContext
+  securityContext: {}
+  # image-renderer deployment Host Aliases
+  hostAliases: []
+  # image-renderer deployment priority class
+  priorityClassName: ''
+  service:
+    # image-renderer service port name
+    portName: 'http'
+    # image-renderer service port used by both service and deployment
+    port: 8081
+    targetPort: 8081
+  # name of the image-renderer port on the pod
+  podPortName: http
+  # number of image-renderer replica sets to keep
+  revisionHistoryLimit: 10
+  networkPolicy:
+    # Enable a NetworkPolicy to limit inbound traffic to only the created grafana pods
+    limitIngress: true
+    # Enable a NetworkPolicy to limit outbound traffic to only the created grafana pods
+    limitEgress: false
+  resources: {}
+#   limits:
+#     cpu: 100m
+#     memory: 100Mi
+#   requests:
+#     cpu: 50m
+#     memory: 50Mi
