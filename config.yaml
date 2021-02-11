@@ -12,6 +12,7 @@ gerritServers:
   - host: gerrit.example.com
     username: admin
     password: secret
+    healthcheck: false
     promtail:
       storagePath: /var/promtail
       logPath: /var/gerrit/logs
