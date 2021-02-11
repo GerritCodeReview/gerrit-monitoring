@@ -167,13 +167,14 @@ configuration parameters:
   Gerrit installations with just one replica that can run anywhere, where they
   are reachable via HTTP.
 
-| option                                         | description                                                                        |
-|------------------------------------------------|------------------------------------------------------------------------------------|
-| `gerritServers.other.[*].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                 |
-| `gerritServers.other.[*].username`             | Username of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.other.[*].password`             | Password of Gerrit user with 'View Metrics' capabilities                           |
-| `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`) |
-| `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)             |
+| option                                         | description                                                                                  |
+|------------------------------------------------|----------------------------------------------------------------------------------------------|
+| `gerritServers.other.[*].host`                 | Hostname (incl. port, if required) of the Gerrit server to monitor                           |
+| `gerritServers.other.[*].username`             | Username of Gerrit user with 'View Metrics' capabilities                                     |
+| `gerritServers.other.[*].password`             | Password of Gerrit user with 'View Metrics' capabilities                                     |
+| `gerritServers.other.[*].healthcheck`          | Whether to deploy a container that regularly pings the healthcheck plugin endpoint in Gerrit |
+| `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`)           |
+| `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)                       |
 
 
 ### Encryption
