@@ -561,6 +561,25 @@ server:
 
   name: server
   sidecarContainers:
+  #@ for instance in data.values.gerritServers.other:
+  #@ if instance.healthcheck:
+  - name: #@ "{}-health-ping".format(instance.host).replace('.', '-')
+    image: curlimages/curl:7.73.0
+    command:
+    - "watch"
+    - "-n"
+    - "30"
+    args:
+    - #@ "curl -Lk https://{}/config/server/healthcheck~status || echo 'Healthcheck failed'".format(instance.host)
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+  #@ end
+  #@ end
 
   ## Prometheus server container image
   ##
