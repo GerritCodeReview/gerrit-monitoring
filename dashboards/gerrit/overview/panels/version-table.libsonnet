@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local table = grafana.tablePanel;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 table.new(
   title='Gerrit Version',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
   transform='table',
   transparent=false,
 )

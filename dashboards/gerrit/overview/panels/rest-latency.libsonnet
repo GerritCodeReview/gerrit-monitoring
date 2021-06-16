@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local gauge = grafana.gaugePanel;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 gauge.new(
   title='REST API latency (0.99 quantile)',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
   unit='ms',
   min=0,
   max=50,

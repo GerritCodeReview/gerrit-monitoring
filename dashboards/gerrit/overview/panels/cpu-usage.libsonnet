@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local gauge = grafana.gaugePanel;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 gauge.new(
   title='CPU Usage',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
 )
 .addTarget(
   target=prometheus.target(

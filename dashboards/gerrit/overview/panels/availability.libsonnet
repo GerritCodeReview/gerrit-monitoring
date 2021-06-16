@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local stat = grafana.singlestat;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 stat.new(
   title='Gerrit Availability [last 24h]',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
   colorBackground=true,
   colors=[
     "red",

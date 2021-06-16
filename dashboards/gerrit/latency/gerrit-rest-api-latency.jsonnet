@@ -27,7 +27,7 @@ dashboard.new(
 .addTemplate(
   template.new(
     name='endpoint',
-    datasource='Prometheus',
+    datasource=defaults.datasource,
     query='metrics(^http_server_rest_api_server_latency_restapi_.+$)',
     regex='^http_server_rest_api_server_latency_restapi_([^_]+)_.+$',
     label='Endpoint',
@@ -37,7 +37,7 @@ dashboard.new(
 .addTemplate(
   template.new(
     name='action',
-    datasource='Prometheus',
+    datasource=defaults.datasource,
     query='metrics(^http_server_rest_api_server_latency_restapi_$endpoint.+$)',
     regex='^http_server_rest_api_server_latency_restapi_[^_]+_([^_]+)_.+$',
     label='Action',

@@ -27,7 +27,7 @@ dashboard.new(
 .addTemplate(
   template.new(
     name='target',
-    datasource='Prometheus',
+    datasource=defaults.datasource,
     query='metrics(plugins_replication_replication_latency_.*_count)',
     regex='^plugins_replication_replication_latency_(.*)_count$',
     label='Replication Target',

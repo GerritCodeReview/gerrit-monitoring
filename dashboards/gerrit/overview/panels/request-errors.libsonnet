@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local gauge = grafana.gaugePanel;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 gauge.new(
   title='HTTP Request Error Rate (last 5 min)',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
   description='Excludes 404 and 401, since these error codes are caused by client behaviour and are overrepresented in the data.',
   min=0,
   max=100,

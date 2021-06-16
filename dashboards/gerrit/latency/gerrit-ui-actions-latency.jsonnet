@@ -27,7 +27,7 @@ dashboard.new(
 .addTemplate(
   template.new(
     name='action',
-    datasource='Prometheus',
+    datasource=defaults.datasource,
     query='metrics(^http_server_rest_api_ui_actions_latency_[^_]+$)',
     regex='^http_server_rest_api_ui_actions_latency_(.+)$',
     label='Action',

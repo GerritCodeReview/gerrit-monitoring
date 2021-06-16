@@ -2,9 +2,11 @@ local grafana = import '../../../../vendor/grafonnet/grafana.libsonnet';
 local prometheus = grafana.prometheus;
 local gauge = grafana.barGaugePanel;
 
+local defaults = import '../../../globals/defaults.libsonnet';
+
 gauge.new(
   title='Live Threads',
-  datasource='Prometheus',
+  datasource=defaults.datasource,
   thresholds=[{
     color: 'green',
     value: null,
