@@ -4,7 +4,6 @@ local table = grafana.tablePanel;
 
 table.new(
   title='Gerrit Version',
-  datasource='Prometheus',
   transform='table',
   transparent=false,
 )

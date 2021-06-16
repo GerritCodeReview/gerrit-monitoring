@@ -4,7 +4,6 @@ local gauge = grafana.gaugePanel;
 
 gauge.new(
   title='Heap Memory Usage',
-  datasource='Prometheus',
 )
 .addTarget(
   target=prometheus.target(

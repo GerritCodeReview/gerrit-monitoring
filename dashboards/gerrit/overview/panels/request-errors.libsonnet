@@ -4,7 +4,6 @@ local gauge = grafana.gaugePanel;
 
 gauge.new(
   title='HTTP Request Error Rate (last 5 min)',
-  datasource='Prometheus',
   description='Excludes 404 and 401, since these error codes are caused by client behaviour and are overrepresented in the data.',
   min=0,
   max=100,

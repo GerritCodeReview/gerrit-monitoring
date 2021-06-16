@@ -4,7 +4,6 @@ local gauge = grafana.gaugePanel;
 
 gauge.new(
   title='REST API latency (0.99 quantile)',
-  datasource='Prometheus',
   unit='ms',
   min=0,
   max=50,

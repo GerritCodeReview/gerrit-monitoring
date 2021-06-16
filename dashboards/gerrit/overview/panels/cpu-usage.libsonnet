@@ -4,7 +4,6 @@ local gauge = grafana.gaugePanel;
 
 gauge.new(
   title='CPU Usage',
-  datasource='Prometheus',
 )
 .addTarget(
   target=prometheus.target(

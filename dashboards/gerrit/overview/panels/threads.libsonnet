@@ -4,7 +4,6 @@ local gauge = grafana.barGaugePanel;
 
 gauge.new(
   title='Live Threads',
-  datasource='Prometheus',
   thresholds=[{
     color: 'green',
     value: null,

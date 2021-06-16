@@ -37,7 +37,7 @@ dashboard.new(
 .addTemplate(
   template.new(
     name='check',
-    datasource='Prometheus',
+    datasource=defaults.datasource,
     query='metrics(^plugins_healthcheck_.+_failure_total$)',
     regex='plugins_healthcheck_(.+)_failure_total',
     label='Check',

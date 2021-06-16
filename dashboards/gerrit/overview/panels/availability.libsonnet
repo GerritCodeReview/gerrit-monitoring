@@ -4,7 +4,6 @@ local stat = grafana.singlestat;
 
 stat.new(
   title='Gerrit Availability [last 24h]',
-  datasource='Prometheus',
   colorBackground=true,
   colors=[
     "red",
