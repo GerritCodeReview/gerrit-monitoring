@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e199a04_04208d13",
+        "filename": "dashboards/gerrit/overview/panels/availability.libsonnet",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-06-23T07:29:48Z",
+      "side": 0,
+      "message": "Why remove it here and other places and not use `defaults.datasource`. I would guess, that removing it would work for published dashboards, but not as part of the monitoring setup as used in this repo.",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
