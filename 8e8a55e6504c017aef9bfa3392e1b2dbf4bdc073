@@ -22,6 +22,30 @@
       },
       "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e3c0d7f_bb1b3463",
+        "filename": "dashboards/gerrit/overview/panels/availability.libsonnet",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2021-06-23T08:31:00Z",
+      "side": 0,
+      "message": "This indeed adds issues, since the default dashboard is used now, which might not be the correct one.",
+      "parentUuid": "3e199a04_04208d13",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
