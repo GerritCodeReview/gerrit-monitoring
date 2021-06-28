@@ -46,6 +46,30 @@
       },
       "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a7d4488_67eac42c",
+        "filename": "dashboards/gerrit/overview/panels/availability.libsonnet",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1064086
+      },
+      "writtenOn": "2021-06-28T15:07:38Z",
+      "side": 0,
+      "message": "Should I also import + use \u0027defaults\u0027 in these places instead of just removing the line?",
+      "parentUuid": "3e3c0d7f_bb1b3463",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
