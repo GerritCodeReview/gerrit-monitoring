@@ -94,6 +94,30 @@
       },
       "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb6a578a_113ee194",
+        "filename": "dashboards/gerrit/overview/panels/availability.libsonnet",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1064086
+      },
+      "writtenOn": "2021-06-29T15:13:31Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c3ad6dd4_c9631280",
+      "range": {
+        "startLine": 7,
+        "startChar": 2,
+        "endLine": 7,
+        "endChar": 26
+      },
+      "revId": "8e8a55e6504c017aef9bfa3392e1b2dbf4bdc073",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
