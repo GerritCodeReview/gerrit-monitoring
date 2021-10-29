@@ -26,22 +26,22 @@ dashboard.new(
 .addTemplate(variables.replica)
 .addPanel(
   latency_panel.new(
-    metric='receivecommits_latency_total',
-    title='TOTAL receive-commits latency'
+    metric='receivecommits_latency_per_push_total',
+    title='TOTAL receive-commits latency per push'
   ),
   gridPos=gridPos.new(0, 0, 1)
 )
 .addPanel(
   latency_panel.new(
-    metric='receivecommits_latency_AUTOCLOSED',
-    title='AUTOCLOSED receive-commits latency'
+    metric='receivecommits_latency_per_push_AUTOCLOSED',
+    title='AUTOCLOSED receive-commits latency per push'
   ),
   gridPos=gridPos.new(1, 0)
 )
 .addPanel(
   latency_panel.new(
-    metric='receivecommits_latency_CREATE_REPLACE',
-    title='CREATE/REPLACE receive-commits latency'
+    metric='receivecommits_latency_per_push_CREATE_REPLACE',
+    title='CREATE/REPLACE receive-commits latency per push'
   ),
   gridPos=gridPos.new(1, 1)
 )
