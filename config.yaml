@@ -8,6 +8,11 @@ gerritServers:
     port: 8080
     username: admin
     password: secret
+  federatedPrometheus:
+  - host: prometheus.example.com
+    port: 9090
+    username: admin
+    password: secret
   other:
   - host: gerrit.example.com
     username: admin

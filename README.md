@@ -163,6 +163,18 @@ configuration parameters:
 | `gerritServers.kubernetes.[*].username`      | Username of Gerrit user with 'View Metrics' capabilities |
 | `gerritServers.kubernetes.[*].password`      | Password of Gerrit user with 'View Metrics' capabilities |
 
+* Federated Prometheus \
+  Load balanced Gerrit instances can't be scraped through the load balancer. For
+  this use cases typically a local Prometheus is installed and then scraped by
+  the central Prometheus in a federated setup.
+
+| option                                           | description                                                   |
+|--------------------------------------------------|---------------------------------------------------------------|
+| `gerritServers.federatedPrometheus.[*].host`     | Host running Gerrit and the Prometheus instance being scraped |
+| `gerritServers.federatedPrometheus.[*].port`     | Port used by Prometheus                                       |
+| `gerritServers.federatedPrometheus.[*].username` | Username for authenticating with Prometheus                   |
+| `gerritServers.federatedPrometheus.[*].password` | Password for authenticating with Prometheus                   |
+
 * Other \
   Gerrit installations with just one replica that can run anywhere, where they
   are reachable via HTTP.
