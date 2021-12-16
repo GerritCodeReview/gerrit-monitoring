@@ -1298,6 +1298,20 @@ serverFiles:
         replacement: $1
         action: replace
     #@ end
+    #@ for prometheus in data.values.gerritServers.federatedPrometheus:
+    - job_name: #@ "gerrit-{}".format(prometheus.host)
+      honor_labels: true
+      metrics_path: '/federate'
+      params:
+        'match[]':
+          - #@ '{instance=~"{}.*"}'.format(prometheus.host)
+      static_configs:
+        - targets:
+          - #@ '{}:{}'.format(prometheus.host, prometheus.port)
+      basic_auth:
+        username: #@ prometheus.username
+        password_file: #@ "/etc/secrets/.pwd_{}".format(prometheus.host)
+    #@ end
     #@ for gerrit in data.values.gerritServers.other:
     - job_name: #@ "gerrit-{}".format(gerrit.host)
       metrics_path: /a/plugins/metrics-reporter-prometheus/metrics
