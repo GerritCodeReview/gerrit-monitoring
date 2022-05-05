@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27bc1319_091466b7",
+        "filename": "documentation/config-management.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2022-05-05T14:13:20Z",
+      "side": 1,
+      "message": "[nit] \"also allows to decrypt the values\" missing something between \u0027allows\u0027 and \u0027to\u0027 - \"allows you to\"? Or maybe, better: \"Access to the key allows decryption of the values\"",
+      "revId": "e463d86ec99680b81fde38aa0fd527c8a2ef01d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "300b9202_661ef960",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1144862
+      },
+      "writtenOn": "2022-05-05T14:13:20Z",
+      "side": 1,
+      "message": "[nit] key",
+      "revId": "e463d86ec99680b81fde38aa0fd527c8a2ef01d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
