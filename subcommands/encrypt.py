@@ -29,18 +29,7 @@ ENCRYPTED_KEYS = [
 ]
 
 
-def encrypt(pgp_identifier, config_path):
-    """Encrypt the config file using sops and a PGP key.
-
-    Arguments:
-        pgp_identifier {string} -- A unique identifier of the PGP key to be used.
-            This can be the fingerprint, keyid or part of the uid (e.g. the email
-            address)
-        config_path {string} -- The path to the config file to be encrypted
-
-    Raises:
-        ValueError: Error, if no (unique) PGP key could be found
-    """
+def _pgp(pgp_identifier, config_path):
     gpg = gnupg.GPG()
     gpg_keys = gpg.list_keys()
     selected_keys = list(
@@ -69,3 +58,50 @@ def encrypt(pgp_identifier, config_path):
         config_path,
     ]
     subprocess.check_output(command)
+
+
+def _vault(vault_address, engine, key, config_path):
+    url = f"{vault_address}/v1/{engine}/keys/{key}"
+
+    command = [
+        "sops",
+        "--encrypt",
+        "--in-place",
+        "--encrypted-regex",
+        f"({'|'.join(ENCRYPTED_KEYS)})",
+        "--hc-vault-transit",
+        url,
+        config_path,
+    ]
+    subprocess.check_output(command)
+
+
+def encrypt(
+    method, config_path, pgp_identifier=None, vault_address=None, engine=None, key=None
+):
+    """Encrypt the config file
+
+    Args:
+        method {string}: The method of receiving the encryption key.
+            (options: 'pgp', 'vault')
+        config_path {string}: The path to the config file to be encrypted
+        pgp_identifier ({string}, optional): A unique identifier of the PGP key
+            to be used. This can be the fingerprint, keyid or part of the uid
+            (e.g. the email address). Required for method 'pgp'. Defaults to None.
+        vault_address ({string}, optional): Base URL of Vault incl. protocol.
+            Required for method 'vault'. Defaults to None.
+        engine ({string}, optional): Name of the secret engine. Required for
+            method 'vault'. Defaults to None.
+        key ({string}, optional): Name of the key. Required for method 'vault'.
+            Defaults to None.
+    """
+    if method == "pgp":
+        if pgp_identifier is None:
+            raise ValueError("Missing PGP identifier.")
+        _pgp(pgp_identifier, config_path)
+    elif method == "vault":
+        if None in [vault_address, engine, key]:
+            raise ValueError("Missing required metadata for accessing vault.")
+        _vault(vault_address, engine, key, config_path)
+    else:
+        raise ValueError("Unknown method to retrieve key for encryption.")

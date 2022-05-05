@@ -20,7 +20,14 @@ from subcommands import encrypt, install, uninstall
 
 
 def _run_encrypt(args):
-    encrypt(args.pgp_identifier, os.path.abspath(args.config))
+    encrypt(
+        args.enc_method,
+        os.path.abspath(args.config),
+        pgp_identifier=args.pgp_identifier,
+        vault_address=args.vault_address,
+        engine=args.vault_engine,
+        key=args.vault_key,
+    )
 
 
 def _run_install(args):
@@ -87,12 +94,41 @@ def main():
     parser_encrypt.set_defaults(func=_run_encrypt)
 
     parser_encrypt.add_argument(
-        "-p",
-        "--pgp",
+        "-m",
+        "--method",
+        help="Encryption method used by SOPS.",
+        dest="enc_method",
+        action="store",
+        choices=["pgp", "vault"],
+        required=True,
+    )
+
+    parser_encrypt.add_argument(
+        "--pgp-id",
         help="PGP fingerpint or associated email.",
         dest="pgp_identifier",
         action="store",
-        required=True,
+    )
+
+    parser_encrypt.add_argument(
+        "--vault-url",
+        help="URL of vault instance (incl. protocol).",
+        dest="vault_address",
+        action="store",
+    )
+
+    parser_encrypt.add_argument(
+        "--vault-engine",
+        help="Secret engine managing the key used for encryption.",
+        dest="vault_engine",
+        action="store",
+    )
+
+    parser_encrypt.add_argument(
+        "--vault-key",
+        help="Name of the key used for encryption.",
+        dest="vault_key",
+        action="store",
     )
 
     args = parser.parse_args()
