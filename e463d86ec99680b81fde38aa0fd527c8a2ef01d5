@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9de79ef_18dfe28c",
+        "filename": "documentation/config-management.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-09T07:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27bc1319_091466b7",
+      "revId": "e463d86ec99680b81fde38aa0fd527c8a2ef01d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "300b9202_661ef960",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-05T14:13:20Z",
       "side": 1,
       "message": "[nit] key",
+      "revId": "e463d86ec99680b81fde38aa0fd527c8a2ef01d5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d5b77c5_a4faea3d",
+        "filename": "subcommands/encrypt.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-09T07:00:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "300b9202_661ef960",
       "revId": "e463d86ec99680b81fde38aa0fd527c8a2ef01d5",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
