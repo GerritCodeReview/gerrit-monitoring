@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01170bcb_4819335a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2022-06-21T13:55:22Z",
+      "side": 1,
+      "message": "Would it be an option to move all the secret options themselves to vault instead of only moving the encryption key to vault ?",
+      "revId": "7088daaa31170523413c3f19df503f808cee5fe3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
