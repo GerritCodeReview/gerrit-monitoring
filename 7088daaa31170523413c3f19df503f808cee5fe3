@@ -16,6 +16,24 @@
       "message": "Would it be an option to move all the secret options themselves to vault instead of only moving the encryption key to vault ?",
       "revId": "7088daaa31170523413c3f19df503f808cee5fe3",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a657ea5b_d3f185cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-06-22T06:27:58Z",
+      "side": 1,
+      "message": "Yes, that is my plan in the end. This was a first quick solution. The PGP key that I originally used expired and could not be used for encryption anymore, so this was a quick improvement. I will work on moving all secrets to the vault as soon as I have some time.",
+      "parentUuid": "01170bcb_4819335a",
+      "revId": "7088daaa31170523413c3f19df503f808cee5fe3",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
