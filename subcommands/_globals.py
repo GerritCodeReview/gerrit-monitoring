@@ -14,7 +14,7 @@
 
 HELM_CHARTS = {
     "grafana": "grafana/grafana",
-    "loki": "loki/loki",
+    "loki": "grafana/loki",
     "prometheus": "prometheus-community/prometheus",
-    "promtail": "loki/promtail",
+    "promtail": "grafana/promtail",
 }

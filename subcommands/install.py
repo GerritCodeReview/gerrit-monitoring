@@ -38,7 +38,6 @@ TEMPLATES = [
 
 HELM_REPOS = {
     "grafana": "https://grafana.github.io/helm-charts",
-    "loki": "https://grafana.github.io/loki/charts",
     "prometheus-community": "https://prometheus-community.github.io/helm-charts",
 }
 
