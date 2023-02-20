@@ -16,6 +16,7 @@ local jgit_block_cache_panel = import './panels/jgit-block-cache.libsonnet';
 local memory_panel = import './panels/memory.libsonnet';
 local system_load_panel = import './panels/system-load.libsonnet';
 local threads_panel = import './panels/threads.libsonnet';
+local allocation_panel = import './panels/allocation.libsonnet';
 
 dashboard.new(
   'Gerrit - Process',
@@ -50,11 +51,15 @@ dashboard.new(
   gridPos=gridPos.new(2, 0)
 )
 .addPanel(
-  file_descr_panel,
+  allocation_panel,
   gridPos=gridPos.new(2, 1)
 )
 .addPanel(
   jgit_block_cache_panel,
   gridPos=gridPos.new(3, 0)
+)
+.addPanel(
+  file_descr_panel,
+  gridPos=gridPos.new(3, 1)
 )
 + if std.extVar('publish') then publishVariables else {}
