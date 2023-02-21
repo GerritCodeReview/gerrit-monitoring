@@ -210,7 +210,7 @@ This project provides a script to quickly install the monitoring setup. To use
 it, run:
 
 ```sh
-pipenv run python ./gerrit_monitoring.py \
+pipenv run ./gerrit_monitoring.py \
   --config config.yaml \
   install \
   [--output ./dist] \
@@ -277,7 +277,7 @@ The `./gerrit_monitoring.py uninstall`-script will automatically remove the
 charts installed in the configured namespace and delete the namespace as well:
 
 ```sh
-pipenv run python ./gerrit_monitoring.py \
+pipenv run ./gerrit_monitoring.py \
   --config config.yaml \
   uninstall
 ```
