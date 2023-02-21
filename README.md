@@ -195,7 +195,7 @@ The configuration file contains secrets. Thus, to be able to share the configura
 e.g. with the CI-system, it is meant to be encrypted. The encryption is explained
 [here](./documentation/config-management.md).
 
-The `gerrit-monitoring.py install`-command will decrypt the file before templating,
+The `gerrit_monitoring.py install`-command will decrypt the file before templating,
 if it was encrypted with `sops`.
 
 ## Installation
@@ -210,7 +210,7 @@ This project provides a script to quickly install the monitoring setup. To use
 it, run:
 
 ```sh
-pipenv run python ./gerrit-monitoring.py \
+pipenv run python ./gerrit_monitoring.py \
   --config config.yaml \
   install \
   [--output ./dist] \
@@ -273,11 +273,11 @@ Remove the namespace:
 kubectl delete -f ./dist/namespace.yaml
 ```
 
-The `./gerrit-monitoring.py uninstall`-script will automatically remove the
+The `./gerrit_monitoring.py uninstall`-script will automatically remove the
 charts installed in the configured namespace and delete the namespace as well:
 
 ```sh
-pipenv run python ./gerrit-monitoring.py \
+pipenv run python ./gerrit_monitoring.py \
   --config config.yaml \
   uninstall
 ```
