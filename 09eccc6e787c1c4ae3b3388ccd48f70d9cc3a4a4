@@ -16,6 +16,24 @@
       "message": "Since in the latest change you made gerrit_monitoring.py executable, the explicit call to \"python\" could be removed from this command.\n\nSame for other places in this document",
       "revId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f337acf2_4f61fbcd",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-02-22T13:42:34Z",
+      "side": 1,
+      "message": "Updated README accordingly in https://gerrit-review.googlesource.com/c/gerrit-monitoring/+/360116",
+      "parentUuid": "ba802107_d4d76d78",
+      "revId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
