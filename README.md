@@ -194,7 +194,6 @@ configuration parameters:
 | `gerritServers.other.[*].promtail.storagePath` | Path to directory, where Promtail is allowed to save files (e.g. `positions.yaml`)           |
 | `gerritServers.other.[*].promtail.logPath`     | Path to directory containing the Gerrit logs (e.g. `/var/gerrit/logs`)                       |
 
-
 ### Encryption
 
 The configuration file contains secrets. Thus, to be able to share the configuration,
@@ -203,6 +202,33 @@ e.g. with the CI-system, it is meant to be encrypted. The encryption is explaine
 
 The `gerrit_monitoring.py install`-command will decrypt the file before templating,
 if it was encrypted with `sops`.
+
+## Certificates
+
+At SAP we use the [SAP PKI](https://getcerts.wdf.global.corp.sap/pgwy/request/sapnetca_base64.html)
+(same as for Gerrit) to issue certificates.
+
+## Testing dashboard changes locally
+
+- Start a grafana container locally:
+  ```
+  docker run -d -p 3000:3000 grafana/grafana
+  ```
+- Open grafana at http://localhost:3000
+- Add a data source for prometheus
+  - set URL to the value of `monitoring.prometheus.server.host` in `config.yaml`
+  - enable "Basic auth"
+  - set "Skip TLS Verify"
+  - set "User" and "Password" to the values configured in `config.yaml` under
+    `monitoring.prometheus.server.username` and `monitoring.prometheus.server.username.password`
+  - set "Prometheus Type": "Prometheus"
+  - set "Prometheus Version" to the version which is deployed
+  - set "Scrape Interval": "1m", this needs to match the "scrape_interval" configured in `prometheus.yaml`
+- generate json representation of the dashboard you want to test, e.g.
+  ```
+  jsonnet -J grafonnet-lib --ext-code publish=false dashboards/gerrit/process/gerrit-process.jsonnet >./gerrit-process.json
+  ```
+- open http://localhost:3000/dashboard/import and import the dashboard json file
 
 ## Using Istio
 
@@ -246,7 +272,7 @@ final files in the directory given by `--output`/`-o` (default `./dist`) and
 install/update the Kubernetes resources and charts, if the `--dryrun`/`-d` flag
 is not set. If the `--update-repo`-flag is used, the helm repository will be updated
 before installing the helm charts. This is for example required, if a chart version
-was updated.
+was updated. If you get an error a repo is not found then add the option `--update-repo`.
 
 ## Configure Promtail
 

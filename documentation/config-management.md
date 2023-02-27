@@ -112,6 +112,12 @@ Use the CLI to log into your vault instance:
 vault login -method=<auth-method> -address=https://vault.example.com
 ```
 
+At SAP we use oidc to log in to Vault:
+
+```
+vault login -method=oidc -address=https://vault.tools.sap
+```
+
 ### Create a key to use for encryption (first time only)
 
 To use sops with HashiCorp Vault, a secret engine of type transit containing
@@ -154,6 +160,22 @@ To decrypt the file, run:
 
 ```sh
 sops --in-place -d $FILE_TO_DECODE
+```
+
+## Recipe: change config.yaml at SAP
+
+```
+vault login -method=oidc -address=https://vault.tools.sap
+sops --decrypt --in-place config.yaml
+```
+
+then modify `config.yaml` and encrypt it again before committing the config changes:
+
+```
+sops --encrypt --in-place \
+    --encrypted-regex '(accessToken|apiUrl|caCert|cert|htpasswd|key|password|secret)' \
+    --hc-vault-transit https://vault.tools.sap/v1/ies/gerrit/sops/keys/git-monitor.wdf.sap.corp \
+    config.yaml
 ```
 
 ## Links
