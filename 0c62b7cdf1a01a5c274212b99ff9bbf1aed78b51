@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4447cad3_5536f8e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004034
+      },
+      "writtenOn": "2023-07-12T12:49:15Z",
+      "side": 1,
+      "message": "mention why this is necessary and link to e.g. https://kubernetes.io/blog/2022/08/25/pod-security-admission-stable/\n\nwhat\u0027s the replacement ?",
+      "revId": "0c62b7cdf1a01a5c274212b99ff9bbf1aed78b51",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
