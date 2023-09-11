@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1397aa50_5d795934",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1166741
+      },
+      "writtenOn": "2023-09-11T19:00:21Z",
+      "side": 1,
+      "message": "Abdallah Rabee",
+      "revId": "ff7fd22ca2b10dc786caeaef5757b97fd6daa3e2",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
