@@ -4,16 +4,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-typed-ast = "~=1.4.1"
-black = "==19.10b0"
-pylint = "==2.4.4"
+typed-ast = "*"
+black = "*"
+pylint = "*"
 
 [packages]
-pyyaml = "~=5.3"
-passlib = "~=1.7.2"
-python-gnupg = "~=0.4.5"
-requests = "~=2.23.0"
-jsonnet = "~=0.16.0"
+pyyaml = "*"
+passlib = "*"
+python-gnupg = "*"
+requests = "*"
+jsonnet = "*"
+python-jwt = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.11"
