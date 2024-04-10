@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf661ff_e56d81ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2024-04-10T13:24:12Z",
+      "side": 1,
+      "message": "This change probably needs some updates, e.g. using v1beta1 for istio resources",
+      "revId": "9e465ff26080ff215f06f97124cd339209ff1619",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
