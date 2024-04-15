@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: multisite-message-consumer-failure-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: multisite-message-consumer-failure-alert-rules
+    rules:
+    - alert: MultiSiteMessageConsumerFailure
+      expr: delta(plugins_multi_site_multi_site_subscriber_subscriber_message_consumer_failure_counter_total_total[10m]) > 0
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }} failed to consume {{ $value }} message(s) from Kafka in the last 10 minutes.
