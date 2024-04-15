@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: split-brain-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: split-brain-alert-rules
+    rules:
+    - alert: SplitBrain
+      expr: increase(multi_site_validation_git_update_split_brain_prevented_total_total[10m]) >= 1
+      labels:
+        severity: critical
+      annotations:
+        summary: Split-brain detected at {{ $labels.pod }}
