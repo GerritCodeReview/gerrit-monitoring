@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: multisite-message-publisher-failure-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: multisite-message-publisher-failure-alert-rules
+    rules:
+    - alert: MultiSiteMessagePublisherFailure
+      expr: delta(plugins_multi_site_multi_site_broker_broker_message_publisher_failure_counter_total_total[10m]) > 0
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }}  failed to publish {{ $value }} message(s) to Kafka in the last 10 minutes.
