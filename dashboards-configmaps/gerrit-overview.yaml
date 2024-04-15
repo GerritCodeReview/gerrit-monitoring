@@ -1,0 +1,1204 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-overview
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-overview.json: |-
+     {
+         "__inputs": [ ],
+         "__requires": [ ],
+         "annotations": {
+            "list": [ ]
+         },
+         "editable": false,
+         "gnetId": null,
+         "graphTooltip": 2,
+         "hideControls": false,
+         "id": null,
+         "links": [ ],
+         "panels": [
+            {
+               "columns": [
+                  {
+                     "text": "instance",
+                     "value": "instance"
+                  },
+                  {
+                     "text": "version",
+                     "value": "version"
+                  },
+                  {
+                     "text": "revision",
+                     "value": "revision"
+                  },
+                  {
+                     "text": "javaversion",
+                     "value": "javaversion"
+                  }
+               ],
+               "datasource": "Prometheus",
+               "gridPos": {
+                  "h": 3,
+                  "w": 24,
+                  "x": 0,
+                  "y": 0
+               },
+               "id": 2,
+               "links": [ ],
+               "styles": [
+                  {
+                     "alias": "Gerrit instance",
+                     "link": true,
+                     "linkTargetBlank": true,
+                     "linkTooltip": "Link to the Gerrit instance",
+                     "linkUrl": "https://${__cell:raw}",
+                     "pattern": "instance",
+                     "type": "string"
+                  },
+                  {
+                     "alias": "Gerrit version",
+                     "pattern": "version",
+                     "type": "string"
+                  },
+                  {
+                     "alias": "Gerrit revision",
+                     "link": true,
+                     "linkTargetBlank": true,
+                     "linkTooltip": "Browse Gerrit repository at revision",
+                     "linkUrl": "https://gerrit.googlesource.com/gerrit/+/${__cell:raw}",
+                     "pattern": "revision",
+                     "type": "string"
+                  },
+                  {
+                     "alias": "Java version",
+                     "pattern": "javaversion",
+                     "type": "string"
+                  },
+                  {
+                     "alias": "Time",
+                     "pattern": "Time",
+                     "type": "hidden"
+                  },
+                  {
+                     "alias": "Value",
+                     "pattern": "Value",
+                     "type": "hidden"
+                  }
+               ],
+               "targets": [
+                  {
+                     "expr": "max(gerrit_build_info{instance=\"$instance\",replica=\"$replica\"}) by (instance, version, revision, javaversion)",
+                     "format": "table",
+                     "instant": true,
+                     "intervalFactor": 2,
+                     "legendFormat": "",
+                     "refId": "A"
+                  }
+               ],
+               "timeFrom": null,
+               "timeShift": null,
+               "title": "Gerrit Version",
+               "transform": "table",
+               "type": "table"
+            },
+            {
+               "datasource": "Prometheus",
+               "fieldConfig": {
+                  "defaults": {
+                     "links": [ ],
+                     "mappings": [ ],
+                     "max": 100,
+                     "min": 0,
+                     "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                           {
+                              "color": "green",
+                              "value": null
+                           },
+                           {
+                              "color": "orange",
+                              "value": 60
+                           },
+                           {
+                              "color": "red",
+                              "value": 90
+                           }
+                        ]
+                     },
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 6,
+                  "w": 8,
+                  "x": 0,
+                  "y": 6
+               },
+               "id": 3,
+               "links": [ ],
+               "options": {
+                  "reduceOptions": {
+                     "calcs": [
+                        "mean"
+                     ],
+                     "fields": "",
+                     "values": false
+                  },
+                  "showThresholdLabels": false,
+                  "showThresholdMarkers": true
+               },
+               "pluginVersion": "7",
+               "targets": [
+                  {
+                     "expr": "(rate(proc_cpu_usage{instance=\"$instance\",replica=\"$replica\"}[2m])/proc_cpu_num_cores{instance=\"$instance\",replica=\"$replica\"})*100",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": " ",
+                     "refId": "A"
+                  }
+               ],
+               "title": "CPU Usage",
+               "transparent": false,
+               "type": "gauge"
+            },
+            {
+               "datasource": "Prometheus",
+               "fieldConfig": {
+                  "defaults": {
+                     "links": [ ],
+                     "mappings": [ ],
+                     "max": 100,
+                     "min": 0,
+                     "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                           {
+                              "color": "green",
+                              "value": null
+                           },
+                           {
+                              "color": "orange",
+                              "value": 60
+                           },
+                           {
+                              "color": "red",
+                              "value": 90
+                           }
+                        ]
+                     },
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 6,
+                  "w": 8,
+                  "x": 8,
+                  "y": 6
+               },
+               "id": 4,
+               "links": [ ],
+               "options": {
+                  "reduceOptions": {
+                     "calcs": [
+                        "mean"
+                     ],
+                     "fields": "",
+                     "values": false
+                  },
+                  "showThresholdLabels": false,
+                  "showThresholdMarkers": true
+               },
+               "pluginVersion": "7",
+               "targets": [
+                  {
+                     "expr": "(proc_jvm_memory_heap_used{instance=\"$instance\",replica=\"$replica\"}/proc_jvm_memory_heap_committed{instance=\"$instance\",replica=\"$replica\"})*100",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": " ",
+                     "refId": "A"
+                  }
+               ],
+               "title": "Heap Memory Usage",
+               "transparent": false,
+               "type": "gauge"
+            },
+            {
+               "datasource": "Prometheus",
+               "fieldConfig": {
+                  "defaults": {
+                     "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                           {
+                              "color": "green",
+                              "value": null
+                           }
+                        ]
+                     },
+                     "unit": null
+                  }
+               },
+               "gridPos": {
+                  "h": 6,
+                  "w": 8,
+                  "x": 16,
+                  "y": 6
+               },
+               "id": 5,
+               "targets": [
+                  {
+                     "expr": "proc_jvm_thread_num_daemon_live{instance=\"$instance\",replica=\"$replica\"}",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "current (daemon)",
+                     "refId": "A"
+                  },
+                  {
+                     "expr": "proc_jvm_thread_num_live{instance=\"$instance\",replica=\"$replica\"}",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "current (total)",
+                     "refId": "B"
+                  },
+                  {
+                     "expr": "proc_jvm_thread_num_peak_live{instance=\"$instance\",replica=\"$replica\"}",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "peak",
+                     "refId": "C"
+                  }
+               ],
+               "title": "Live Threads",
+               "type": "bargauge"
+            },
+            {
+               "datasource": "Prometheus",
+               "fieldConfig": {
+                  "defaults": {
+                     "links": [ ],
+                     "mappings": [ ],
+                     "max": 50,
+                     "min": 0,
+                     "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                           {
+                              "color": "green",
+                              "value": null
+                           },
+                           {
+                              "color": "red",
+                              "value": 30
+                           }
+                        ]
+                     },
+                     "unit": "ms"
+                  }
+               },
+               "gridPos": {
+                  "h": 6,
+                  "w": 8,
+                  "x": 0,
+                  "y": 12
+               },
+               "id": 6,
+               "links": [ ],
+               "options": {
+                  "reduceOptions": {
+                     "calcs": [
+                        "mean"
+                     ],
+                     "fields": "",
+                     "values": false
+                  },
+                  "showThresholdLabels": false,
+                  "showThresholdMarkers": true
+               },
+               "pluginVersion": "7",
+               "targets": [
+                  {
+                     "expr": "http_server_rest_api_server_latency_total{quantile=\"0.99\", instance=\"$instance\",replica=\"$replica\"}",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": " ",
+                     "refId": "A"
+                  }
+               ],
+               "title": "REST API latency (0.99 quantile)",
+               "transparent": false,
+               "type": "gauge"
+            },
+            {
+               "datasource": "Prometheus",
+               "description": "Excludes 404 and 401, since these error codes are caused by client behaviour and are overrepresented in the data.",
+               "fieldConfig": {
+                  "defaults": {
+                     "links": [ ],
+                     "mappings": [ ],
+                     "max": 100,
+                     "min": 0,
+                     "thresholds": {
+                        "mode": "absolute",
+                        "steps": [
+                           {
+                              "color": "green",
+                              "value": null
+                           },
+                           {
+                              "color": "orange",
+                              "value": 5
+                           },
+                           {
+                              "color": "red",
+                              "value": 10
+                           }
+                        ]
+                     },
+                     "unit": "percent"
+                  }
+               },
+               "gridPos": {
+                  "h": 6,
+                  "w": 8,
+                  "x": 8,
+                  "y": 12
+               },
+               "id": 7,
+               "links": [ ],
+               "options": {
+                  "reduceOptions": {
+                     "calcs": [
+                        "mean"
+                     ],
+                     "fields": "",
+                     "values": false
+                  },
+                  "showThresholdLabels": false,
+                  "showThresholdMarkers": true
+               },
+               "pluginVersion": "7",
+               "targets": [
+                  {
+                     "expr": "(increase(http_server_error_count_total_total{instance=\"$instance\",replica=\"$replica\"}[5m]) - increase(http_server_error_count_404_total{instance=\"$instance\",replica=\"$replica\"}[5m]) - increase(http_server_error_count_401_total{instance=\"$instance\",replica=\"$replica\"}[5m])) / (increase(http_server_success_count_total_total{instance=\"$instance\",replica=\"$replica\"}[5m]) + increase(http_server_error_count_total_total{instance=\"$instance\",replica=\"$replica\"}[5m]) - increase(http_server_error_count_404_total{instance=\"$instance\",replica=\"$replica\"}[5m]) - increase(http_server_error_count_401_total{instance=\"$instance\",replica=\"$replica\"}[5m]))*100",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": " ",
+                     "refId": "A"
+                  }
+               ],
+               "title": "HTTP Request Error Rate (last 5 min)",
+               "transparent": false,
+               "type": "gauge"
+            },
+            {
+               "collapse": false,
+               "collapsed": false,
+               "gridPos": {
+                  "h": 1,
+                  "w": 24,
+                  "x": 0,
+                  "y": 15
+               },
+               "id": 8,
+               "panels": [ ],
+               "repeat": null,
+               "repeatIteration": null,
+               "repeatRowId": null,
+               "showTitle": true,
+               "title": "",
+               "titleSize": "h6",
+               "type": "row"
+            },
+            {
+               "aliasColors": { },
+               "bars": false,
+               "dashLength": 10,
+               "dashes": false,
+               "datasource": "Prometheus",
+               "fill": 1,
+               "gridPos": {
+                  "h": 11,
+                  "w": 18,
+                  "x": 0,
+                  "y": 15
+               },
+               "id": 9,
+               "legend": {
+                  "alignAsTable": true,
+                  "avg": true,
+                  "current": true,
+                  "max": true,
+                  "min": true,
+                  "rightSide": false,
+                  "show": false,
+                  "sideWidth": null,
+                  "total": false,
+                  "values": true
+               },
+               "lines": true,
+               "linewidth": 1,
+               "links": [ ],
+               "nullPointMode": "null",
+               "percentage": false,
+               "pointradius": 5,
+               "points": false,
+               "renderer": "flot",
+               "repeat": null,
+               "seriesOverrides": [ ],
+               "spaceLength": 10,
+               "stack": false,
+               "steppedLine": false,
+               "targets": [
+                  {
+                     "expr": "up{instance=\"$instance\",replica=\"$replica\"}",
+                     "format": "time_series",
+                     "intervalFactor": 2,
+                     "legendFormat": "{{instance}}",
+                     "refId": "A"
+                  }
+               ],
+               "thresholds": [ ],
+               "timeFrom": null,
+               "timeShift": null,
+               "title": "Gerrit Availability",
+               "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+               },
+               "type": "graph",
+               "xaxis": {
+                  "buckets": null,
+                  "mode": "time",
+                  "name": null,
+                  "show": true,
+                  "values": [ ]
+               },
+               "yaxes": [
+                  {
+                     "format": "short",
+                     "label": "Count",
+                     "logBase": 1,
+                     "max": 1,
+                     "min": 0,
+                     "show": true
+                  },
+                  {
+                     "format": "short",
+                     "label": "",
+                     "logBase": 1,
+                     "max": 1,
+                     "min": 0,
+                     "show": true
+                  }
+               ]
+            },
+            {
+               "cacheTimeout": null,
+               "colorBackground": true,
+               "colorValue": false,
+               "colors": [
+                  "red",
+                  "orange",
+                  "darkgreen"
+               ],
+               "datasource": "Prometheus",
+               "format": "percent",
+               "gauge": {
+                  "maxValue": 100,
+                  "minValue": 0,
+                  "show": false,
+                  "thresholdLabels": false,
+                  "thresholdMarkers": true
+               },
+               "gridPos": {
+                  "h": 11,
+                  "w": 6,
+                  "x": 18,
+                  "y": 15
+               },
+               "id": 10,
+               "interval": null,
+               "links": [ ],
+               "mappingType": 1,
+               "mappingTypes": [
+                  {
+                     "name": "value to text",
+                     "value": 1
+                  },
+                  {
+                     "name": "range to text",
+                     "value": 2
+                  }
+               ],
+               "maxDataPoints": 100,
+               "nullPointMode": "connected",
+               "nullText": null,
+               "postfix": "",
+               "postfixFontSize": "50%",
+               "prefix": "",
+               "prefixFontSize": "50%",
+               "rangeMaps": [
+                  {
+                     "from": "null",
+                     "text": "N/A",
+                     "to": "null"
+                  }
+               ],
+               "sparkline": {
+                  "fillColor": "rgba(31, 118, 189, 0.18)",
+                  "full": false,
+                  "lineColor": "rgb(31, 120, 193)",
+                  "show": false
+               },
+               "tableColumn": "",
+               "targets": [
+                  {
+                     "expr": "avg_over_time(up{instance=\"$instance\",replica=\"$replica\"}[1d])*100",
+                     "format": "time_series",
+                     "intervalFactor": 2,
+                     "legendFormat": "{{instance}}",
+                     "refId": "A"
+                  }
+               ],
+               "thresholds": "98, 99",
+               "title": "Gerrit Availability [last 24h]",
+               "type": "singlestat",
+               "valueFontSize": "150%",
+               "valueMaps": [
+                  {
+                     "op": "=",
+                     "text": "N/A",
+                     "value": "null"
+                  }
+               ],
+               "valueName": "current"
+            },
+            {
+               "aliasColors": { },
+               "bars": true,
+               "dashLength": 10,
+               "dashes": false,
+               "datasource": "Prometheus",
+               "fill": 1,
+               "gridPos": {
+                  "h": 11,
+                  "w": 18,
+                  "x": 0,
+                  "y": 30
+               },
+               "id": 11,
+               "legend": {
+                  "alignAsTable": true,
+                  "avg": true,
+                  "current": true,
+                  "max": true,
+                  "min": true,
+                  "rightSide": false,
+                  "show": false,
+                  "sideWidth": null,
+                  "total": false,
+                  "values": true
+               },
+               "lines": false,
+               "linewidth": 1,
+               "links": [ ],
+               "nullPointMode": "null",
+               "percentage": false,
+               "pointradius": 5,
+               "points": false,
+               "renderer": "flot",
+               "repeat": null,
+               "seriesOverrides": [ ],
+               "spaceLength": 10,
+               "stack": false,
+               "steppedLine": false,
+               "targets": [
+                  {
+                     "expr": "increase(events_assignee_changed_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "assignee changed",
+                     "refId": "A"
+                  },
+                  {
+                     "expr": "increase(events_change_abandoned_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "change abandoned",
+                     "refId": "B"
+                  },
+                  {
+                     "expr": "increase(events_change_merged_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "change merged",
+                     "refId": "C"
+                  },
+                  {
+                     "expr": "increase(events_comment_added_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "comment added",
+                     "refId": "D"
+                  },
+                  {
+                     "expr": "increase(events_patchset_created_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "patchset created",
+                     "refId": "E"
+                  },
+                  {
+                     "expr": "increase(events_change_abandoned_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "change abandoned",
+                     "refId": "F"
+                  },
+                  {
+                     "expr": "increase(events_ref_replicated_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "ref replicated",
+                     "refId": "G"
+                  },
+                  {
+                     "expr": "increase(events_ref_updated_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "ref updated",
+                     "refId": "H"
+                  },
+                  {
+                     "expr": "increase(events_reviewer_added_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "reviewer added",
+                     "refId": "I"
+                  },
+                  {
+                     "expr": "increase(events_reviewer_deleted_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "reviewer deleted",
+                     "refId": "J"
+                  },
+                  {
+                     "expr": "increase(events_topic_changed_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "topic changed",
+                     "refId": "K"
+                  },
+                  {
+                     "expr": "increase(events_vote_deleted_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "vote deleted",
+                     "refId": "L"
+                  },
+                  {
+                     "expr": "increase(events_wip_state_changed_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "wip state changed",
+                     "refId": "M"
+                  }
+               ],
+               "thresholds": [ ],
+               "timeFrom": null,
+               "timeShift": null,
+               "title": "Gerrit Events (last 5 min)",
+               "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+               },
+               "type": "graph",
+               "xaxis": {
+                  "buckets": null,
+                  "mode": "series",
+                  "name": null,
+                  "show": true,
+                  "values": [
+                     "current"
+                  ]
+               },
+               "yaxes": [
+                  {
+                     "format": "short",
+                     "label": "Count [5 min]",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  },
+                  {
+                     "format": "short",
+                     "label": "",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  }
+               ]
+            },
+            {
+               "aliasColors": { },
+               "bars": true,
+               "dashLength": 10,
+               "dashes": false,
+               "datasource": "Prometheus",
+               "fill": 1,
+               "gridPos": {
+                  "h": 11,
+                  "w": 6,
+                  "x": 18,
+                  "y": 30
+               },
+               "id": 12,
+               "legend": {
+                  "alignAsTable": true,
+                  "avg": true,
+                  "current": true,
+                  "max": true,
+                  "min": true,
+                  "rightSide": false,
+                  "show": false,
+                  "sideWidth": null,
+                  "total": false,
+                  "values": true
+               },
+               "lines": false,
+               "linewidth": 1,
+               "links": [ ],
+               "nullPointMode": "null",
+               "percentage": false,
+               "pointradius": 5,
+               "points": false,
+               "renderer": "flot",
+               "repeat": null,
+               "seriesOverrides": [ ],
+               "spaceLength": 10,
+               "stack": false,
+               "steppedLine": false,
+               "targets": [
+                  {
+                     "expr": "increase(git_upload_pack_request_count_FETCH_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "FETCH",
+                     "refId": "A"
+                  },
+                  {
+                     "expr": "increase(git_upload_pack_request_count_CLONE_total{instance=\"$instance\",replica=\"$replica\"}[5m])",
+                     "format": "time_series",
+                     "instant": true,
+                     "intervalFactor": 1,
+                     "legendFormat": "CLONE",
+                     "refId": "B"
+                  }
+               ],
+               "thresholds": [ ],
+               "timeFrom": null,
+               "timeShift": null,
+               "title": "Git Fetch/Clone upload-pack requests (last 5 min)",
+               "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+               },
+               "type": "graph",
+               "xaxis": {
+                  "buckets": null,
+                  "mode": "series",
+                  "name": null,
+                  "show": true,
+                  "values": [
+                     "current"
+                  ]
+               },
+               "yaxes": [
+                  {
+                     "format": "short",
+                     "label": "Count [5 min]",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  },
+                  {
+                     "format": "short",
+                     "label": "",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  }
+               ]
+            },
+            {
+               "aliasColors": { },
+               "bars": true,
+               "dashLength": 10,
+               "dashes": false,
+               "datasource": "Prometheus",
+               "fill": 1,
+               "gridPos": {
+                  "h": 22,
+                  "w": 24,
+                  "x": 0,
+                  "y": 88
+               },
+               "id": 13,
+               "legend": {
+                  "alignAsTable": true,
+                  "avg": true,
+                  "current": true,
+                  "max": true,
+                  "min": true,
+                  "rightSide": false,
+                  "show": true,
+                  "sideWidth": null,
+                  "total": false,
+                  "values": true
+               },
+               "lines": false,
+               "linewidth": 1,
+               "links": [ ],
+               "nullPointMode": "null",
+               "percentage": false,
+               "pointradius": 5,
+               "points": false,
+               "renderer": "flot",
+               "repeat": null,
+               "seriesOverrides": [
+                  {
+                     "alias": "200",
+                     "color": "#37872D"
+                  },
+                  {
+                     "alias": "201",
+                     "color": "#56A64B"
+                  },
+                  {
+                     "alias": "204",
+                     "color": "#73BF69"
+                  },
+                  {
+                     "alias": "301",
+                     "color": "rgb(110, 210, 110)"
+                  },
+                  {
+                     "alias": "304",
+                     "color": "rgb(150, 225, 150)"
+                  },
+                  {
+                     "alias": "400",
+                     "color": "#FA6400"
+                  },
+                  {
+                     "alias": "401",
+                     "color": "#FF780A",
+                     "hiddenSeries": true
+                  },
+                  {
+                     "alias": "403",
+                     "color": "#FF9830"
+                  },
+                  {
+                     "alias": "404",
+                     "color": "#FFB357",
+                     "hiddenSeries": true
+                  },
+                  {
+                     "alias": "409",
+                     "color": "#FFCB7D"
+                  },
+                  {
+                     "alias": "412",
+                     "color": "#E0B400"
+                  },
+                  {
+                     "alias": "422",
+                     "color": "#F2CC0C"
+                  },
+                  {
+                     "alias": "500",
+                     "color": "#C4162A"
+                  },
+                  {
+                     "alias": "501",
+                     "color": "#E02F44"
+                  },
+                  {
+                     "alias": "503",
+                     "color": "#F2495C"
+                  }
+               ],
+               "spaceLength": 10,
+               "stack": true,
+               "steppedLine": false,
+               "targets": [
+                  {
+                     "expr": "(increase(http_server_success_count_200_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "200",
+                     "refId": "A"
+                  },
+                  {
+                     "expr": "(increase(http_server_success_count_201_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "201",
+                     "refId": "B"
+                  },
+                  {
+                     "expr": "(increase(http_server_success_count_204_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "204",
+                     "refId": "C"
+                  },
+                  {
+                     "expr": "(increase(http_server_success_count_301_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "301",
+                     "refId": "D"
+                  },
+                  {
+                     "expr": "(increase(http_server_success_count_304_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "304",
+                     "refId": "E"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_400_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "400",
+                     "refId": "F"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_401_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "401",
+                     "refId": "G"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_403_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "403",
+                     "refId": "H"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_404_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "404",
+                     "refId": "I"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_405_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "405",
+                     "refId": "J"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_409_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "409",
+                     "refId": "K"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_412_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "412",
+                     "refId": "L"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_422_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "422",
+                     "refId": "M"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_500_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "500",
+                     "refId": "N"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_501_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "501",
+                     "refId": "O"
+                  },
+                  {
+                     "expr": "(increase(http_server_error_count_503_total{instance=\"$instance\",replica=\"$replica\"}[2m]))/2",
+                     "format": "time_series",
+                     "intervalFactor": 1,
+                     "legendFormat": "503",
+                     "refId": "P"
+                  }
+               ],
+               "thresholds": [ ],
+               "timeFrom": null,
+               "timeShift": null,
+               "title": "HTTP response status",
+               "tooltip": {
+                  "shared": true,
+                  "sort": 0,
+                  "value_type": "individual"
+               },
+               "type": "graph",
+               "xaxis": {
+                  "buckets": null,
+                  "mode": "time",
+                  "name": null,
+                  "show": true,
+                  "values": [ ]
+               },
+               "yaxes": [
+                  {
+                     "format": "short",
+                     "label": "Count",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  },
+                  {
+                     "format": "short",
+                     "label": "",
+                     "logBase": 1,
+                     "max": null,
+                     "min": null,
+                     "show": true
+                  }
+               ]
+            }
+         ],
+         "refresh": "1m",
+         "rows": [ ],
+         "schemaVersion": 22,
+         "style": "dark",
+         "tags": [
+            "gerrit"
+         ],
+         "templating": {
+            "list": [
+               {
+                  "allValue": null,
+                  "current": { },
+                  "datasource": "Prometheus",
+                  "hide": 0,
+                  "includeAll": false,
+                  "label": "Gerrit Instance",
+                  "multi": false,
+                  "name": "instance",
+                  "options": [ ],
+                  "query": "label_values(git_upload_pack_phase_writing_total, instance)",
+                  "refresh": 1,
+                  "regex": "",
+                  "sort": 0,
+                  "tagValuesQuery": "",
+                  "tags": [ ],
+                  "tagsQuery": "",
+                  "type": "query",
+                  "useTags": false
+               },
+               {
+                  "allValue": null,
+                  "current": { },
+                  "datasource": "Prometheus",
+                  "hide": 0,
+                  "includeAll": false,
+                  "label": "Replica",
+                  "multi": false,
+                  "name": "replica",
+                  "options": [ ],
+                  "query": "label_values(git_upload_pack_phase_writing_total{instance=\"$instance\"}, replica)",
+                  "refresh": 2,
+                  "regex": "",
+                  "sort": 0,
+                  "tagValuesQuery": "",
+                  "tags": [ ],
+                  "tagsQuery": "",
+                  "type": "query",
+                  "useTags": false
+               }
+            ]
+         },
+         "time": {
+            "from": "now-24h",
+            "to": "now"
+         },
+         "timepicker": {
+            "refresh_intervals": [
+               "5s",
+               "10s",
+               "30s",
+               "1m",
+               "5m",
+               "15m",
+               "30m",
+               "1h",
+               "2h",
+               "1d"
+            ],
+            "time_options": [
+               "5m",
+               "15m",
+               "1h",
+               "6h",
+               "12h",
+               "24h",
+               "2d",
+               "7d",
+               "30d"
+            ]
+         },
+         "timezone": "browser",
+         "title": "Gerrit - Overview",
+         "version": 0
+      }
+
