@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: node-out-of-sync-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: node-out-of-sync-alert-rules
+    rules:
+    - alert: NodeOutOfSync
+      expr: plugins_multi_site_multi_site_subscriber_subscriber_replication_status_sec_behind > 300
+      for: 30m
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }} has been behind for more than 30 min.
+
+        
