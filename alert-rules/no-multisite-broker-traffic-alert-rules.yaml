@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: no-multisite-broker-traffic-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: no-multisite-broker-traffic-alert-rules
+    rules:
+    - alert: NoMultiSiteBrokerTraffic
+      expr: delta(plugins_multi_site_multi_site_subscriber_subscriber_message_consumer_counter_total_total[2h]) + delta(plugins_multi_site_multi_site_broker_broker_message_publisher_counter_broker_msg_publisher_counter_total[2h]) == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }} did not produced/consumed any traffic in the last 2 hours.
