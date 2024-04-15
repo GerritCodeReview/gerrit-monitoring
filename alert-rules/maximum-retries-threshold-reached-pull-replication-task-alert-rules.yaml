@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pull-replication-task-max-retries-reached
+  namespace: monitoring
+spec:
+  groups:
+  - name: maximum-retries-threshold-reached-pull-replication-task-alert-rules
+    rules:
+    - alert: MaximumRetriesThresholdReachedPullReplicationTask
+      expr: plugins_pull_replication_tasks_failed_max_retries_total > 0
+      labels:
+        severity: critical
+      annotations:
+        summary: Maximum retries threshold reached for a Pull Replication task in Pod {{ $labels.pod }}
+
