@@ -1,0 +1,1941 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-multisite
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-multisite.json: |-
+   {
+     "annotations": {
+       "list": [
+         {
+           "builtIn": 1,
+           "datasource": {
+             "type": "datasource",
+             "uid": "grafana"
+           },
+           "enable": true,
+           "hide": true,
+           "iconColor": "rgba(0, 211, 255, 1)",
+           "name": "Annotations & Alerts",
+           "type": "dashboard"
+         }
+       ]
+     },
+     "description": "Metrics dashboard for Gerrit multi-site",
+     "editable": true,
+     "fiscalYearStartMonth": 0,
+     "gnetId": 4496,
+     "graphTooltip": 0,
+     "id": 40,
+     "links": [],
+     "panels": [
+       {
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 0
+         },
+         "id": 172,
+         "panels": [],
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "At a glance",
+         "type": "row"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "color": {
+               "mode": "thresholds"
+             },
+             "mappings": [
+               {
+                 "options": {
+                   "match": "null",
+                   "result": {
+                     "text": "N/A"
+                   }
+                 },
+                 "type": "special"
+               }
+             ],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "#299c46",
+                   "value": null
+                 },
+                 {
+                   "color": "rgba(237, 129, 40, 0.89)",
+                   "value": 1
+                 },
+                 {
+                   "color": "#d44a3a",
+                   "value": 360
+                 }
+               ]
+             },
+             "unit": "m"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 3,
+           "w": 8,
+           "x": 0,
+           "y": 1
+         },
+         "id": 154,
+         "maxDataPoints": 100,
+         "options": {
+           "colorMode": "background",
+           "graphMode": "none",
+           "justifyMode": "auto",
+           "orientation": "horizontal",
+           "reduceOptions": {
+             "calcs": [
+               "lastNotNull"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showPercentChange": false,
+           "textMode": "auto",
+           "wideLayout": true
+         },
+         "pluginVersion": "10.4.1",
+         "repeatDirection": "h",
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max_over_time(plugins_multi_site_multi_site_subscriber_subscriber_replication_status_sec_behind{pod=\"gerrit-0\"}[1m])/60",
+             "format": "time_series",
+             "hide": false,
+             "intervalFactor": 1,
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "title": "Gerrit-0 replication",
+         "type": "stat"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "color": {
+               "mode": "thresholds"
+             },
+             "mappings": [
+               {
+                 "options": {
+                   "match": "null",
+                   "result": {
+                     "text": "N/A"
+                   }
+                 },
+                 "type": "special"
+               }
+             ],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "#299c46",
+                   "value": null
+                 },
+                 {
+                   "color": "rgba(237, 129, 40, 0.89)",
+                   "value": 1
+                 },
+                 {
+                   "color": "#d44a3a",
+                   "value": 360
+                 }
+               ]
+             },
+             "unit": "m"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 3,
+           "w": 8,
+           "x": 8,
+           "y": 1
+         },
+         "id": 203,
+         "maxDataPoints": 100,
+         "options": {
+           "colorMode": "background",
+           "graphMode": "none",
+           "justifyMode": "auto",
+           "orientation": "horizontal",
+           "reduceOptions": {
+             "calcs": [
+               "lastNotNull"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showPercentChange": false,
+           "textMode": "auto",
+           "wideLayout": true
+         },
+         "pluginVersion": "10.4.1",
+         "repeatDirection": "h",
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max_over_time(plugins_multi_site_multi_site_subscriber_subscriber_replication_status_sec_behind{pod=\"gerrit-1\"}[1m])/60",
+             "format": "time_series",
+             "hide": false,
+             "intervalFactor": 1,
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "title": "Gerrit-1 replication",
+         "type": "stat"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "color": {
+               "mode": "thresholds"
+             },
+             "mappings": [
+               {
+                 "options": {
+                   "match": "null",
+                   "result": {
+                     "text": "N/A"
+                   }
+                 },
+                 "type": "special"
+               }
+             ],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "#299c46",
+                   "value": null
+                 },
+                 {
+                   "color": "rgba(237, 129, 40, 0.89)",
+                   "value": 1
+                 },
+                 {
+                   "color": "#d44a3a",
+                   "value": 360
+                 }
+               ]
+             },
+             "unit": "m"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 3,
+           "w": 8,
+           "x": 16,
+           "y": 1
+         },
+         "id": 204,
+         "maxDataPoints": 100,
+         "options": {
+           "colorMode": "background",
+           "graphMode": "none",
+           "justifyMode": "auto",
+           "orientation": "horizontal",
+           "reduceOptions": {
+             "calcs": [
+               "lastNotNull"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showPercentChange": false,
+           "textMode": "auto",
+           "wideLayout": true
+         },
+         "pluginVersion": "10.4.1",
+         "repeatDirection": "h",
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max_over_time(plugins_multi_site_multi_site_subscriber_subscriber_replication_status_sec_behind{pod=\"gerrit-2\"}[1m])/60",
+             "format": "time_series",
+             "hide": false,
+             "intervalFactor": 1,
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "title": "Gerrit-2 replication",
+         "type": "stat"
+       },
+       {
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 4
+         },
+         "id": 161,
+         "panels": [],
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "Events broker",
+         "type": "row"
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Number of published messages to the Kafka Broker, by node",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 10,
+           "w": 8,
+           "x": 0,
+           "y": 5
+         },
+         "hiddenSeries": false,
+         "id": 164,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": false,
+           "max": true,
+           "min": false,
+           "rightSide": false,
+           "show": true,
+           "total": true,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "delta(plugins_multi_site_multi_site_broker_broker_message_publisher_counter_broker_msg_publisher_counter_total[$Window])",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Publisher Successes",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 10,
+           "w": 8,
+           "x": 8,
+           "y": 5
+         },
+         "hiddenSeries": false,
+         "id": 165,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": false,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "delta(plugins_multi_site_multi_site_broker_broker_message_publisher_failure_counter_total_total[$Window])",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Publisher failures",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 10,
+           "w": 8,
+           "x": 16,
+           "y": 5
+         },
+         "hiddenSeries": false,
+         "id": 166,
+         "legend": {
+           "alignAsTable": true,
+           "avg": false,
+           "current": false,
+           "max": false,
+           "min": false,
+           "show": true,
+           "total": false,
+           "values": false
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "delta(plugins_multi_site_multi_site_subscriber_subscriber_message_consumer_counter_total_total[$Window])",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Subscriber message consumer count",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "#messages",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 15
+         },
+         "id": 100,
+         "panels": [],
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "Live Status",
+         "type": "row"
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 8,
+           "w": 24,
+           "x": 0,
+           "y": 16
+         },
+         "hiddenSeries": false,
+         "id": 122,
+         "legend": {
+           "alignAsTable": true,
+           "avg": false,
+           "current": true,
+           "max": true,
+           "min": false,
+           "rightSide": false,
+           "show": true,
+           "total": true,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null as zero",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(multi_site_validation_git_update_split_brain_prevented_total_total[$Window])",
+             "format": "time_series",
+             "interval": "",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "expr": "",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Split Brain Prevented",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 24
+         },
+         "id": 141,
+         "panels": [],
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "Replication",
+         "type": "row"
+       },
+       {
+         "aliasColors": {
+           "review-1-javamelody": "#5195ce",
+           "review-2-javamelody": "#7eb26d"
+         },
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-0 Max Pull Replication Latency - E2E  by destination",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 8,
+           "w": 8,
+           "x": 0,
+           "y": 25
+         },
+         "hiddenSeries": false,
+         "id": 139,
+         "interval": "1s",
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "review-1-javamelody",
+             "yaxis": 1
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_apply_object_end_2_end_latency_total',pod=\"gerrit-0\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit-0 Max Pull Replication Latency - ApplyObject - E2E",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": false
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {
+           "review-1-javamelody": "#5195ce",
+           "review-2-javamelody": "#7eb26d"
+         },
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-1 Max Pull Replication Latency - E2E  by destination",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 8,
+           "w": 8,
+           "x": 8,
+           "y": 25
+         },
+         "hiddenSeries": false,
+         "id": 205,
+         "interval": "1s",
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "review-1-javamelody",
+             "yaxis": 1
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_apply_object_end_2_end_latency_total',pod=\"gerrit-1\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit-1 Max Pull Replication Latency - ApplyObject - E2E",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": false
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {
+           "review-1-javamelody": "#5195ce",
+           "review-2-javamelody": "#7eb26d"
+         },
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-2 Max Pull Replication Latency - E2E  by destination",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 8,
+           "w": 8,
+           "x": 16,
+           "y": 25
+         },
+         "hiddenSeries": false,
+         "id": 206,
+         "interval": "1s",
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "review-1-javamelody",
+             "yaxis": 1
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_apply_object_end_2_end_latency_total',pod=\"gerrit-2\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit-2 Max Pull Replication Latency - ApplyObject - E2E",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": false
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-0 Max Pull Replication Latency - E2E  by destination",
+         "fieldConfig": {
+           "defaults": {
+             "color": {
+               "mode": "palette-classic"
+             },
+             "custom": {
+               "axisBorderShow": false,
+               "axisCenteredZero": false,
+               "axisColorMode": "text",
+               "axisLabel": "",
+               "axisPlacement": "auto",
+               "barAlignment": 0,
+               "drawStyle": "line",
+               "fillOpacity": 10,
+               "gradientMode": "none",
+               "hideFrom": {
+                 "legend": false,
+                 "tooltip": false,
+                 "viz": false
+               },
+               "insertNulls": false,
+               "lineInterpolation": "linear",
+               "lineWidth": 1,
+               "pointSize": 5,
+               "scaleDistribution": {
+                 "type": "linear"
+               },
+               "showPoints": "never",
+               "spanNulls": false,
+               "stacking": {
+                 "group": "A",
+                 "mode": "none"
+               },
+               "thresholdsStyle": {
+                 "mode": "off"
+               }
+             },
+             "mappings": [],
+             "min": 0,
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 },
+                 {
+                   "color": "red",
+                   "value": 80
+                 }
+               ]
+             },
+             "unit": "s"
+           },
+           "overrides": [
+             {
+               "matcher": {
+                 "id": "byName",
+                 "options": "review-1-javamelody"
+               },
+               "properties": [
+                 {
+                   "id": "color",
+                   "value": {
+                     "fixedColor": "#5195ce",
+                     "mode": "fixed"
+                   }
+                 }
+               ]
+             },
+             {
+               "matcher": {
+                 "id": "byName",
+                 "options": "review-2-javamelody"
+               },
+               "properties": [
+                 {
+                   "id": "color",
+                   "value": {
+                     "fixedColor": "#7eb26d",
+                     "mode": "fixed"
+                   }
+                 }
+               ]
+             }
+           ]
+         },
+         "gridPos": {
+           "h": 7,
+           "w": 8,
+           "x": 0,
+           "y": 33
+         },
+         "id": 199,
+         "interval": "1s",
+         "options": {
+           "legend": {
+             "calcs": [
+               "mean",
+               "lastNotNull",
+               "max",
+               "min"
+             ],
+             "displayMode": "table",
+             "placement": "bottom",
+             "showLegend": true
+           },
+           "tooltip": {
+             "mode": "multi",
+             "sort": "none"
+           }
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_replication_end_2_end_latency_total',pod=\"gerrit-0\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "title": "Gerrit-0 Max Pull Replication Latency - E2E",
+         "type": "timeseries"
+       },
+       {
+         "aliasColors": {
+           "review-1-javamelody": "#5195ce",
+           "review-2-javamelody": "#7eb26d"
+         },
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-1 Max Pull Replication Latency - E2E  by destination",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 7,
+           "w": 8,
+           "x": 8,
+           "y": 33
+         },
+         "hiddenSeries": false,
+         "id": 207,
+         "interval": "1s",
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:2303",
+             "alias": "review-1-javamelody",
+             "yaxis": 1
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_replication_end_2_end_latency_total',pod=\"gerrit-1\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit-1 Max Pull Replication Latency - E2E",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:2341",
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "$$hashKey": "object:2342",
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": false
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {
+           "review-1-javamelody": "#5195ce",
+           "review-2-javamelody": "#7eb26d"
+         },
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Gerrit-2 Max Pull Replication Latency - E2E  by destination",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 7,
+           "w": 8,
+           "x": 16,
+           "y": 33
+         },
+         "hiddenSeries": false,
+         "id": 208,
+         "interval": "1s",
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:2303",
+             "alias": "review-1-javamelody",
+             "yaxis": 1
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "application": {
+               "filter": ""
+             },
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max({__name__=~'plugins_pull_replication_replication_end_2_end_latency_total',pod=\"gerrit-2\",quantile=\"0.999\"}) by (__name__)",
+             "format": "time_series",
+             "functions": [],
+             "group": {
+               "filter": ""
+             },
+             "host": {
+               "filter": ""
+             },
+             "instant": false,
+             "interval": "10s",
+             "intervalFactor": 1,
+             "item": {
+               "filter": ""
+             },
+             "legendFormat": "{{__name__}}",
+             "mode": 0,
+             "options": {
+               "showDisabledItems": false
+             },
+             "refId": "A",
+             "triggers": {
+               "acknowledged": 2,
+               "count": true,
+               "minSeverity": 3
+             }
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit-2 Max Pull Replication Latency - E2E",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:2341",
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "$$hashKey": "object:2342",
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": false
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Overall lag of the repositories version compared to the global ref-db version",
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 7,
+           "w": 24,
+           "x": 0,
+           "y": 40
+         },
+         "hiddenSeries": false,
+         "id": 152,
+         "legend": {
+           "alignAsTable": true,
+           "avg": false,
+           "current": true,
+           "max": true,
+           "min": false,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "uid": "JavaMelody Prometheus"
+             },
+             "editorMode": "code",
+             "expr": "avg_over_time(plugins_multi_site_multi_site_subscriber_subscriber_replication_status_sec_behind[$Window])",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Replication lag",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:2785",
+             "format": "s",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           },
+           {
+             "$$hashKey": "object:2786",
+             "format": "short",
+             "logBase": 1,
+             "min": "0",
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 9,
+           "w": 12,
+           "x": 0,
+           "y": 47
+         },
+         "hiddenSeries": false,
+         "id": 182,
+         "legend": {
+           "avg": false,
+           "current": false,
+           "max": false,
+           "min": false,
+           "show": true,
+           "total": false,
+           "values": false
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "rate(plugin_latency_pull_replication_com_googlesource_gerrit_plugins_replication_pull_ReplicationQueue_{quantile=\"0.99\"}[$Window])",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Pull Replication Queue - Latency",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:3174",
+             "format": "short",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:3175",
+             "format": "short",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 9,
+           "w": 12,
+           "x": 12,
+           "y": 47
+         },
+         "hiddenSeries": false,
+         "id": 184,
+         "legend": {
+           "avg": false,
+           "current": false,
+           "max": false,
+           "min": false,
+           "show": true,
+           "total": false,
+           "values": false
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max_over_time(plugins_pull_replication_replication_delay_total{quantile=\"0.99\"}[$Window])/(1000*60)",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Max Pull Replication Delay - min",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:3039",
+             "format": "short",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:3040",
+             "format": "short",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       }
+     ],
+     "refresh": false,
+     "schemaVersion": 39,
+     "tags": [
+       "gerrit"
+     ],
+     "templating": {
+       "list": [
+         {
+           "current": {
+             "isNone": true,
+             "text": "None",
+             "value": ""
+           },
+           "datasource": {
+             "uid": "JavaMelody Prometheus"
+           },
+           "definition": "",
+           "hide": 0,
+           "includeAll": false,
+           "label": "Application",
+           "multi": false,
+           "name": "Application",
+           "options": [],
+           "query": "javamelody_system_load_avg",
+           "refresh": 2,
+           "regex": "/{alias=\"(.*)\",instance/",
+           "skipUrlSync": false,
+           "sort": 0,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         },
+         {
+           "auto": false,
+           "auto_count": 30,
+           "auto_min": "10s",
+           "current": {
+             "selected": false,
+             "text": "1m",
+             "value": "1m"
+           },
+           "hide": 0,
+           "label": "Aggregation window",
+           "name": "Window",
+           "options": [
+             {
+               "selected": true,
+               "text": "1m",
+               "value": "1m"
+             },
+             {
+               "selected": false,
+               "text": "5m",
+               "value": "5m"
+             },
+             {
+               "selected": false,
+               "text": "10m",
+               "value": "10m"
+             },
+             {
+               "selected": false,
+               "text": "30m",
+               "value": "30m"
+             },
+             {
+               "selected": false,
+               "text": "1h",
+               "value": "1h"
+             }
+           ],
+           "query": "1m,5m,10m,30m,1h",
+           "queryValue": "",
+           "refresh": 2,
+           "skipUrlSync": false,
+           "type": "interval"
+         }
+       ]
+     },
+     "time": {
+       "from": "now-1h",
+       "to": "now"
+     },
+     "timepicker": {
+       "refresh_intervals": [
+         "5s",
+         "10s",
+         "30s",
+         "1m",
+         "5m",
+         "15m",
+         "30m",
+         "1h",
+         "2h",
+         "1d"
+       ],
+       "time_options": [
+         "5m",
+         "15m",
+         "1h",
+         "6h",
+         "12h",
+         "24h",
+         "2d",
+         "7d",
+         "30d"
+       ]
+     },
+     "timezone": "browser",
+     "title": "Gerrit -  Multisite",
+     "uid": "VfddQL5mk",
+     "version": 7,
+     "weekStart": ""
+   }
+
+
