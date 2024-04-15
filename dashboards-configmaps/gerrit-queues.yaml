@@ -1,0 +1,1336 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-queues
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-queues.json: |-
+   {
+     "annotations": {
+       "list": [
+         {
+           "builtIn": 1,
+           "datasource": {
+             "type": "grafana",
+             "uid": "-- Grafana --"
+           },
+           "enable": true,
+           "hide": true,
+           "iconColor": "rgba(0, 211, 255, 1)",
+           "name": "Annotations & Alerts",
+           "type": "dashboard"
+         }
+       ]
+     },
+     "editable": true,
+     "fiscalYearStartMonth": 0,
+     "graphTooltip": 2,
+     "links": [],
+     "panels": [
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 0,
+           "y": 0
+         },
+         "hiddenSeries": false,
+         "id": 2,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:706",
+             "alias": "batch threads",
+             "color": "#FFB357"
+           },
+           {
+             "$$hashKey": "object:707",
+             "alias": "batch pool size",
+             "color": "#FA6400",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:708",
+             "alias": "interactive threads",
+             "color": "#C0D8FF"
+           },
+           {
+             "$$hashKey": "object:709",
+             "alias": "interactive pool size",
+             "color": "#1F60C4",
+             "fill": 0
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_batch_worker_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch threads",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_batch_worker_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch pool size",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_interactive_worker_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive threads",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_interactive_worker_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive pool size",
+             "range": true,
+             "refId": "D"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "SSH threads",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:738",
+             "format": "short",
+             "label": "Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:739",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 8,
+           "y": 0
+         },
+         "hiddenSeries": false,
+         "id": 3,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:825",
+             "alias": "active threads",
+             "color": "#FFB357"
+           },
+           {
+             "$$hashKey": "object:826",
+             "alias": "reserved threads",
+             "color": "#56A64B",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:827",
+             "alias": "max pool size",
+             "color": "#FA6400",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:828",
+             "alias": "pool size",
+             "color": "#1F60C4",
+             "fill": 0
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_jetty_threadpool_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "active threads",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_jetty_threadpool_reserved_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "reserved threads",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_jetty_threadpool_max_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "max pool size",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_jetty_threadpool_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "pool size",
+             "range": true,
+             "refId": "D"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "HTTP threads",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:859",
+             "format": "short",
+             "label": "Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:860",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 16,
+           "y": 0
+         },
+         "hiddenSeries": false,
+         "id": 4,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:946",
+             "alias": "batch threads",
+             "color": "#FFB357"
+           },
+           {
+             "$$hashKey": "object:947",
+             "alias": "batch pool size",
+             "color": "#FA6400",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:948",
+             "alias": "interactive threads",
+             "color": "#C0D8FF"
+           },
+           {
+             "$$hashKey": "object:949",
+             "alias": "interactive pool size",
+             "color": "#1F60C4",
+             "fill": 0
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_batch_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch threads",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_batch_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch pool size",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_interactive_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive threads",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_interactive_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive pool size",
+             "range": true,
+             "refId": "D"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "INDEX threads",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:978",
+             "format": "short",
+             "label": "Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:979",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 0,
+           "y": 11
+         },
+         "hiddenSeries": false,
+         "id": 5,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:1065",
+             "alias": "batch",
+             "color": "#FFB357"
+           },
+           {
+             "$$hashKey": "object:1066",
+             "alias": "interactive",
+             "color": "#C0D8FF"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_batch_worker_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_interactive_worker_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "SSH queue",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1079",
+             "format": "short",
+             "label": "Tasks",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1080",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 8,
+           "y": 11
+         },
+         "hiddenSeries": false,
+         "id": 6,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:1166",
+             "alias": "http",
+             "color": "#FFB357"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_jetty_threadpool_queue_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "http",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "HTTP queue",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1173",
+             "format": "short",
+             "label": "Tasks",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1174",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 8,
+           "x": 16,
+           "y": 11
+         },
+         "hiddenSeries": false,
+         "id": 7,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:1260",
+             "alias": "batch",
+             "color": "#FFB357"
+           },
+           {
+             "$$hashKey": "object:1261",
+             "alias": "interactive",
+             "color": "#C0D8FF"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_batch_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "batch",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_index_interactive_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "interactive",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "INDEX queue",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1274",
+             "format": "short",
+             "label": "Tasks",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1275",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 22
+         },
+         "hiddenSeries": false,
+         "id": 8,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:1365",
+             "alias": "stream threads",
+             "color": "#C0D8FF"
+           },
+           {
+             "$$hashKey": "object:1366",
+             "alias": "stream pool size",
+             "color": "#1F60C4",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:1367",
+             "alias": "email threads",
+             "color": "#96D98D"
+           },
+           {
+             "$$hashKey": "object:1368",
+             "alias": "email pool size",
+             "color": "#37872D",
+             "fill": 0
+           },
+           {
+             "$$hashKey": "object:1369",
+             "alias": "receive-commit threads",
+             "color": "#FFA6B0"
+           },
+           {
+             "$$hashKey": "object:1370",
+             "alias": "receive-commit pool size",
+             "color": "#C4162A",
+             "fill": 0
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_stream_worker_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "stream threads",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_stream_worker_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "stream pool size",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_send_email_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "email threads",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_send_email_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "email pool size",
+             "range": true,
+             "refId": "D"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_receive_commits_active_threads{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "receive-commit threads",
+             "range": true,
+             "refId": "E"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_receive_commits_pool_size{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "receive-commit pool size",
+             "range": true,
+             "refId": "F"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "MISC threads",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1413",
+             "format": "short",
+             "label": "Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1414",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 12,
+           "y": 22
+         },
+         "hiddenSeries": false,
+         "id": 9,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "rate(http_server_rest_api_count_total_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "REST API request rate",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "REST API request rate",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1504",
+             "format": "reqps",
+             "label": "Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1505",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 33
+         },
+         "hiddenSeries": false,
+         "id": 10,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "$$hashKey": "object:1595",
+             "alias": "stream threads",
+             "color": "#8AB8FF"
+           },
+           {
+             "$$hashKey": "object:1596",
+             "alias": "email threads",
+             "color": "#96D98D"
+           },
+           {
+             "$$hashKey": "object:1597",
+             "alias": "receive-commit threads",
+             "color": "#FF7383"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_ssh_stream_worker_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "stream threads",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_send_email_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "email threads",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "queue_receive_commits_scheduled_tasks{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "receive-commit threads",
+             "range": true,
+             "refId": "C"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "MISC queues",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:1616",
+             "format": "short",
+             "label": "Tasks",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:1617",
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       }
+     ],
+     "refresh": "1m",
+     "schemaVersion": 39,
+     "tags": [
+       "gerrit"
+     ],
+     "templating": {
+       "list": [
+         {
+           "current": {
+             "selected": false,
+             "text": "gerrit-2",
+             "value": "gerrit-2"
+           },
+           "datasource": {
+             "type": "prometheus",
+             "uid": "prometheus"
+           },
+           "definition": "label_values(git_upload_pack_phase_writing_total,pod)",
+           "hide": 0,
+           "includeAll": false,
+           "label": "Gerrit Instance",
+           "multi": false,
+           "name": "pod",
+           "options": [],
+           "query": {
+             "qryType": 1,
+             "query": "label_values(git_upload_pack_phase_writing_total,pod)",
+             "refId": "PrometheusVariableQueryEditor-VariableQuery"
+           },
+           "refresh": 1,
+           "regex": "",
+           "skipUrlSync": false,
+           "sort": 0,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         }
+       ]
+     },
+     "time": {
+       "from": "now-24h",
+       "to": "now"
+     },
+     "timepicker": {
+       "refresh_intervals": [
+         "5s",
+         "10s",
+         "30s",
+         "1m",
+         "5m",
+         "15m",
+         "30m",
+         "1h",
+         "2h",
+         "1d"
+       ],
+       "time_options": [
+         "5m",
+         "15m",
+         "1h",
+         "6h",
+         "12h",
+         "24h",
+         "2d",
+         "7d",
+         "30d"
+       ]
+     },
+     "timezone": "browser",
+     "title": "Gerrit - Queues",
+     "uid": "bdizot1c5ewaoc",
+     "version": 2,
+     "weekStart": ""
+   }
