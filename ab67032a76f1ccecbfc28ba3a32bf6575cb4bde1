@@ -24,6 +24,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f72dd57_0d6796a9",
+        "filename": "alert-rules/split-brain-alert-rules.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1161425
+      },
+      "writtenOn": "2024-04-19T09:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8390c9ae_479d5ecd",
+      "range": {
+        "startLine": 13,
+        "startChar": 18,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "ab67032a76f1ccecbfc28ba3a32bf6575cb4bde1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f963b0d_e8eac3c8",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-04-18T11:04:31Z",
       "side": 1,
       "message": "prevented",
+      "range": {
+        "startLine": 15,
+        "startChar": 29,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "ab67032a76f1ccecbfc28ba3a32bf6575cb4bde1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18019b48_54c64d3b",
+        "filename": "alert-rules/split-brain-alert-rules.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1161425
+      },
+      "writtenOn": "2024-04-19T09:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f963b0d_e8eac3c8",
       "range": {
         "startLine": 15,
         "startChar": 29,
