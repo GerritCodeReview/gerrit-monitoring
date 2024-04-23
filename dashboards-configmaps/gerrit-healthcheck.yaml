@@ -1,0 +1,380 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-healthcheck
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-healthcheck.json: |-
+   {
+     "annotations": {
+       "list": [
+         {
+           "builtIn": 1,
+           "datasource": {
+             "type": "grafana",
+             "uid": "-- Grafana --"
+           },
+           "enable": true,
+           "hide": true,
+           "iconColor": "rgba(0, 211, 255, 1)",
+           "name": "Annotations & Alerts",
+           "type": "dashboard"
+         }
+       ]
+     },
+     "editable": true,
+     "fiscalYearStartMonth": 0,
+     "graphTooltip": 2,
+     "links": [],
+     "panels": [
+       {
+         "collapse": false,
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 0
+         },
+         "id": 2,
+         "panels": [],
+         "showTitle": true,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "CURRENT",
+         "titleSize": "h6",
+         "type": "row"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "decimals": 2,
+             "displayName": "${check}",
+             "links": [],
+             "mappings": [
+               {
+                 "options": {
+                   "0": {
+                     "text": "failed"
+                   },
+                   "1": {
+                     "text": "ok"
+                   }
+                 },
+                 "type": "value"
+               }
+             ],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "dark-red",
+                   "value": null
+                 },
+                 {
+                   "color": "semi-dark-green",
+                   "value": 1
+                 }
+               ]
+             },
+             "unit": "none"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 3,
+           "x": 0,
+           "y": 1
+         },
+         "id": 3,
+         "maxPerRow": 8,
+         "options": {
+           "colorMode": "background",
+           "graphMode": "none",
+           "justifyMode": "auto",
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "mean"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showPercentChange": false,
+           "textMode": "auto",
+           "wideLayout": true
+         },
+         "pluginVersion": "10.4.1",
+         "repeat": "check",
+         "repeatDirection": "h",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "1-clamp_max(increase(plugins_healthcheck_${check}_failure_total{pod=\"$pod\"}[2m]), 1)",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 2,
+             "legendFormat": "",
+             "refId": "A"
+           }
+         ],
+         "type": "stat"
+       },
+       {
+         "collapse": false,
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 13
+         },
+         "id": 4,
+         "panels": [],
+         "showTitle": true,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "title": "OVER TIME",
+         "titleSize": "h6",
+         "type": "row"
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "decimals": 0,
+         "fill": 5,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 0,
+           "y": 14
+         },
+         "hiddenSeries": false,
+         "id": 5,
+         "legend": {
+           "alignAsTable": false,
+           "avg": false,
+           "current": false,
+           "max": false,
+           "min": false,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": false
+         },
+         "lines": true,
+         "linewidth": 1,
+         "maxPerRow": 3,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "repeat": "check",
+         "repeatDirection": "h",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "1-clamp_max(increase(plugins_healthcheck_${check}_failure_total{pod=\"$pod\"}[2m]), 1)",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "${check}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "${check}",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "$$hashKey": "object:2471",
+             "decimals": 0,
+             "format": "short",
+             "logBase": 1,
+             "max": 1,
+             "min": 0,
+             "show": true
+           },
+           {
+             "$$hashKey": "object:2472",
+             "decimals": 0,
+             "format": "short",
+             "logBase": 1,
+             "max": 1,
+             "min": 0,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       }
+     ],
+     "refresh": "1m",
+     "schemaVersion": 39,
+     "tags": [
+        "gerrit",
+        "gerrit-monitoring"
+     ],
+     "templating": {
+       "list": [
+         {
+           "current": {
+             "selected": false,
+             "text": "gerrit-2",
+             "value": "gerrit-2"
+           },
+           "datasource": {
+             "type": "prometheus",
+             "uid": "prometheus"
+           },
+           "definition": "label_values(git_upload_pack_phase_writing_total,pod)",
+           "hide": 0,
+           "includeAll": false,
+           "label": "Gerrit Instance",
+           "multi": false,
+           "name": "pod",
+           "options": [],
+           "query": {
+             "qryType": 1,
+             "query": "label_values(git_upload_pack_phase_writing_total,pod)",
+             "refId": "PrometheusVariableQueryEditor-VariableQuery"
+           },
+           "refresh": 1,
+           "regex": "",
+           "skipUrlSync": false,
+           "sort": 0,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         },
+         {
+           "current": {
+             "selected": false,
+             "text": "All",
+             "value": "$__all"
+           },
+           "datasource": {
+             "type": "prometheus",
+             "uid": "prometheus"
+           },
+           "definition": "",
+           "hide": 0,
+           "includeAll": true,
+           "label": "Check",
+           "multi": true,
+           "name": "check",
+           "options": [],
+           "query": "metrics(^plugins_healthcheck_.+_failure_total$)",
+           "refresh": 2,
+           "regex": "plugins_healthcheck_(.+)_failure_total",
+           "skipUrlSync": false,
+           "sort": 0,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         }
+       ]
+     },
+     "time": {
+       "from": "now-24h",
+       "to": "now"
+     },
+     "timepicker": {
+       "refresh_intervals": [
+         "5s",
+         "10s",
+         "30s",
+         "1m",
+         "5m",
+         "15m",
+         "30m",
+         "1h",
+         "2h",
+         "1d"
+       ],
+       "time_options": [
+         "5m",
+         "15m",
+         "1h",
+         "6h",
+         "12h",
+         "24h",
+         "2d",
+         "7d",
+         "30d"
+       ]
+     },
+     "timezone": "browser",
+     "title": "Gerrit - Healthcheck",
+     "uid": "edizosvpvmwaod",
+     "version": 2,
+     "weekStart": ""
+   }

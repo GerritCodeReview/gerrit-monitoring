@@ -1,0 +1,1504 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-overview
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-overview.json: |-
+   {
+     "annotations": {
+       "list": [
+         {
+           "builtIn": 1,
+           "datasource": {
+             "type": "grafana",
+             "uid": "-- Grafana --"
+           },
+           "enable": true,
+           "hide": true,
+           "iconColor": "rgba(0, 211, 255, 1)",
+           "name": "Annotations & Alerts",
+           "type": "dashboard"
+         }
+       ]
+     },
+     "editable": true,
+     "fiscalYearStartMonth": 0,
+     "graphTooltip": 2,
+     "links": [],
+     "panels": [
+       {
+         "columns": [
+           {
+             "$$hashKey": "object:1666",
+             "text": "instance",
+             "value": "instance"
+           },
+           {
+             "$$hashKey": "object:1667",
+             "text": "version",
+             "value": "version"
+           },
+           {
+             "$$hashKey": "object:1668",
+             "text": "revision",
+             "value": "revision"
+           },
+           {
+             "$$hashKey": "object:1669",
+             "text": "javaversion",
+             "value": "javaversion"
+           }
+         ],
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fontSize": "100%",
+         "gridPos": {
+           "h": 3,
+           "w": 24,
+           "x": 0,
+           "y": 0
+         },
+         "id": 2,
+         "showHeader": true,
+         "sort": {
+           "col": 0,
+           "desc": true
+         },
+         "styles": [
+           {
+             "alias": "Gerrit instance",
+             "link": true,
+             "linkTargetBlank": true,
+             "linkTooltip": "Link to the Gerrit instance",
+             "linkUrl": "https://${__cell:raw}",
+             "pattern": "instance",
+             "type": "string"
+           },
+           {
+             "alias": "Gerrit version",
+             "pattern": "version",
+             "type": "string"
+           },
+           {
+             "alias": "Gerrit revision",
+             "link": true,
+             "linkTargetBlank": true,
+             "linkTooltip": "Browse Gerrit repository at revision",
+             "linkUrl": "https://gerrit.googlesource.com/gerrit/+/${__cell:raw}",
+             "pattern": "revision",
+             "type": "string"
+           },
+           {
+             "alias": "Java version",
+             "pattern": "javaversion",
+             "type": "string"
+           },
+           {
+             "alias": "Time",
+             "pattern": "Time",
+             "type": "hidden"
+           },
+           {
+             "alias": "Value",
+             "pattern": "Value",
+             "type": "hidden"
+           }
+         ],
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "max(gerrit_build_info{pod=\"$pod\"}) by (pod, version, revision, javaversion)",
+             "format": "table",
+             "instant": true,
+             "intervalFactor": 2,
+             "legendFormat": "",
+             "refId": "A"
+           }
+         ],
+         "title": "Gerrit Version",
+         "transform": "table",
+         "type": "table-old"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "links": [],
+             "mappings": [],
+             "max": 100,
+             "min": 0,
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 },
+                 {
+                   "color": "orange",
+                   "value": 60
+                 },
+                 {
+                   "color": "red",
+                   "value": 90
+                 }
+               ]
+             },
+             "unit": "percent"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 0,
+           "y": 3
+         },
+         "id": 3,
+         "options": {
+           "minVizHeight": 75,
+           "minVizWidth": 75,
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "mean"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showThresholdLabels": false,
+           "showThresholdMarkers": true,
+           "sizing": "auto"
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(rate(proc_cpu_usage{pod=\"$pod\"}[2m])/proc_cpu_num_cores{pod=\"$pod\"})*100",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": " ",
+             "refId": "A"
+           }
+         ],
+         "title": "CPU Usage",
+         "type": "gauge"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "links": [],
+             "mappings": [],
+             "max": 100,
+             "min": 0,
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 },
+                 {
+                   "color": "orange",
+                   "value": 60
+                 },
+                 {
+                   "color": "red",
+                   "value": 90
+                 }
+               ]
+             },
+             "unit": "percent"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 8,
+           "y": 3
+         },
+         "id": 4,
+         "options": {
+           "minVizHeight": 75,
+           "minVizWidth": 75,
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "mean"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showThresholdLabels": false,
+           "showThresholdMarkers": true,
+           "sizing": "auto"
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(proc_jvm_memory_heap_used{pod=\"$pod\"}/proc_jvm_memory_heap_committed{pod=\"$pod\"})*100",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": " ",
+             "refId": "A"
+           }
+         ],
+         "title": "Heap Memory Usage",
+         "type": "gauge"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "mappings": [],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 }
+               ]
+             }
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 16,
+           "y": 3
+         },
+         "id": 5,
+         "options": {
+           "displayMode": "gradient",
+           "maxVizHeight": 300,
+           "minVizHeight": 16,
+           "minVizWidth": 8,
+           "namePlacement": "auto",
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "lastNotNull"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showUnfilled": true,
+           "sizing": "auto",
+           "valueMode": "color"
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_thread_num_daemon_live{pod=\"$pod\"}",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "current (daemon)",
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_thread_num_live{pod=\"$pod\"}",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "current (total)",
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_thread_num_peak_live{pod=\"$pod\"}",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "peak",
+             "refId": "C"
+           }
+         ],
+         "title": "Live Threads",
+         "type": "bargauge"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "links": [],
+             "mappings": [],
+             "max": 50,
+             "min": 0,
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 },
+                 {
+                   "color": "red",
+                   "value": 30
+                 }
+               ]
+             },
+             "unit": "ms"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 0,
+           "y": 9
+         },
+         "id": 6,
+         "options": {
+           "minVizHeight": 75,
+           "minVizWidth": 75,
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "mean"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showThresholdLabels": false,
+           "showThresholdMarkers": true,
+           "sizing": "auto"
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "http_server_rest_api_server_latency_total{quantile=\"0.99\", pod=\"$pod\"}",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": " ",
+             "refId": "A"
+           }
+         ],
+         "title": "REST API latency (0.99 quantile)",
+         "type": "gauge"
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "description": "Excludes 404 and 401, since these error codes are caused by client behaviour and are overrepresented in the data.",
+         "fieldConfig": {
+           "defaults": {
+             "links": [],
+             "mappings": [],
+             "max": 100,
+             "min": 0,
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "green",
+                   "value": null
+                 },
+                 {
+                   "color": "orange",
+                   "value": 5
+                 },
+                 {
+                   "color": "red",
+                   "value": 10
+                 }
+               ]
+             },
+             "unit": "percent"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 6,
+           "w": 8,
+           "x": 8,
+           "y": 9
+         },
+         "id": 7,
+         "options": {
+           "minVizHeight": 75,
+           "minVizWidth": 75,
+           "orientation": "auto",
+           "reduceOptions": {
+             "calcs": [
+               "mean"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showThresholdLabels": false,
+           "showThresholdMarkers": true,
+           "sizing": "auto"
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_total_total{pod=\"$pod\"}[5m]) - increase(http_server_error_count_404_total{pod=\"$pod\"}[5m]) - increase(http_server_error_count_401_total{pod=\"$pod\"}[5m])) / (increase(http_server_success_count_total_total{pod=\"$pod\"}[5m]) + increase(http_server_error_count_total_total{pod=\"$pod\"}[5m]) - increase(http_server_error_count_404_total{pod=\"$pod\"}[5m]) - increase(http_server_error_count_401_total{pod=\"$pod\"}[5m]))*100",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": " ",
+             "refId": "A"
+           }
+         ],
+         "title": "HTTP Request Error Rate (last 5 min)",
+         "type": "gauge"
+       },
+       {
+         "collapse": false,
+         "collapsed": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "gridPos": {
+           "h": 1,
+           "w": 24,
+           "x": 0,
+           "y": 15
+         },
+         "id": 8,
+         "panels": [],
+         "showTitle": true,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "refId": "A"
+           }
+         ],
+         "titleSize": "h6",
+         "type": "row"
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 18,
+           "x": 0,
+           "y": 16
+         },
+         "hiddenSeries": false,
+         "id": 9,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": false,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "up{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit Availability",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Count",
+             "logBase": 1,
+             "max": 1,
+             "min": 0,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "max": 1,
+             "min": 0,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fieldConfig": {
+           "defaults": {
+             "color": {
+               "mode": "thresholds"
+             },
+             "mappings": [
+               {
+                 "options": {
+                   "match": "null",
+                   "result": {
+                     "text": "N/A"
+                   }
+                 },
+                 "type": "special"
+               }
+             ],
+             "thresholds": {
+               "mode": "absolute",
+               "steps": [
+                 {
+                   "color": "red",
+                   "value": null
+                 },
+                 {
+                   "color": "orange",
+                   "value": 98
+                 },
+                 {
+                   "color": "darkgreen",
+                   "value": 99
+                 }
+               ]
+             },
+             "unit": "percent"
+           },
+           "overrides": []
+         },
+         "gridPos": {
+           "h": 11,
+           "w": 6,
+           "x": 18,
+           "y": 16
+         },
+         "id": 10,
+         "maxDataPoints": 100,
+         "options": {
+           "colorMode": "background",
+           "graphMode": "none",
+           "justifyMode": "auto",
+           "orientation": "horizontal",
+           "reduceOptions": {
+             "calcs": [
+               "lastNotNull"
+             ],
+             "fields": "",
+             "values": false
+           },
+           "showPercentChange": false,
+           "textMode": "auto",
+           "wideLayout": true
+         },
+         "pluginVersion": "10.4.1",
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "avg_over_time(up{pod=\"$pod\"}[1d])*100",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "{{pod}}",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "title": "Gerrit Availability [last 24h]",
+         "type": "stat"
+       },
+       {
+         "aliasColors": {},
+         "bars": true,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 18,
+           "x": 0,
+           "y": 27
+         },
+         "hiddenSeries": false,
+         "id": 11,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": false,
+           "total": false,
+           "values": true
+         },
+         "lines": false,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_assignee_changed_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "assignee changed",
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_change_abandoned_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "change abandoned",
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_change_merged_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "change merged",
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_comment_added_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "comment added",
+             "refId": "D"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_patchset_created_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "patchset created",
+             "refId": "E"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_change_abandoned_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "change abandoned",
+             "refId": "F"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_ref_replicated_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "ref replicated",
+             "refId": "G"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_ref_updated_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "ref updated",
+             "refId": "H"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_reviewer_added_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "reviewer added",
+             "refId": "I"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_reviewer_deleted_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "reviewer deleted",
+             "refId": "J"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_topic_changed_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "topic changed",
+             "refId": "K"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_vote_deleted_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "vote deleted",
+             "refId": "L"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(events_wip_state_changed_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "wip state changed",
+             "refId": "M"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Gerrit Events (last 5 min)",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "series",
+           "show": true,
+           "values": [
+             "current"
+           ]
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Count [5 min]",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": true,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 6,
+           "x": 18,
+           "y": 27
+         },
+         "hiddenSeries": false,
+         "id": 12,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": false,
+           "total": false,
+           "values": true
+         },
+         "lines": false,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(git_upload_pack_request_count_FETCH_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "FETCH",
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(git_upload_pack_request_count_CLONE_total{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "instant": true,
+             "intervalFactor": 1,
+             "legendFormat": "CLONE",
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Git Fetch/Clone upload-pack requests (last 5 min)",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "series",
+           "show": true,
+           "values": [
+             "current"
+           ]
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Count [5 min]",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": true,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 22,
+           "w": 24,
+           "x": 0,
+           "y": 38
+         },
+         "hiddenSeries": false,
+         "id": 13,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": false,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "200",
+             "color": "#37872D"
+           },
+           {
+             "alias": "201",
+             "color": "#56A64B"
+           },
+           {
+             "alias": "204",
+             "color": "#73BF69"
+           },
+           {
+             "alias": "301",
+             "color": "rgb(110, 210, 110)"
+           },
+           {
+             "alias": "304",
+             "color": "rgb(150, 225, 150)"
+           },
+           {
+             "alias": "400",
+             "color": "#FA6400"
+           },
+           {
+             "alias": "401",
+             "color": "#FF780A",
+             "hiddenSeries": true
+           },
+           {
+             "alias": "403",
+             "color": "#FF9830"
+           },
+           {
+             "alias": "404",
+             "color": "#FFB357",
+             "hiddenSeries": true
+           },
+           {
+             "alias": "409",
+             "color": "#FFCB7D"
+           },
+           {
+             "alias": "412",
+             "color": "#E0B400"
+           },
+           {
+             "alias": "422",
+             "color": "#F2CC0C"
+           },
+           {
+             "alias": "500",
+             "color": "#C4162A"
+           },
+           {
+             "alias": "501",
+             "color": "#E02F44"
+           },
+           {
+             "alias": "503",
+             "color": "#F2495C"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": true,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_success_count_200_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "200",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_success_count_201_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "201",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_success_count_204_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "204",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_success_count_301_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "301",
+             "range": true,
+             "refId": "D"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_success_count_304_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "304",
+             "range": true,
+             "refId": "E"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_400_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "400",
+             "range": true,
+             "refId": "F"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_401_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "401",
+             "range": true,
+             "refId": "G"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_403_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "403",
+             "range": true,
+             "refId": "H"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_404_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "404",
+             "range": true,
+             "refId": "I"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_405_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "405",
+             "range": true,
+             "refId": "J"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_409_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "409",
+             "range": true,
+             "refId": "K"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_412_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "412",
+             "range": true,
+             "refId": "L"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_422_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "422",
+             "range": true,
+             "refId": "M"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_500_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "500",
+             "range": true,
+             "refId": "N"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_501_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "501",
+             "range": true,
+             "refId": "O"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "(increase(http_server_error_count_503_total{pod=\"$pod\"}[2m]))/2",
+             "format": "time_series",
+             "intervalFactor": 1,
+             "legendFormat": "503",
+             "range": true,
+             "refId": "P"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "HTTP response status",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Count",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       }
+     ],
+     "refresh": "1m",
+     "schemaVersion": 39,
+     "tags": [
+        "gerrit",
+        "gerrit-monitoring"
+     ],
+     "templating": {
+       "list": [
+         {
+           "current": {
+             "selected": true,
+             "text": "gerrit-0",
+             "value": "gerrit-0"
+           },
+           "datasource": {
+             "type": "prometheus",
+             "uid": "prometheus"
+           },
+           "definition": "label_values(git_upload_pack_phase_writing_total,pod)",
+           "hide": 0,
+           "includeAll": false,
+           "label": "Gerrit Instance",
+           "multi": false,
+           "name": "pod",
+           "options": [],
+           "query": {
+             "qryType": 1,
+             "query": "label_values(git_upload_pack_phase_writing_total,pod)",
+             "refId": "PrometheusVariableQueryEditor-VariableQuery"
+           },
+           "refresh": 1,
+           "regex": "",
+           "skipUrlSync": false,
+           "sort": 1,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         }
+       ]
+     },
+     "time": {
+       "from": "now-24h",
+       "to": "now"
+     },
+     "timepicker": {
+       "refresh_intervals": [
+         "5s",
+         "10s",
+         "30s",
+         "1m",
+         "5m",
+         "15m",
+         "30m",
+         "1h",
+         "2h",
+         "1d"
+       ],
+       "time_options": [
+         "5m",
+         "15m",
+         "1h",
+         "6h",
+         "12h",
+         "24h",
+         "2d",
+         "7d",
+         "30d"
+       ]
+     },
+     "timezone": "browser",
+     "title": "Gerrit - Overview",
+     "uid": "bdizosycrs16od",
+     "version": 3,
+     "weekStart": ""
+   }
+
