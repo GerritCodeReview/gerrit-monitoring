@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gerrit-site-unhealthy
+  namespace: monitoring
+spec:
+  groups:
+  - name: gerrit-site-unhealthy-alert-rules
+    rules:
+    - alert: GerritSiteUnhealthy 
+      expr:  increase(http_server_rest_api_error_count_healthcheck_com_googlesource_gerrit_plugins_healthcheck_api_HealthCheckStatusEndpoint_500__none_total[5m]) > 0
+      for: 15m
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }} has been unhealthy for the last 15 minutes.
+

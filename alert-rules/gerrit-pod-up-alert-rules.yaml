@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: gerrit-pod-up-alert
+  namespace: monitoring
+spec:
+  groups:
+  - name: gerrit-pod-up-alert-rules
+    rules:
+    - alert: GerritPodDown
+      expr: up{namespace="gerrit"} == 0
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: Pod {{ $labels.pod }} is down        
+        
