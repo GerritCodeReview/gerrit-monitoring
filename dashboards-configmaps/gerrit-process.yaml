@@ -1,0 +1,932 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-gerrit-process
+  namespace: monitoring
+  labels:
+     grafana_dashboard: "1"
+
+data:
+  gerrit-process.json: |-
+   {
+     "annotations": {
+       "list": [
+         {
+           "builtIn": 1,
+           "datasource": {
+             "type": "grafana",
+             "uid": "-- Grafana --"
+           },
+           "enable": true,
+           "hide": true,
+           "iconColor": "rgba(0, 211, 255, 1)",
+           "name": "Annotations & Alerts",
+           "type": "dashboard"
+         }
+       ]
+     },
+     "editable": true,
+     "fiscalYearStartMonth": 0,
+     "graphTooltip": 2,
+     "links": [],
+     "panels": [
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 0
+         },
+         "hiddenSeries": false,
+         "id": 2,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_cpu_system_load{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "system load",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "System load",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "System load",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 12,
+           "y": 0
+         },
+         "hiddenSeries": false,
+         "id": 3,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_memory_heap_committed{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "committed heap",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_memory_heap_used{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "used heap",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "jgit_block_cache_cache_used{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "JGit block cache",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_memory_non_heap_used{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "used non-heap",
+             "range": true,
+             "refId": "D"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Memory",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "decbytes",
+             "label": "Memory Consumption",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 11
+         },
+         "hiddenSeries": false,
+         "id": 4,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "available CPUs",
+             "color": "#1F60C4",
+             "fill": 0
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "rate(proc_cpu_usage{pod=\"$pod\"}[5m])",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "used CPUs",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_cpu_num_cores{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "available CPUs",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "CPU",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "CPU cores",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": true,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 12,
+           "y": 11
+         },
+         "hiddenSeries": false,
+         "id": 5,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": false,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [
+           {
+             "alias": "gc time G1 young gen",
+             "color": "#3274D9"
+           },
+           {
+             "alias": "gc time G1 old gen",
+             "color": "#F2CC0C"
+           },
+           {
+             "alias": "gc time PS Scavange",
+             "color": "#8AB8FF"
+           },
+           {
+             "alias": "gc time PS MarkSweep",
+             "color": "#E02F44"
+           },
+           {
+             "alias": "gc time ZGC",
+             "color": "#95F0CF"
+           },
+           {
+             "alias": "gc time ShenandoahGC",
+             "color": "#B4D61A"
+           }
+         ],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_G1_Young_Generation{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time G1 young gen",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_G1_Old_Generation{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time G1 old gen",
+             "range": true,
+             "refId": "B"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_PS_Scavenge{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time PS Scavange",
+             "range": true,
+             "refId": "C"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_PS_MarkSweep{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time PS MarkSweep",
+             "range": true,
+             "refId": "D"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_ZGC{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time ZGC",
+             "range": true,
+             "refId": "E"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(proc_jvm_gc_time_ShenandoahGC{pod=\"$pod\"}[2m])/increase(proc_uptime{pod=\"$pod\"}[2m])",
+             "format": "time_series",
+             "interval": "1m",
+             "intervalFactor": 2,
+             "legendFormat": "gc time ShenandoahGC",
+             "range": true,
+             "refId": "F"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Java - % of time spent in GC",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "percentunit",
+             "label": "% of time spent in GC",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 22
+         },
+         "hiddenSeries": false,
+         "id": 6,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_jvm_thread_num_live{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "Java live threads",
+             "range": true,
+             "refId": "A"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Threads",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Live Threads",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 12,
+           "y": 22
+         },
+         "hiddenSeries": false,
+         "id": 7,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": true,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "jgit_block_cache_open_files{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "jgit block cache",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "proc_num_open_fds{pod=\"$pod\"}-jgit_block_cache_open_files{pod=\"$pod\"}",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "other",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "Java open file descriptors",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "short",
+             "label": "Open File Descriptors",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "short",
+             "label": "",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       },
+       {
+         "aliasColors": {},
+         "bars": false,
+         "dashLength": 10,
+         "dashes": false,
+         "datasource": {
+           "type": "prometheus",
+           "uid": "prometheus"
+         },
+         "fill": 1,
+         "fillGradient": 0,
+         "gridPos": {
+           "h": 11,
+           "w": 12,
+           "x": 0,
+           "y": 33
+         },
+         "hiddenSeries": false,
+         "id": 8,
+         "legend": {
+           "alignAsTable": true,
+           "avg": true,
+           "current": true,
+           "max": true,
+           "min": true,
+           "rightSide": false,
+           "show": true,
+           "total": false,
+           "values": true
+         },
+         "lines": true,
+         "linewidth": 1,
+         "nullPointMode": "null",
+         "options": {
+           "alertThreshold": true
+         },
+         "percentage": false,
+         "pluginVersion": "10.4.1",
+         "pointradius": 5,
+         "points": false,
+         "renderer": "flot",
+         "seriesOverrides": [],
+         "spaceLength": 10,
+         "stack": false,
+         "steppedLine": false,
+         "targets": [
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(jgit_block_cache_miss_count{pod=\"$pod\"}[2m])/(increase(jgit_block_cache_hit_count{pod=\"$pod\"}[2m])+increase(jgit_block_cache_miss_count{pod=\"$pod\"}[2m]))",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "miss ratio",
+             "range": true,
+             "refId": "A"
+           },
+           {
+             "datasource": {
+               "type": "prometheus",
+               "uid": "prometheus"
+             },
+             "editorMode": "code",
+             "expr": "increase(jgit_block_cache_eviction_count{pod=\"$pod\"}[2m])/(increase(jgit_block_cache_hit_count{pod=\"$pod\"}[2m])+increase(jgit_block_cache_miss_count{pod=\"$pod\"}[2m]))",
+             "format": "time_series",
+             "intervalFactor": 2,
+             "legendFormat": "eviction ratio",
+             "range": true,
+             "refId": "B"
+           }
+         ],
+         "thresholds": [],
+         "timeRegions": [],
+         "title": "JGit block cache",
+         "tooltip": {
+           "shared": true,
+           "sort": 0,
+           "value_type": "individual"
+         },
+         "type": "graph",
+         "xaxis": {
+           "mode": "time",
+           "show": true,
+           "values": []
+         },
+         "yaxes": [
+           {
+             "format": "percentunit",
+             "label": "miss ratio",
+             "logBase": 1,
+             "show": true
+           },
+           {
+             "format": "percentunit",
+             "label": "eviction ratio",
+             "logBase": 1,
+             "show": true
+           }
+         ],
+         "yaxis": {
+           "align": false
+         }
+       }
+     ],
+     "refresh": "1m",
+     "schemaVersion": 39,
+     "tags": [
+       "gerrit"
+     ],
+     "templating": {
+       "list": [
+         {
+           "current": {
+             "selected": true,
+             "text": "gerrit-2",
+             "value": "gerrit-2"
+           },
+           "datasource": {
+             "type": "prometheus",
+             "uid": "prometheus"
+           },
+           "definition": "label_values(git_upload_pack_phase_writing_total,pod)",
+           "hide": 0,
+           "includeAll": false,
+           "label": "Gerrit Instance",
+           "multi": false,
+           "name": "pod",
+           "options": [],
+           "query": {
+             "qryType": 1,
+             "query": "label_values(git_upload_pack_phase_writing_total,pod)",
+             "refId": "PrometheusVariableQueryEditor-VariableQuery"
+           },
+           "refresh": 1,
+           "regex": "",
+           "skipUrlSync": false,
+           "sort": 1,
+           "tagValuesQuery": "",
+           "tagsQuery": "",
+           "type": "query",
+           "useTags": false
+         }
+       ]
+     },
+     "time": {
+       "from": "now-24h",
+       "to": "now"
+     },
+     "timepicker": {
+       "refresh_intervals": [
+         "5s",
+         "10s",
+         "30s",
+         "1m",
+         "5m",
+         "15m",
+         "30m",
+         "1h",
+         "2h",
+         "1d"
+       ],
+       "time_options": [
+         "5m",
+         "15m",
+         "1h",
+         "6h",
+         "12h",
+         "24h",
+         "2d",
+         "7d",
+         "30d"
+       ]
+     },
+     "timezone": "browser",
+     "title": "Gerrit - Process",
+     "uid": "fdizosz4dnmrkd",
+     "version": 2,
+     "weekStart": ""
+   } 
