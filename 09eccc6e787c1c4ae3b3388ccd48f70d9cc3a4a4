@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f0f59b7_b24c707b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4114392
+      },
+      "writtenOn": "2025-06-03T06:07:03Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/plugins/delete-project \u0026\u0026 (cd delete-project \u0026\u0026 f\u003d`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)",
+      "revId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba802107_d4d76d78",
@@ -34,6 +51,24 @@
       "parentUuid": "ba802107_d4d76d78",
       "revId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e708559f_efeb8ed7",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 4114392
+      },
+      "writtenOn": "2025-06-03T06:07:03Z",
+      "side": 1,
+      "message": "git clone https://gerrit.googlesource.com/plugins/delete-project \u0026\u0026 (cd delete-project \u0026\u0026 f\u003d`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)",
+      "parentUuid": "f337acf2_4f61fbcd",
+      "revId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ],
   "submitRequirementResults": [
@@ -52,7 +87,7 @@
       },
       "applicabilityExpressionResult": {},
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"label:Code-Review=MAX,user=non_uploader AND -label:Code-Review=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Code-Review=MAX,user=non_uploader"],"failingAtoms":["label:Code-Review=MIN"]}
+        "value": {"expression":{"expressionString":"label:Code-Review=MAX,user=non_uploader AND -label:Code-Review=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Code-Review=MAX,user=non_uploader"],"failingAtoms":["label:Code-Review=MIN"],"atomExplanations":{"value":null}}
       },
       "overrideExpressionResult": {},
       "patchSetCommitId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
@@ -80,10 +115,10 @@
         "allowOverrideInChildProjects": false
       },
       "applicabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"message:\"^.*(D|d)(O|o) (N|n)(O|o)(T|t) (S|s)(U|u)(B|b)(M|m)(I|i)(T|t).*\""},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["message:\"^.*(D|d)(O|o) (N|n)(O|o)(T|t) (S|s)(U|u)(B|b)(M|m)(I|i)(T|t).*\""]}
+        "value": {"expression":{"expressionString":"message:\"^.*(D|d)(O|o) (N|n)(O|o)(T|t) (S|s)(U|u)(B|b)(M|m)(I|i)(T|t).*\""},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["message:\"^.*(D|d)(O|o) (N|n)(O|o)(T|t) (S|s)(U|u)(B|b)(M|m)(I|i)(T|t).*\""],"atomExplanations":{"value":null}}
       },
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"is:false"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+        "value": {"expression":{"expressionString":"is:false"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[],"atomExplanations":{"value":null}}
       },
       "overrideExpressionResult": {},
       "patchSetCommitId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
@@ -115,13 +150,13 @@
         "allowOverrideInChildProjects": false
       },
       "applicabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"has:unresolved"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["has:unresolved"]}
+        "value": {"expression":{"expressionString":"has:unresolved"},"status":"FAIL","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["has:unresolved"],"atomExplanations":{"value":null}}
       },
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"-has:unresolved"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+        "value": {"expression":{"expressionString":"-has:unresolved"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[],"atomExplanations":{"value":null}}
       },
       "overrideExpressionResult": {
-        "value": {"expression":{"expressionString":"hashtag:allow-unresolved-comments"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+        "value": {"expression":{"expressionString":"hashtag:allow-unresolved-comments"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[],"atomExplanations":{"value":null}}
       },
       "patchSetCommitId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
       "legacy": {
@@ -148,13 +183,13 @@
         "allowOverrideInChildProjects": false
       },
       "applicabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["is:review-enforced_gerrit"],"failingAtoms":[]}
+        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["is:review-enforced_gerrit"],"failingAtoms":[],"atomExplanations":{"value":null}}
       },
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"is:review-enforcement-satisfied_gerrit"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[]}
+        "value": {"expression":{"expressionString":"is:review-enforcement-satisfied_gerrit"},"status":"NOT_EVALUATED","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":[],"atomExplanations":{"value":null}}
       },
       "overrideExpressionResult": {
-        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["is:review-enforcement-satisfied_gerrit"]}
+        "value": {"expression":{"expressionString":"is:review-enforced_gerrit"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["is:review-enforcement-satisfied_gerrit"],"atomExplanations":{"value":null}}
       },
       "patchSetCommitId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
       "legacy": {
@@ -183,10 +218,10 @@
         "allowOverrideInChildProjects": true
       },
       "applicabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"-branch:refs/meta/config"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["branch:refs/meta/config"]}
+        "value": {"expression":{"expressionString":"-branch:refs/meta/config"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":[],"failingAtoms":["branch:refs/meta/config"],"atomExplanations":{"value":null}}
       },
       "submittabilityExpressionResult": {
-        "value": {"expression":{"expressionString":"label:Verified=MAX AND -label:Verified=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Verified=MAX"],"failingAtoms":["label:Verified=MIN"]}
+        "value": {"expression":{"expressionString":"label:Verified=MAX AND -label:Verified=MIN"},"status":"PASS","errorMessage":{"value":null},"passingAtoms":["label:Verified=MAX"],"failingAtoms":["label:Verified=MIN"],"atomExplanations":{"value":null}}
       },
       "overrideExpressionResult": {},
       "patchSetCommitId": "09eccc6e787c1c4ae3b3388ccd48f70d9cc3a4a4",
