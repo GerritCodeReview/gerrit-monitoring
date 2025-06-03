@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "318f6244_4ba39565",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4114392
+      },
+      "writtenOn": "2025-06-03T06:14:22Z",
+      "side": 1,
+      "message": "418881: Update Loki and Promtail to 2.2.1 | https://gerrit-review.googlesource.com/c/gerrit-monitoring/+/418881",
+      "revId": "69fc255fd5a93405e75367883a750181612a1e88",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
