@@ -10,3 +10,5 @@ lineGraph.new(
 .addTarget(target.new('diff'))
 .addTarget(target.new('diff_intraline'))
 .addTarget(target.new('diff_summary'))
+.addTarget(target.new('gerrit_file_diff'))
+.addTarget(target.new('git_file_diff'))
